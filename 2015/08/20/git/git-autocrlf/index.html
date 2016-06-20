@@ -7,7 +7,7 @@
     <title>git-autocrlf | Hexo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
-    <meta name="author" content="John Doe">
+    <meta name="author" content="shane">
     
 
     
@@ -54,7 +54,7 @@
 				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -72,7 +72,7 @@
  					
 						<form class="search">
 							<label>Search</label>
-						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="Search"><br>
 						</form>
 					
 					</li>
@@ -91,17 +91,17 @@
   </h1>
   <p class="article-author">By
        
-		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-20T08:36:44.000Z" itemprop="datePublished"> 发表于 2015-08-20</time>
+    <time datetime="2015-08-20T08:36:44.000Z" itemprop="datePublished"> Published 2015-08-20</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
 		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
+			<strong class="toc-title">Contents</strong>
 		
 			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LF和CRLF"><span class="toc-number">1.</span> <span class="toc-text">LF和CRLF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows-r-n是回车换行-CRLF"><span class="toc-number">1.1.</span> <span class="toc-text">Windows \r\n是回车换行 CRLF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-n是换行-LF"><span class="toc-number">1.2.</span> <span class="toc-text">Linux \n是换行 LF</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AutoCRLF"><span class="toc-number">2.</span> <span class="toc-text">AutoCRLF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#提交时转换为LF，检出时转换为CRLF"><span class="toc-number">2.1.</span> <span class="toc-text">提交时转换为LF，检出时转换为CRLF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提交时转换为LF，检出时不转换"><span class="toc-number">2.2.</span> <span class="toc-text">提交时转换为LF，检出时不转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提交检出均不转换"><span class="toc-number">2.3.</span> <span class="toc-text">提交检出均不转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SafeCRLF"><span class="toc-number">3.</span> <span class="toc-text">SafeCRLF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拒绝提交包含混合换行符的文件"><span class="toc-number">3.1.</span> <span class="toc-text">拒绝提交包含混合换行符的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#允许提交包含混合换行符的文件"><span class="toc-number">3.2.</span> <span class="toc-text">允许提交包含混合换行符的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提交包含混合换行符的文件时给出警告"><span class="toc-number">3.3.</span> <span class="toc-text">提交包含混合换行符的文件时给出警告</span></a></li></ol></li></ol>
 		
@@ -164,10 +164,10 @@
 	
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
 <aside class="clearfix">
 
   
@@ -175,12 +175,8 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">分类</p>
+	<p class="asidetitle">Categories</p>
 		<ul>
-		
-		  
-			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>1</sup></a></li>
-		  
 		
 		  
 			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
@@ -221,7 +217,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
+  <p class="asidetitle">Links</p>
     <ul>
         
     </ul>
@@ -231,11 +227,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">新浪微博</p>
+  <p class="asidetitle">Weibo</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
 </div>
 
@@ -269,7 +265,7 @@
 		<p class="copyright">
 		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
 		
-		<a href="/about" target="_blank" title="John Doe">John Doe</a>
+		<a href="/about" target="_blank" title="shane">shane</a>
 		
 		
 		</p>
@@ -453,7 +449,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 
