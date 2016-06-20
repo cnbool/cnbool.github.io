@@ -1,0 +1,502 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>oracle物化视图 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="John Doe">
+    
+
+    
+    <meta name="description" content="有一张短信下发记录表和短信回执表,记录数各有4000w+.两张表需要关联起来查询特别的慢,请刘哥帮忙把回执表的两个字段RECEIPT_RESULT,RESULTTIME更新到下发记录表中,刘哥没有这么干,他使用了”物化视图”.
+两张表的表结构如下:T_SMS_AD
+12345678910create table T_SMS_AD(  SEQUENCEID     VARCHAR2(64),  PH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oracle物化视图">
+<meta property="og:url" content="http://yoursite.com/2013/01/08/oracle/oracle物化视图/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="有一张短信下发记录表和短信回执表,记录数各有4000w+.两张表需要关联起来查询特别的慢,请刘哥帮忙把回执表的两个字段RECEIPT_RESULT,RESULTTIME更新到下发记录表中,刘哥没有这么干,他使用了”物化视图”.
+两张表的表结构如下:T_SMS_AD
+12345678910create table T_SMS_AD(  SEQUENCEID     VARCHAR2(64),  PH">
+<meta property="og:updated_time" content="2016-05-15T15:08:17.421Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="oracle物化视图">
+<meta name="twitter:description" content="有一张短信下发记录表和短信回执表,记录数各有4000w+.两张表需要关联起来查询特别的慢,请刘哥帮忙把回执表的两个字段RECEIPT_RESULT,RESULTTIME更新到下发记录表中,刘哥没有这么干,他使用了”物化视图”.
+两张表的表结构如下:T_SMS_AD
+12345678910create table T_SMS_AD(  SEQUENCEID     VARCHAR2(64),  PH">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/01/08/oracle/oracle物化视图/" title="oracle物化视图" itemprop="url">oracle物化视图</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2013-01-07T20:13:10.000Z" itemprop="datePublished"> 发表于 2013-01-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>有一张短信下发记录表和短信回执表,记录数各有4000w+.两张表需要关联起来查询特别的慢,请刘哥帮忙把回执表的两个字段RECEIPT_RESULT,RESULTTIME更新到下发记录表中,刘哥没有这么干,他使用了”物化视图”.</p>
+<p>两张表的表结构如下:<br>T_SMS_AD</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> T_SMS_AD</span><br><span class="line">(</span><br><span class="line">  SEQUENCEID     VARCHAR2(<span class="number">64</span>),</span><br><span class="line">  PHONENO        VARCHAR2(<span class="number">64</span>),</span><br><span class="line">  SENDTIME       <span class="built_in">DATE</span>,</span><br><span class="line">  MESSAGECONTENT VARCHAR2(<span class="number">600</span>),</span><br><span class="line">  SUBMIT_RESULT  VARCHAR2(<span class="number">5</span>),</span><br><span class="line">  RECEIPT_RESULT VARCHAR2(<span class="number">64</span>),</span><br><span class="line">  RESULTTIME     <span class="built_in">DATE</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>T_SMS_CB</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> T_SMS_CB</span><br><span class="line">(</span><br><span class="line">  SEQUENCEID VARCHAR2(<span class="number">64</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">  RECEIPT_RESULT VARCHAR2(<span class="number">64</span>),</span><br><span class="line">  RESULTTIME <span class="built_in">DATE</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>使用物化视图:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_AD <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_CB <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> AD_MV</span><br><span class="line">   <span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">range</span>(SENDTIME)</span><br><span class="line">   <span class="built_in">INTERVAL</span>(NUMTODSINTERVAL(<span class="number">1</span>,<span class="string">'day'</span>)) <span class="keyword">store</span> <span class="keyword">in</span>(AD_MV)</span><br><span class="line">   (<span class="keyword">partition</span> P1 <span class="keyword">values</span> <span class="keyword">less</span> <span class="keyword">than</span> (<span class="keyword">to_date</span>(<span class="string">'2011-11-01'</span>,<span class="string">'yyyy-mm-dd'</span>)))</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">refresh</span> <span class="keyword">fast</span> <span class="keyword">with</span> <span class="keyword">rowid</span></span><br><span class="line">                  <span class="keyword">START</span> <span class="keyword">WITH</span> <span class="keyword">TO_DATE</span>(<span class="string">'2013-01-09 05:00:00'</span>, <span class="string">'YYYY-MM-DD HH24:MI:SS'</span>)</span><br><span class="line">                  <span class="keyword">NEXT</span> <span class="keyword">SYSDATE</span> + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                  <span class="keyword">AS</span> <span class="keyword">SELECT</span> <span class="comment">/*+ PARALLE */</span> A.ROWID AD_ROWID, A.SEQUENCEID,</span><br><span class="line">A.PHONENO,A.SENDTIME,A.MESSAGECONTENT,B.RECEIPT_RESULT,B.RESULTTIME,B.ROWID CB_ROWID</span><br><span class="line"><span class="keyword">FROM</span> T_SMS_AD A, T_SMS_CB B</span><br><span class="line"><span class="keyword">WHERE</span> A.SEQUENCEID=B.SEQUENCEID</span><br></pre></td></tr></table></figure>
+<p>说明:<br>5-6行:物化视图按照SENDTIME字RANGE分区,每一天为一个分区<br>9行:快速刷新(增量刷新)<br>10-11行:物化视图第一次刷新时间在2013-01-09 05:00:00,并且以后每天都在05:00:00刷新:</p>
+<p>后记:<br>后来在查询物化视图的时候发现,物化视图中的那句SQL语句不符合需求(13-16)<br>这个SQL使用的是内连接,如果一条下发没有对应的回执的话,从物化视图中就查不到下发记录了.<br>所以物化视图中的SQL需要改成左连接.建立新的物化视图,那需要先删除原来的物化视图.<br>删除物化视图步骤:建议先删VIEW LOG, 再删VIEW,这样删除会比较快</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_AD;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_CB;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> AD_MV;</span><br></pre></td></tr></table></figure>
+<p>建立新的物化视图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">CREATE MATERIALIZED VIEW LOG ON T_SMS_AD TABLESPACE AD_MV WITH ROWID;</span><br><span class="line">CREATE MATERIALIZED VIEW LOG ON T_SMS_CB TABLESPACE AD_MV WITH ROWID;</span><br><span class="line"></span><br><span class="line">CREATE MATERIALIZED VIEW AD_MV</span><br><span class="line">   PARTITION BY range(SENDTIME)</span><br><span class="line">   INTERVAL(NUMTODSINTERVAL(1,&apos;day&apos;)) store in(AD_MV)</span><br><span class="line">   (partition P1 values less than (to_date(&apos;2011-11-01&apos;,&apos;yyyy-mm-dd&apos;)))</span><br><span class="line"></span><br><span class="line">                  refresh fast with rowid</span><br><span class="line">                  START WITH TO_DATE(&apos;2013-01-09 05:00:00&apos;, &apos;YYYY-MM-DD HH24:MI:SS&apos;)</span><br><span class="line">                  NEXT SYSDATE + 1</span><br><span class="line"></span><br><span class="line">                  AS SELECT /*+ PARALLE */ A.ROWID AD_ROWID, A.SEQUENCEID,</span><br><span class="line">A.PHONENO,A.SENDTIME,A.MESSAGECONTENT,B.RECEIPT_RESULT,B.RESULTTIME,B.ROWID CB_ROWID</span><br><span class="line">FROM T_SMS_AD A LEFT JOIN T_SMS_CB B</span><br><span class="line">ON A.SEQUENCEID=B.SEQUENCEID</span><br></pre></td></tr></table></figure>
+<p>执行这段SQL建立新物化视图的时候报错了:<br>ORA-12015:c cannot create a fast refresh materialized view from a complex query<br>问了一下刘哥,他说快速刷新模式不允许左连接这样的语句,高亮的那句指定了快速刷新:<br>只好改成了COMPLETE刷新,修改后的物化视图创建语句:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_AD <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_CB <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> AD_MV</span><br><span class="line">   <span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">range</span>(SENDTIME)</span><br><span class="line">   <span class="built_in">INTERVAL</span>(NUMTODSINTERVAL(<span class="number">1</span>,<span class="string">'day'</span>)) <span class="keyword">store</span> <span class="keyword">in</span>(AD_MV)</span><br><span class="line">   (<span class="keyword">partition</span> P1 <span class="keyword">values</span> <span class="keyword">less</span> <span class="keyword">than</span> (<span class="keyword">to_date</span>(<span class="string">'2011-11-01'</span>,<span class="string">'yyyy-mm-dd'</span>)))</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">refresh</span> <span class="keyword">COMPLETE</span>  <span class="keyword">with</span> <span class="keyword">rowid</span></span><br><span class="line">                  <span class="keyword">START</span> <span class="keyword">WITH</span> <span class="keyword">TO_DATE</span>(<span class="string">'2013-01-09 05:00:00'</span>, <span class="string">'YYYY-MM-DD HH24:MI:SS'</span>)</span><br><span class="line">                  <span class="keyword">NEXT</span> <span class="keyword">SYSDATE</span> + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                  <span class="keyword">AS</span> <span class="keyword">SELECT</span> <span class="comment">/*+ PARALLE */</span> A.ROWID AD_ROWID, A.SEQUENCEID,</span><br><span class="line">A.PHONENO,A.SENDTIME,A.MESSAGECONTENT,B.RECEIPT_RESULT,B.RESULTTIME,B.ROWID CB_ROWID</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> T_SMS_AD A <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> T_SMS_CB B</span><br><span class="line"><span class="keyword">ON</span> A.SEQUENCEID=B.SEQUENCEID</span><br></pre></td></tr></table></figure>
+<p>因T_SMS_AD,T_SMS_CB表太大,物化视图COMPLETE刷新慢,还是使用快速刷新(SQL有变化):</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_AD <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_CB <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> AD_MV</span><br><span class="line"></span><br><span class="line">  <span class="keyword">PARTITION</span>  <span class="keyword">BY</span> <span class="keyword">range</span>(SENDTIME)</span><br><span class="line">  <span class="built_in">INTERVAL</span>(NUMTODSINTERVAL(<span class="number">1</span>,<span class="string">'day'</span>)) <span class="keyword">store</span> <span class="keyword">in</span>(AD_MV)</span><br><span class="line">  (<span class="keyword">partition</span> P1 <span class="keyword">values</span> <span class="keyword">less</span> <span class="keyword">than</span> (<span class="keyword">to_date</span>(<span class="string">'2011-11-01'</span>,<span class="string">'yyyy-mm-dd'</span>)))</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">REFRESH</span> <span class="keyword">FAST</span> <span class="keyword">WITH</span> <span class="keyword">ROWID</span></span><br><span class="line">                  <span class="keyword">START</span> <span class="keyword">WITH</span> <span class="keyword">TO_DATE</span>(<span class="string">'2013-02-19 05:30:00'</span>, <span class="string">'YYYY-MM-DD HH24:MI:SS'</span>)</span><br><span class="line">                  <span class="keyword">NEXT</span> <span class="keyword">SYSDATE</span> + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                  <span class="keyword">AS</span> <span class="keyword">SELECT</span> <span class="comment">/*+ PARALLE */</span> A.ROWID AD_ROWID, A.SEQUENCEID,A.PHONENO,A.SENDTIME,</span><br><span class="line">A.MESSAGECONTENT,B.RECEIPT_RESULT,B.RESULTTIME,B.ROWID CB_ROWID</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> T_SMS_AD A , T_SMS_CB B</span><br><span class="line"><span class="keyword">WHERE</span>  A.SEQUENCEID=B.SEQUENCEID(+)</span><br></pre></td></tr></table></figure>
+<p>后续发现问题:发现物化视图中新增的记录都是重复的, 下发的短信在物化视图中都有两条记录<br>找到原因:<br>T_SMS_AD,T_SMS_CB两张表新增记录的时候, 如果先在T_SMS_AD表中插入数据, 后在T_SMS_CB表插入数据<br>当物化视图快速刷新时,会导致此记录在物化视图中重复,这个和建立物化视图时使用的左连接SQL有关系</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/oracle/">oracle</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2013/01/08/oracle/oracle物化视图/" data-title="oracle物化视图 | Hexo" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2013/01/23/oracle/oracle-null相关函数/" title="oracle null相关函数">
+  <strong>上一篇：</strong><br/>
+  <span>
+  oracle null相关函数</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/01/05/oracle/oracle函数/"  title="oracle函数">
+ <strong>下一篇：</strong><br/> 
+ <span>oracle函数
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>15</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="John Doe">John Doe</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

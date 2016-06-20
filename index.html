@@ -1,0 +1,1058 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="John Doe">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/19/linux/arch安装到U盘/" title="arch安装到U盘" itemprop="url">arch安装到U盘</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-19T09:19:31.000Z" itemprop="datePublished"> 发表于 2016-06-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>arch安装到U盘</p>
+<h3 id="分区准备"><a href="#分区准备" class="headerlink" title="分区准备"></a>分区准备</h3><p>使用fdisk命令查看挂载的磁盘<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l</span><br></pre></td></tr></table></figure></p>
+<p>我的U盘设备为/dev/sdb,使用如下命令管理分区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fdisk /dev/sdb</span><br></pre></td></tr></table></figure></p>
+<p>进入后按提示可以执行删除新建分区等操作</p>
+<p>建好分区之后格式化为ext4格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 -O &quot;^has_journal&quot; /dev/sdb1</span><br></pre></td></tr></table></figure></p>
+<p>其中-O “^has_journal” 参数表示不记录日志,这个参数适合U盘或SSD这类写入寿命有限的磁盘，如果使用HDD硬盘可以不加这个参数</p>
+<p>挂载根目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb1 /mnt</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="源配置"><a href="#源配置" class="headerlink" title="源配置"></a>源配置</h3><p>备份mirrorlist<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup</span><br></pre></td></tr></table></figure></p>
+<p>去掉注释(如果默认情况下Server前没有注释就不需要此步骤)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &apos;s/^#Server/Server/&apos; /etc/pacman.d/mirrorlist.backup</span><br></pre></td></tr></table></figure></p>
+<p>找出top 6<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup &gt; /etc/pacman.d/mirrorlist</span><br></pre></td></tr></table></figure></p>
+<p>更新源配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -Syyu</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="安装基本软件包"><a href="#安装基本软件包" class="headerlink" title="安装基本软件包"></a>安装基本软件包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacstrap -i /mnt base base-devel</span><br></pre></td></tr></table></figure>
+<h3 id="fstab"><a href="#fstab" class="headerlink" title="fstab"></a>fstab</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genfstab -U -p /mnt &gt;&gt; /mnt/etc/fstab</span><br></pre></td></tr></table></figure>
+<hr>
+<p>chroot<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arch-chroot /mnt /bin/bash</span><br></pre></td></tr></table></figure></p>
+<p>本地化配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/locale.gen</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">en_US.UTF-8 UTF-8</span><br><span class="line">zh_CN.UTF-8 UTF-8</span><br></pre></td></tr></table></figure>
+<p>生成locale信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locale-gen</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo LANG=en_US.UTF-8 &gt; /etc/locale.conf</span><br></pre></td></tr></table></figure>
+<p>时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tzselect</span><br></pre></td></tr></table></figure></p>
+<p>将 /etc/localtime 软链接到 /usr/share/zoneinfo/Zone/SubZone，以上海为例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure></p>
+<p>建议设置时间标准 为 UTC，并调整 时间漂移:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hwclock --systohc --utc</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>将系统安装到U盘需要修改/etc/mkinitcpio.conf配置<br>在执行”mkinitcpio -p linux”之前add the block hook to the hooks array right after udev. </p>
+<p>创建初始 ramdisk 环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkinitcpio -p linux</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>设置 Root 密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd</span><br></pre></td></tr></table></figure></p>
+<p>安装 bootloader<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S grub os-prober</span><br><span class="line">grub-install /dev/sdb</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure></p>
+<p>主机名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;myhostname&quot; &gt; /etc/hostname</span><br></pre></td></tr></table></figure></p>
+<p>并在 /etc/hosts 添加同样的主机名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1	localhost.localdomain	localhost	myhostname</span><br><span class="line">::1		localhost.localdomain	localhost	myhostname</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>有线网络<br>如果只用单一且固定的有线网络连接，启动 dhcpcd 服务，interface 是网络接口名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable dhcpcd@interface.service</span><br></pre></td></tr></table></figure></p>
+<p>无线网络<br>安装 iw, dialog 和 wpa_supplicant, 靠它们连网：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S iw wpa_supplicant dialog</span><br></pre></td></tr></table></figure></p>
+<p>也可使用networkmanager（推荐）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S networkmanager</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="安装中文字体"><a href="#安装中文字体" class="headerlink" title="安装中文字体"></a>安装中文字体</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S wqy-zenhei</span><br></pre></td></tr></table></figure>
+<hr>
+<p>卸载分区并重启系统<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br><span class="line">umount -R /mnt</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h3><p>Check the driver status<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lspci -k</span><br></pre></td></tr></table></figure></p>
+<p>ip link 或 iw dev(无线网络)查到设备名称</p>
+<p>启用网卡<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip link set wlan0 up</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="使用iw-wpa-supplicant连接无线网"><a href="#使用iw-wpa-supplicant连接无线网" class="headerlink" title="使用iw wpa_supplicant连接无线网"></a>使用iw wpa_supplicant连接无线网</h3><p>无密码WIFI登录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iw dev wlan0 connect &quot;your_essid&quot;</span><br></pre></td></tr></table></figure></p>
+<p>WEP登录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iw dev wlan0 connect &quot;your_essid&quot; key 0:your_key</span><br></pre></td></tr></table></figure></p>
+<p>WPA/WPA2登录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpa_supplicant -D nl80211,wext -i wlan0 -c &lt;(wpa_passphrase &quot;your_SSID&quot; &quot;your_key&quot;) -B</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iw dev wlan0 link</span><br></pre></td></tr></table></figure>
+<p>Getting an IP address<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dhcpcd wlan0</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="使用NetworkManager连接网络"><a href="#使用NetworkManager连接网络" class="headerlink" title="使用NetworkManager连接网络"></a>使用NetworkManager连接网络</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start NetworkManager.service 		#启动NetworkManager</span><br><span class="line">systemctl enable NetworkManager.service 	#设置开机启动NetworkManager</span><br></pre></td></tr></table></figure>
+<p>nmcli 命令:<br>To connect to a wifi network:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli dev wifi connect &lt;name&gt; password &lt;password&gt;</span><br></pre></td></tr></table></figure></p>
+<p>To connect to a wifi on the wlan1 wifi interface:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli dev wifi connect &lt;name&gt; password &lt;password&gt; iface wlan1 [profile name]</span><br></pre></td></tr></table></figure></p>
+<p>To disconnect an interface:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli dev disconnect iface eth0</span><br></pre></td></tr></table></figure></p>
+<p>To reconnect an interface marked as disconnected:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli con up uuid &lt;uuid&gt;</span><br></pre></td></tr></table></figure></p>
+<p>To get a list of UUIDs:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli con show</span><br></pre></td></tr></table></figure></p>
+<p>To see a list of network devices and their state:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli dev</span><br></pre></td></tr></table></figure></p>
+<p>To turn off wifi:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli r wifi off</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="桌面配置"><a href="#桌面配置" class="headerlink" title="桌面配置"></a>桌面配置</h3><p>安装xfce桌面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S xorg</span><br><span class="line">pacman -S xfce4 xfce4-goodies</span><br></pre></td></tr></table></figure>
+<p>启动桌面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">startxfce4</span><br></pre></td></tr></table></figure>
+<p>安装network-manager xfce界面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S network-manager-applet xfce4-notifyd</span><br></pre></td></tr></table></figure></p>
+<p>安装fcitx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S fcitx fcitx-configtool fcitx-table-extra fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5</span><br></pre></td></tr></table></figure></p>
+<p>安装fcitx中文输入法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S fcitx-sunpinyin fcitx-googlepinyin</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/24/git/git-添加remote-url/" title="git-添加remote url" itemprop="url">git-添加remote url</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-24T02:51:44.000Z" itemprop="datePublished"> 发表于 2016-05-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>博客使用hexo搭建，主题fork jacman(git@github.com:wuchong/jacman.git)，然后将我的jacman repo clone到本机<br>现在想将源jacman的变动更新到我的repo当中,网上查了一下可以这么干：</p>
+<p>显示remote url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin  git@github.com:cnbool/jacman.git (fetch)</span><br><span class="line">origin  git@github.com:cnbool/jacman.git (push)</span><br></pre></td></tr></table></figure></p>
+<p>添加remote url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add upstream git@github.com:wuchong/jacman.git</span><br></pre></td></tr></table></figure></p>
+<p>再看下remote url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin  git@github.com:cnbool/jacman.git (fetch)</span><br><span class="line">origin  git@github.com:cnbool/jacman.git (push)</span><br><span class="line">upstream        git@github.com:wuchong/jacman.git (fetch)</span><br><span class="line">upstream        git@github.com:wuchong/jacman.git (push)</span><br></pre></td></tr></table></figure></p>
+<p>现在jacman的remote url已经添加好了，fetch jacman的master分支到本地<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git fetch upstream master</span><br><span class="line">From github.com:wuchong/jacman</span><br><span class="line"> * branch            master     -&gt; FETCH_HEAD</span><br><span class="line"> * [new branch]      master     -&gt; upstream/master</span><br></pre></td></tr></table></figure></p>
+<p>也可以fetch全部分支到本地<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch upstream</span><br></pre></td></tr></table></figure></p>
+<p>或者fetch upstream的master分支作为本地分支tmp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch upstream master:tmp</span><br></pre></td></tr></table></figure></p>
+<p>合并upstream/master<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge upstream/master</span><br></pre></td></tr></table></figure></p>
+<p>合并完成之后可以将本地文件push到自己的ropo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/git/">git</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/15/nginx/nginx-安装和上手/" title="nginx-安装和上手" itemprop="url">nginx-安装和上手</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-15T11:42:00.000Z" itemprop="datePublished"> 发表于 2016-05-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="CentOS-6-7-安装nginx"><a href="#CentOS-6-7-安装nginx" class="headerlink" title="CentOS 6.7 安装nginx"></a>CentOS 6.7 安装nginx</h2><p>HTTP rewrite module requires the PCRE library</p>
+<h3 id="查询pcre是否已安装"><a href="#查询pcre是否已安装" class="headerlink" title="查询pcre是否已安装"></a>查询pcre是否已安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ rpm -qa pcre</span><br><span class="line">pcre-7.8-7.el6.x86_64</span><br></pre></td></tr></table></figure>
+<p>也可通过查询pcre版本得知是否安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pcretest -C</span><br><span class="line">PCRE version 7.8 2008-09-05</span><br></pre></td></tr></table></figure></p>
+<p>如果想卸载，pcre卸载方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rpm -e  --nodeps pcre-7.8-7.el6.x86_64</span><br></pre></td></tr></table></figure></p>
+<p>目前系统中已经安装了7.8版本的pcre，如未安装需要安装pcre<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install -y pcre pcre-devel</span><br></pre></td></tr></table></figure></p>
+<h3 id="添加nginx源"><a href="#添加nginx源" class="headerlink" title="添加nginx源"></a>添加nginx源</h3><p>创建 /etc/yum.repos.d/nginx.repo 内容如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[nginx]</span><br><span class="line">name=nginx repo</span><br><span class="line">baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure></p>
+<p>替换”OS”为“rhel” 或 “centos”<br>“OSRELEASE” 替换为 “5”, “6”, 或 “7”</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum install nginx</span><br></pre></td></tr></table></figure>
+<p>安装成功后查看nginx安装位置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ whereis nginx</span><br><span class="line">nginx: /usr/sbin/nginx /etc/nginx /usr/lib64/nginx /usr/share/nginx</span><br></pre></td></tr></table></figure></p>
+<p>nginx 配置文件位置<br>/usr/local/nginx/conf, /etc/nginx, or /usr/local/etc/nginx</p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nginx</span><br></pre></td></tr></table></figure>
+<h3 id="nginx命令"><a href="#nginx命令" class="headerlink" title="nginx命令"></a>nginx命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nginx -s signal</span><br></pre></td></tr></table></figure>
+<p>Where signal may be one of the following:</p>
+<p>stop — fast shutdown<br>quit — graceful shutdown<br>reload — reloading the configuration file<br>reopen — reopening the log files</p>
+<p>优雅的退出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nginx -s quit</span><br></pre></td></tr></table></figure></p>
+<p>注意：只有在启动nginx的账户下可以执行此命令</p>
+<p>根据nginx的主进程pid用kill命令将其关闭<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kill -s QUIT &lt;pid&gt;</span><br></pre></td></tr></table></figure></p>
+<p>nginx.pid文件记录主进程pid，位于/usr/local/nginx/logs 或 /var/run</p>
+<p>重新加载配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure></p>
+<p>当主线程接收到重新加载配置文件命令后，它会检查配置文件的语法并尝试应用其支持的配置。<br>如果这个步骤成功了，主线程开始启动新的工作进程并请求老的工作线程关闭。如果失败，主线程回滚更改，以配置更改前的方式运行。<br>老的工作进程收到关闭命令后停止接收新的连接请求，继续处理进行中的请求，直到所有进行中的请求处理完毕，全部老的工作线程退出。</p>
+<p>获得运行中的nginx进程列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ax | grep nginx</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置文件的结构"><a href="#配置文件的结构" class="headerlink" title="配置文件的结构"></a>配置文件的结构</h3><p>nginx的模块由配置文件中定义的指令来控制。指令分为两种：简单指令和块指令。<br>简单的指令：名称+空格+参数，以分号结尾。<br>块指令：名称+空格+参数，以{}包含的附加指令结尾。<br>如果一个指令块可以在括号内有其他指令，那它被称为上下文,例如：events, http, server, and location</p>
+<p>配置文件中在任何上下文之外的指令被认为在main上下文中。<br>events和http指令在main上下文中，server 在 http 中, location 在 server 中。</p>
+<h3 id="提供静态内容"><a href="#提供静态内容" class="headerlink" title="提供静态内容"></a>提供静态内容</h3><p>web server的一个重要任务是返回图片或静态HTML。例子：<br>创建/data/www目录放入index.html<br>创建/data/images目录放入一些图片</p>
+<p>打开nginx配置文件，默认配置文件已经包含一些server块例子，注释掉它，写一个新的server:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root /data/www;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location /images/ &#123;</span><br><span class="line">        root /data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>请求<a href="http://localhost/images/example.png" target="_blank" rel="external">http://localhost/images/example.png</a> nginx 将会返回/data/images/example.png。<br>如果此文件不存在，nginx会返回404错误。<br>如果请求的URI不是以 /images/ 开始，请求会被映射到 /data/www 目录。<br>例如 <a href="http://localhost/some/example.html" target="_blank" rel="external">http://localhost/some/example.html</a> 会返回 /data/www/some/example.html</p>
+<p>一般情况下，配置文件可以包含几个server块，分别监听不同的端口且server names也不同。<br>当nginx决定哪个server处理一个请求时，它会检查请求头中的URI与server块中location的参数是否匹配。<br>如果一个请求匹配多个location块，nginx会选择路径最长的那个。<br>如果nginx没有按照预期工作，可以从/usr/local/nginx/logs 或 /var/log/nginx中的access.log 和 error.log里查找原因。</p>
+<h3 id="设置一个简单的代理服务器"><a href="#设置一个简单的代理服务器" class="headerlink" title="设置一个简单的代理服务器"></a>设置一个简单的代理服务器</h3><p>我们将配置一个基本的代理服务器，从本机返回对图片的请求，将其他请求发往被代理服务器。<br>在这个例子中，proxied server和proxy server都配置在一个nginx实例中。</p>
+<p>proxied server配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 8080;</span><br><span class="line">    root /data/up1;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>监听8080端口，将所以请求映射到/data/up1<br>注意：以上配置中的root指令在server上下文中，当location块不包含自己的root指令时可以这么干。</p>
+<p>proxy server配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://localhost:8080;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ~ \.(gif|jpg|png)$ &#123;</span><br><span class="line">        root /data/images;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>proxy server会过滤以 .gif, .jpg, 或 .png 结尾的请求，并映射到 /data/images，将其他请求送往proxied server。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/nginx/">nginx</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/11/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-11T01:58:46.325Z" itemprop="datePublished"> 发表于 2016-05-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/01/apache-commons/使用HttpClient测试网站是否可登录/" title="使用HttpClient测试网站是否可登录" itemprop="url">使用HttpClient测试网站是否可登录</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-01T08:27:55.000Z" itemprop="datePublished"> 发表于 2015-09-01</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 测试网站登录</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestLoginTask</span> <span class="keyword">extends</span> <span class="title">MonitorTask</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * </span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> HttpPost httpPost;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * </span><br><span class="line">	 * <span class="doctag">@param</span> clientIp 客户端IP</span><br><span class="line">	 * <span class="doctag">@param</span> interval 执行间隔，单位毫秒</span><br><span class="line">	 * <span class="doctag">@param</span> url	      登录提交地址</span><br><span class="line">	 * <span class="doctag">@param</span> username 用户名</span><br><span class="line">	 * <span class="doctag">@param</span> pwd	      密码</span><br><span class="line">	 * <span class="doctag">@throws</span> UnsupportedEncodingException</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TestLoginTask</span><span class="params">(String clientIp, <span class="keyword">int</span> interval, String url, String username, String pwd)</span> <span class="keyword">throws</span> UnsupportedEncodingException </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(clientIp, interval);</span><br><span class="line">		<span class="keyword">this</span>.httpPost = <span class="keyword">new</span> HttpPost(url);</span><br><span class="line">		List&lt;NameValuePair&gt; pairList = <span class="keyword">new</span> ArrayList&lt;NameValuePair&gt;();</span><br><span class="line">		pairList.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"userName"</span>, username));</span><br><span class="line">		pairList.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"password"</span>, pwd));</span><br><span class="line">		httpPost.setEntity(<span class="keyword">new</span> UrlEncodedFormEntity(pairList));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> TaskResult <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		CloseableHttpClient httpClient = HttpClients.createDefault();</span><br><span class="line">		CloseableHttpResponse response = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			response = httpClient.execute(httpPost);</span><br><span class="line">			HttpEntity entity = response.getEntity();</span><br><span class="line">			EntityUtils.consume(entity);</span><br><span class="line"></span><br><span class="line">			Header[] val = response.getHeaders(<span class="string">"Location"</span>);</span><br><span class="line">			<span class="comment">// 如果跳转到index，登录成功</span></span><br><span class="line">			<span class="keyword">if</span> (response.getStatusLine().getStatusCode() == <span class="number">302</span> &amp;&amp; val.length &gt; <span class="number">0</span></span><br><span class="line">					&amp;&amp; val[<span class="number">0</span>].getValue().contains(<span class="string">"/index"</span>)) &#123;</span><br><span class="line">				<span class="comment">// 登录成功</span></span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">new</span> TaskResult(<span class="keyword">this</span>, State.OK, httpPost.getURI() + <span class="string">"测试登录成功"</span>, <span class="keyword">null</span>);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">new</span> TaskResult(<span class="keyword">this</span>, State.CRITICAL, httpPost.getURI() + <span class="string">"测试登录失败"</span>, <span class="keyword">null</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				<span class="keyword">if</span> (response != <span class="keyword">null</span>) &#123;</span><br><span class="line">					response.close();</span><br><span class="line">				&#125;</span><br><span class="line">				httpClient.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/apache-commons/">apache-commons</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/08/20/git/git-autocrlf/" title="git-autocrlf" itemprop="url">git-autocrlf</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-20T08:36:44.000Z" itemprop="datePublished"> 发表于 2015-08-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="LF和CRLF"><a href="#LF和CRLF" class="headerlink" title="LF和CRLF"></a>LF和CRLF</h2><h3 id="Windows-r-n是回车换行-CRLF"><a href="#Windows-r-n是回车换行-CRLF" class="headerlink" title="Windows \r\n是回车换行 CRLF"></a>Windows \r\n是回车换行 CRLF</h3><h3 id="Linux-n是换行-LF"><a href="#Linux-n是换行-LF" class="headerlink" title="Linux \n是换行 LF"></a>Linux \n是换行 LF</h3><h2 id="AutoCRLF"><a href="#AutoCRLF" class="headerlink" title="AutoCRLF"></a>AutoCRLF</h2><h3 id="提交时转换为LF，检出时转换为CRLF"><a href="#提交时转换为LF，检出时转换为CRLF" class="headerlink" title="提交时转换为LF，检出时转换为CRLF"></a>提交时转换为LF，检出时转换为CRLF</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.autocrlf true</span><br></pre></td></tr></table></figure>
+<h3 id="提交时转换为LF，检出时不转换"><a href="#提交时转换为LF，检出时不转换" class="headerlink" title="提交时转换为LF，检出时不转换"></a>提交时转换为LF，检出时不转换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.autocrlf input</span><br></pre></td></tr></table></figure>
+<h3 id="提交检出均不转换"><a href="#提交检出均不转换" class="headerlink" title="提交检出均不转换"></a>提交检出均不转换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.autocrlf false</span><br></pre></td></tr></table></figure>
+<h2 id="SafeCRLF"><a href="#SafeCRLF" class="headerlink" title="SafeCRLF"></a>SafeCRLF</h2><h3 id="拒绝提交包含混合换行符的文件"><a href="#拒绝提交包含混合换行符的文件" class="headerlink" title="拒绝提交包含混合换行符的文件"></a>拒绝提交包含混合换行符的文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.safecrlf true</span><br></pre></td></tr></table></figure>
+<h3 id="允许提交包含混合换行符的文件"><a href="#允许提交包含混合换行符的文件" class="headerlink" title="允许提交包含混合换行符的文件"></a>允许提交包含混合换行符的文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.safecrlf false</span><br></pre></td></tr></table></figure>
+<h3 id="提交包含混合换行符的文件时给出警告"><a href="#提交包含混合换行符的文件时给出警告" class="headerlink" title="提交包含混合换行符的文件时给出警告"></a>提交包含混合换行符的文件时给出警告</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.safecrlf warn</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/git/">git</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/07/10/apache-commons/apache-commons-io之File-Monitor/" title="apache-commons-io之File-Monitor" itemprop="url">apache-commons-io之File-Monitor</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2015-07-09T16:30:55.000Z" itemprop="datePublished"> 发表于 2015-07-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong> File Monitor组件使用了观察者模式，实现了监控目录和文件的创建/更新/删除事件 </strong></p>
+<p><strong> FileAlterationListener </strong><br>FileAlterationListener是File Monitor组件唯一的接口,包含8个方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>    <span class="title">onDirectoryChange</span><span class="params">(File directory)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onDirectoryCreate</span><span class="params">(File directory)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onDirectoryDelete</span><span class="params">(File directory)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onFileChange</span><span class="params">(File file)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onFileCreate</span><span class="params">(File file)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onFileDelete</span><span class="params">(File file)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onStart</span><span class="params">(FileAlterationObserver observer)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onStop</span><span class="params">(FileAlterationObserver observer)</span></span></span><br></pre></td></tr></table></figure>
+<p>目录的创建，更新和删除3个方法，文件的创建，更新和删除3个方法<br>onStart：当Observer开始检查事件的时候调用<br>onStop：当Observer结束检查事件的时候调用<br>Observer检查事件又是怎么回事呢，下文会提到</p>
+<p><strong> FileAlterationListenerAdaptor </strong><br>这个类继承了FileAlterationListener接口，没有任何实现。<br>继承此类比直接继承FileAlterationListener接口方便的地方在于不需覆盖一些没有用到的方法，用到哪个方法就重写哪个方法。</p>
+<p><strong> FileAlterationMonitor </strong><br>此类继承了Runnable接口，产生一个线程，以指定的时间间隔触发观察者的checkAndNotify方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">FileAlterationMonitor</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> interval;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;FileAlterationObserver&gt; observers = <span class="keyword">new</span> CopyOnWriteArrayList&lt;FileAlterationObserver&gt;();</span><br><span class="line">    <span class="keyword">private</span> Thread thread = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> ThreadFactory threadFactory;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> running = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Construct a monitor with a default interval of 10 seconds.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileAlterationMonitor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Construct a monitor with the specified interval.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> interval The amount of time in miliseconds to wait between</span><br><span class="line">     * checks of the file system</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileAlterationMonitor</span><span class="params">(<span class="keyword">long</span> interval)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.interval = interval;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Construct a monitor with the specified interval and set of observers.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> interval The amount of time in miliseconds to wait between</span><br><span class="line">     * checks of the file system</span><br><span class="line">     * <span class="doctag">@param</span> observers The set of observers to add to the monitor.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileAlterationMonitor</span><span class="params">(<span class="keyword">long</span> interval, FileAlterationObserver... observers)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(interval);</span><br><span class="line">        <span class="keyword">if</span> (observers != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (FileAlterationObserver observer : observers) &#123;</span><br><span class="line">                addObserver(observer);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//. . . </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果实例化时使用默认的构造函数，则触发间隔为10000毫秒，即10秒<br>此类维护了一个观察者列表observers</p>
+<p>FileAlterationMonitor的启动</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Start monitoring.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@throws</span> Exception if an error occurs initializing the observer</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (running) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Monitor is already running"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (FileAlterationObserver observer : observers) &#123;</span><br><span class="line">        observer.initialize();</span><br><span class="line">    &#125;</span><br><span class="line">    running = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (threadFactory != <span class="keyword">null</span>) &#123;</span><br><span class="line">        thread = threadFactory.newThread(<span class="keyword">this</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        thread = <span class="keyword">new</span> Thread(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    thread.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动时首先检查是否已在启动状态，即start方法是否已经掉用过<br>然后调用所有观察者的初始化方法，之后将启动标志running设置为true<br>创建新线程并启动,因本类实现了Runnable接口，所以创建线程时参数为 this<br>新线程执行的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Run.</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (running) &#123;</span><br><span class="line">        <span class="keyword">for</span> (FileAlterationObserver observer : observers) &#123;</span><br><span class="line">            observer.checkAndNotify();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!running) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(interval);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (<span class="keyword">final</span> InterruptedException ignored) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此线程每隔指定时间调用Observer的checkAndNotify方法</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/apache-commons/">apache-commons</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/07/02/spring/spring-mvc使用JSR-303校验/" title="spring mvc使用JSR-303校验" itemprop="url">spring mvc使用JSR-303校验</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2015-07-02T10:59:04.000Z" itemprop="datePublished"> 发表于 2015-07-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="Maven配置"><a href="#Maven配置" class="headerlink" title="Maven配置"></a>Maven配置</h3><p>添加JSR-303 API和Hibernate实现</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.validation<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>validation-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.0.Final<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.hibernate<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hibernate-validator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.3.Final<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Bean属性上添加JSR-303注解"><a href="#Bean属性上添加JSR-303注解" class="headerlink" title="Bean属性上添加JSR-303注解"></a>Bean属性上添加JSR-303注解</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BlacklistInfo</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp=<span class="string">"^(13[0-9]|15[012356789]|18[02356789]|14[57])[0-9]&#123;8&#125;$"</span>, message=<span class="string">"请填写正确的电话号码"</span>)</span><br><span class="line">    <span class="keyword">private</span> String phonenum;</span><br><span class="line">    <span class="meta">@Max</span>(value=<span class="number">20</span>, message=<span class="string">"备注长度过长"</span>)</span><br><span class="line">    <span class="keyword">private</span> String remark;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//..</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Bean-Validation-中的-constraint"><a href="#Bean-Validation-中的-constraint" class="headerlink" title="Bean Validation 中的 constraint"></a>Bean Validation 中的 constraint</h3><pre><code>Constraint  详细信息
+
+@Null   被注释的元素必须为 null
+
+@NotNull    被注释的元素必须不为 null
+
+@AssertTrue 被注释的元素必须为 true
+
+@AssertFalse    被注释的元素必须为 false
+
+@Min(value) 被注释的元素必须是一个数字，其值必须大于等于指定的最小值
+
+@Max(value) 被注释的元素必须是一个数字，其值必须小于等于指定的最大值
+
+@DecimalMin(value)  被注释的元素必须是一个数字，其值必须大于等于指定的最小值
+
+@DecimalMax(value)  被注释的元素必须是一个数字，其值必须小于等于指定的最大值
+
+@Size(max, min) 被注释的元素的大小必须在指定的范围内
+
+@Digits (integer, fraction) 被注释的元素必须是一个数字，其值必须在可接受的范围内
+
+@Past   被注释的元素必须是一个过去的日期
+
+@Future 被注释的元素必须是一个将来的日期
+
+@Pattern(value) 被注释的元素必须符合指定的正则表达式
+
+Hibernate Validator 附加的 constraint
+
+Constraint  详细信息
+
+@Email  被注释的元素必须是电子邮箱地址
+
+@Length 被注释的字符串的大小必须在指定的范围内
+
+@NotEmpty   被注释的字符串的必须非空
+
+@Range  被注释的元素必须在合适的范围内
+</code></pre><h3 id="Controller配置"><a href="#Controller配置" class="headerlink" title="Controller配置"></a>Controller配置</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/add"</span>, method = RequestMethod.POST)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">add</span><span class="params">(@Valid BlacklistInfo blacklistInfo, Errors errors, ModelMap map)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (errors.hasErrors()) &#123;</span><br><span class="line">        List&lt;ObjectError&gt; list = errors.getAllErrors();</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (ObjectError err : list) &#123;</span><br><span class="line">            sb.append(err.getDefaultMessage()).append(<span class="string">"&lt;br/&gt;"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(<span class="string">"info"</span>, sb.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Bean前的@ModelAttribute替换为@Valid,error包含验证后的错误列表</p>
+<p>ObjectError.getDefaultMessage()获得默认提示信息，即注解中message的内容</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/spring/">spring</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/28/spring/spring-mvc-interceptor/" title="spring mvc interceptor" itemprop="url">spring mvc interceptor</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-28T14:17:02.000Z" itemprop="datePublished"> 发表于 2014-10-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>HandlerInterceptor接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Workflow interface that allows for customized handler execution chains.</span><br><span class="line"> * Applications can register any number of existing or custom interceptors</span><br><span class="line"> * for certain groups of handlers, to add common preprocessing behavior</span><br><span class="line"> * without needing to modify each handler implementation.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;A HandlerInterceptor gets called before the appropriate HandlerAdapter</span><br><span class="line"> * triggers the execution of the handler itself. This mechanism can be used</span><br><span class="line"> * for a large field of preprocessing aspects, e.g. for authorization checks,</span><br><span class="line"> * or common handler behavior like locale or theme changes. Its main purpose</span><br><span class="line"> * is to allow for factoring out repetitive handler code.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;In an async processing scenario, the handler may be executed in a separate</span><br><span class="line"> * thread while the main thread exits without rendering or invoking the</span><br><span class="line"> * &#123;<span class="doctag">@code</span> postHandle&#125; and &#123;<span class="doctag">@code</span> afterCompletion&#125; callbacks. When concurrent</span><br><span class="line"> * handler execution completes, the request is dispatched back in order to</span><br><span class="line"> * proceed with rendering the model and all methods of this contract are invoked</span><br><span class="line"> * again. For further options and details see</span><br><span class="line"> * &#123;<span class="doctag">@code</span> org.springframework.web.servlet.AsyncHandlerInterceptor&#125;</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;Typically an interceptor chain is defined per HandlerMapping bean,</span><br><span class="line"> * sharing its granularity. To be able to apply a certain interceptor chain</span><br><span class="line"> * to a group of handlers, one needs to map the desired handlers via one</span><br><span class="line"> * HandlerMapping bean. The interceptors themselves are defined as beans</span><br><span class="line"> * in the application context, referenced by the mapping bean definition</span><br><span class="line"> * via its "interceptors" property (in XML: a &lt;list&gt; of &lt;ref&gt;).</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;HandlerInterceptor is basically similar to a Servlet 2.3 Filter, but in</span><br><span class="line"> * contrast to the latter it just allows custom pre-processing with the option</span><br><span class="line"> * of prohibiting the execution of the handler itself, and custom post-processing.</span><br><span class="line"> * Filters are more powerful, for example they allow for exchanging the request</span><br><span class="line"> * and response objects that are handed down the chain. Note that a filter</span><br><span class="line"> * gets configured in web.xml, a HandlerInterceptor in the application context.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;As a basic guideline, fine-grained handler-related preprocessing tasks are</span><br><span class="line"> * candidates for HandlerInterceptor implementations, especially factored-out</span><br><span class="line"> * common handler code and authorization checks. On the other hand, a Filter</span><br><span class="line"> * is well-suited for request content and view content handling, like multipart</span><br><span class="line"> * forms and GZIP compression. This typically shows when one needs to map the</span><br><span class="line"> * filter to certain content types (e.g. images), or to all requests.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@author</span> Juergen Hoeller</span><br><span class="line"> * <span class="doctag">@since</span> 20.06.2003</span><br><span class="line"> * <span class="doctag">@see</span> HandlerExecutionChain#getInterceptors</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.handler.HandlerInterceptorAdapter</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.handler.AbstractHandlerMapping#setInterceptors</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.i18n.LocaleChangeInterceptor</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.theme.ThemeChangeInterceptor</span><br><span class="line"> * <span class="doctag">@see</span> javax.servlet.Filter</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Intercept the execution of a handler. Called after HandlerMapping determined</span><br><span class="line">	 * an appropriate handler object, but before HandlerAdapter invokes the handler.</span><br><span class="line">	 * &lt;p&gt;DispatcherServlet processes a handler in an execution chain, consisting</span><br><span class="line">	 * of any number of interceptors, with the handler itself at the end.</span><br><span class="line">	 * With this method, each interceptor can decide to abort the execution chain,</span><br><span class="line">	 * typically sending a HTTP error or writing a custom response.</span><br><span class="line">	 * <span class="doctag">@param</span> request current HTTP request</span><br><span class="line">	 * <span class="doctag">@param</span> response current HTTP response</span><br><span class="line">	 * <span class="doctag">@param</span> handler chosen handler to execute, for type and/or instance evaluation</span><br><span class="line">	 * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if the execution chain should proceed with the</span><br><span class="line">	 * next interceptor or the handler itself. Else, DispatcherServlet assumes</span><br><span class="line">	 * that this interceptor has already dealt with the response itself.</span><br><span class="line">	 * <span class="doctag">@throws</span> Exception in case of errors</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span></span><br><span class="line">	    <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Intercept the execution of a handler. Called after HandlerAdapter actually</span><br><span class="line">	 * invoked the handler, but before the DispatcherServlet renders the view.</span><br><span class="line">	 * Can expose additional model objects to the view via the given ModelAndView.</span><br><span class="line">	 * &lt;p&gt;DispatcherServlet processes a handler in an execution chain, consisting</span><br><span class="line">	 * of any number of interceptors, with the handler itself at the end.</span><br><span class="line">	 * With this method, each interceptor can post-process an execution,</span><br><span class="line">	 * getting applied in inverse order of the execution chain.</span><br><span class="line">	 * <span class="doctag">@param</span> request current HTTP request</span><br><span class="line">	 * <span class="doctag">@param</span> response current HTTP response</span><br><span class="line">	 * <span class="doctag">@param</span> handler handler (or &#123;<span class="doctag">@link</span> HandlerMethod&#125;) that started async</span><br><span class="line">	 * execution, for type and/or instance examination</span><br><span class="line">	 * <span class="doctag">@param</span> modelAndView the &#123;<span class="doctag">@code</span> ModelAndView&#125; that the handler returned</span><br><span class="line">	 * (can also be &#123;<span class="doctag">@code</span> null&#125;)</span><br><span class="line">	 * <span class="doctag">@throws</span> Exception in case of errors</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(</span><br><span class="line">			HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span></span><br><span class="line">			<span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Callback after completion of request processing, that is, after rendering</span><br><span class="line">	 * the view. Will be called on any outcome of handler execution, thus allows</span><br><span class="line">	 * for proper resource cleanup.</span><br><span class="line">	 * &lt;p&gt;Note: Will only be called if this interceptor's &#123;<span class="doctag">@code</span> preHandle&#125;</span><br><span class="line">	 * method has successfully completed and returned &#123;<span class="doctag">@code</span> true&#125;!</span><br><span class="line">	 * &lt;p&gt;As with the &#123;<span class="doctag">@code</span> postHandle&#125; method, the method will be invoked on each</span><br><span class="line">	 * interceptor in the chain in reverse order, so the first interceptor will be</span><br><span class="line">	 * the last to be invoked.</span><br><span class="line">	 * <span class="doctag">@param</span> request current HTTP request</span><br><span class="line">	 * <span class="doctag">@param</span> response current HTTP response</span><br><span class="line">	 * <span class="doctag">@param</span> handler handler (or &#123;<span class="doctag">@link</span> HandlerMethod&#125;) that started async</span><br><span class="line">	 * execution, for type and/or instance examination</span><br><span class="line">	 * <span class="doctag">@param</span> ex exception thrown on handler execution, if any</span><br><span class="line">	 * <span class="doctag">@throws</span> Exception in case of errors</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(</span><br><span class="line">			HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span></span><br><span class="line">			<span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>spring root bean属性添加<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">添加xmlns:mvc=<span class="string">"http://www.springframework.org/schema/mvc"</span></span><br><span class="line">xsi:schemaLocation添加http:<span class="comment">//www.springframework.org/schema/mvc</span></span><br></pre></td></tr></table></figure></p>
+<p>拦截器配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;mvc:interceptors&gt;</span><br><span class="line">	&lt;mvc:interceptor&gt;</span><br><span class="line">		&lt;!-- 拦截路径(可配置多个) --&gt;</span><br><span class="line">		&lt;mvc:mapping path="/abc" /&gt;</span><br><span class="line">		&lt;!-- 继承HandlerInterceptor的拦截器实现 --&gt;</span><br><span class="line">		&lt;bean class="com.example.interceptor.ExampleInterceptor1" /&gt;</span><br><span class="line">	&lt;/mvc:interceptor&gt;</span><br><span class="line">	&lt;mvc:interceptor&gt;</span><br><span class="line">		&lt;mvc:mapping path="/def/*" /&gt;</span><br><span class="line">		&lt;mvc:mapping path="/opq/*" /&gt;</span><br><span class="line">		&lt;mvc:mapping path="/rsd/*" /&gt;</span><br><span class="line">		&lt;bean class="com.example.interceptor.ExampleInterceptor2" /&gt;</span><br><span class="line">	&lt;/mvc:interceptor&gt;</span><br><span class="line">&lt;/mvc:interceptors&gt;</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/spring/">spring</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/28/apache-commons/apache-httpclient-4.3使用例子/" title="apache httpclient 4.3使用例子" itemprop="url">apache httpclient 4.3使用例子</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="John Doe" target="_blank" itemprop="author">John Doe</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-28T13:26:06.000Z" itemprop="datePublished"> 发表于 2014-10-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>源自:<a href="http://hc.apache.org/httpcomponents-client-ga/examples.html" target="_blank" rel="external">http://hc.apache.org/httpcomponents-client-ga/examples.html</a>]</p>
+<p>maven配置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.httpcomponents<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>httpclient<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.3.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>实现ResponseHandler解析HttpResponse<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientWithResponseHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpGet httpget = <span class="keyword">new</span> HttpGet(<span class="string">"http://localhost/"</span>);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request "</span> + httpget.getRequestLine());</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Create a custom response handler</span></span><br><span class="line">            ResponseHandler&lt;String&gt; responseHandler = <span class="keyword">new</span> ResponseHandler&lt;String&gt;() &#123;</span><br><span class="line"></span><br><span class="line">                <span class="function"><span class="keyword">public</span> String <span class="title">handleResponse</span><span class="params">(</span><br><span class="line">                        <span class="keyword">final</span> HttpResponse response)</span> <span class="keyword">throws</span> ClientProtocolException, IOException </span>&#123;</span><br><span class="line">                    <span class="keyword">int</span> status = response.getStatusLine().getStatusCode();</span><br><span class="line">                    <span class="keyword">if</span> (status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">                        HttpEntity entity = response.getEntity();</span><br><span class="line">                        <span class="keyword">return</span> entity != <span class="keyword">null</span> ? EntityUtils.toString(entity) : <span class="keyword">null</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> ClientProtocolException(<span class="string">"Unexpected response status: "</span> + status);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;;</span><br><span class="line">            String responseBody = httpclient.execute(httpget, responseHandler);</span><br><span class="line">            System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">            System.out.println(responseBody);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>资源的释放<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientConnectionRelease</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpGet httpget = <span class="keyword">new</span> HttpGet(<span class="string">"http://localhost/"</span>);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request "</span> + httpget.getRequestLine());</span><br><span class="line">            CloseableHttpResponse response = httpclient.execute(httpget);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">                System.out.println(response.getStatusLine());</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Get hold of the response entity</span></span><br><span class="line">                HttpEntity entity = response.getEntity();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// If the response does not enclose an entity, there is no need</span></span><br><span class="line">                <span class="comment">// to bother about connection release</span></span><br><span class="line">                <span class="keyword">if</span> (entity != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    InputStream instream = entity.getContent();</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        instream.read();</span><br><span class="line">                        <span class="comment">// do something useful with the response</span></span><br><span class="line">                    &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                        <span class="comment">// In case of an IOException the connection will be released</span></span><br><span class="line">                        <span class="comment">// back to the connection manager automatically</span></span><br><span class="line">                        <span class="keyword">throw</span> ex;</span><br><span class="line">                    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                        <span class="comment">// Closing the input stream will trigger connection release</span></span><br><span class="line">                        instream.close();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>中止请求<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientAbortMethod</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpGet httpget = <span class="keyword">new</span> HttpGet(<span class="string">"http://www.apache.org/"</span>);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request "</span> + httpget.getURI());</span><br><span class="line">            CloseableHttpResponse response = httpclient.execute(httpget);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">                System.out.println(response.getStatusLine());</span><br><span class="line">                <span class="comment">// Do not feel like reading the response body</span></span><br><span class="line">                <span class="comment">// Call abort on the request object</span></span><br><span class="line">                httpget.abort();</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>将输入流数据Chunk编码Post<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientChunkEncodedPost</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (args.length != <span class="number">1</span>)  &#123;</span><br><span class="line">            System.out.println(<span class="string">"File path not given"</span>);</span><br><span class="line">            System.exit(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpPost httppost = <span class="keyword">new</span> HttpPost(<span class="string">"http://localhost/"</span>);</span><br><span class="line"></span><br><span class="line">            File file = <span class="keyword">new</span> File(args[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">            InputStreamEntity reqEntity = <span class="keyword">new</span> InputStreamEntity(</span><br><span class="line">                    <span class="keyword">new</span> FileInputStream(file), -<span class="number">1</span>, ContentType.APPLICATION_OCTET_STREAM);</span><br><span class="line">            reqEntity.setChunked(<span class="keyword">true</span>);</span><br><span class="line">            <span class="comment">// It may be more appropriate to use FileEntity class in this particular</span></span><br><span class="line">            <span class="comment">// instance but we are using a more generic InputStreamEntity to demonstrate</span></span><br><span class="line">            <span class="comment">// the capability to stream out data from any arbitrary source</span></span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">            <span class="comment">// FileEntity entity = new FileEntity(file, "binary/octet-stream");</span></span><br><span class="line"></span><br><span class="line">            httppost.setEntity(reqEntity);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request: "</span> + httppost.getRequestLine());</span><br><span class="line">            CloseableHttpResponse response = httpclient.execute(httppost);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">                System.out.println(response.getStatusLine());</span><br><span class="line">                EntityUtils.consume(response.getEntity());</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Post请求添加键值对<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">CloseableHttpClient httpClient = HttpClients.createDefault();</span><br><span class="line">HttpPost httpPost = <span class="keyword">new</span> HttpPost(<span class="string">"http://localhost:8080/sample/servlet1"</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	List&lt;NameValuePair&gt; pairList = <span class="keyword">new</span> ArrayList&lt;NameValuePair&gt;();</span><br><span class="line">	pairList.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"param1"</span>, <span class="string">"val1"</span>));</span><br><span class="line">	pairList.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"param2"</span>, <span class="string">"val2"</span>));</span><br><span class="line">	httpPost.setEntity(<span class="keyword">new</span> UrlEncodedFormEntity(pairList));</span><br><span class="line">	CloseableHttpResponse response = httpClient.execute(httpPost);</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">              System.out.println(response.getStatusLine());</span><br><span class="line">              HttpEntity entity = response.getEntity();</span><br><span class="line">              <span class="comment">// do something</span></span><br><span class="line">		EntityUtils.consume(entity);</span><br><span class="line">	&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">		response.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">	httpClient.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/apache-commons/">apache-commons</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>15</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="John Doe">John Doe</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>
