@@ -1,0 +1,778 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>java web项目使用shiro权限控制 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="shane">
+    
+
+    
+    <meta name="description" content="在java web项目中使用shiro控制权限pom.xml添加maven依赖&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.apache.shiro&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;shiro-core&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;${shiro.version}&amp;lt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java web项目使用shiro权限控制">
+<meta property="og:url" content="http://yoursite.com/2014/08/09/java/java web项目使用shiro权限控制/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在java web项目中使用shiro控制权限pom.xml添加maven依赖&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.apache.shiro&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;shiro-core&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;${shiro.version}&amp;lt">
+<meta property="og:updated_time" content="2015-08-28T07:31:30.331Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java web项目使用shiro权限控制">
+<meta name="twitter:description" content="在java web项目中使用shiro控制权限pom.xml添加maven依赖&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.apache.shiro&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;shiro-core&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;${shiro.version}&amp;lt">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/08/09/java/java web项目使用shiro权限控制/" title="java web项目使用shiro权限控制" itemprop="url">java web项目使用shiro权限控制</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2014-08-08T16:07:23.000Z" itemprop="datePublished"> 发表于 2014-08-09</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#在java-web项目中使用shiro控制权限"><span class="toc-number">1.</span> <span class="toc-text">在java web项目中使用shiro控制权限</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pom-xml添加maven依赖"><span class="toc-number">1.1.</span> <span class="toc-text">pom.xml添加maven依赖</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="在java-web项目中使用shiro控制权限"><a href="#在java-web项目中使用shiro控制权限" class="headerlink" title="在java web项目中使用shiro控制权限"></a>在java web项目中使用shiro控制权限</h1><h2 id="pom-xml添加maven依赖"><a href="#pom-xml添加maven依赖" class="headerlink" title="pom.xml添加maven依赖"></a>pom.xml添加maven依赖</h2><pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;
+    &lt;artifactId&gt;shiro-core&lt;/artifactId&gt;
+    &lt;version&gt;${shiro.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;
+    &lt;artifactId&gt;shiro-web&lt;/artifactId&gt;
+    &lt;version&gt;${shiro.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;
+    &lt;artifactId&gt;shiro-ehcache&lt;/artifactId&gt;
+    &lt;version&gt;${shiro.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;
+    &lt;artifactId&gt;shiro-spring&lt;/artifactId&gt;
+    &lt;version&gt;${shiro.version}&lt;/version&gt;
+&lt;/dependency&gt;
+
+
+## web.xml中配置shiro的filter
+
+&lt;filter&gt;
+    &lt;filter-name&gt;shiroFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.DelegatingFilterProxy&lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;targetFilterLifecycle&lt;/param-name&gt;
+        &lt;param-value&gt;true&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;
+
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;shiroFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+
+
+## spring bean的配置
+
+&lt;bean id=&quot;shiroFilter&quot; class=&quot;org.apache.shiro.spring.web.ShiroFilterFactoryBean&quot;&gt;
+    &lt;property name=&quot;securityManager&quot; ref=&quot;securityManager&quot; /&gt;
+    &lt;property name=&quot;loginUrl&quot; value=&quot;/toLogin&quot; /&gt;
+    &lt;property name=&quot;successUrl&quot; value=&quot;/index&quot; /&gt;
+    &lt;property name=&quot;unauthorizedUrl&quot; value=&quot;/unauthorized&quot; /&gt;
+    &lt;!-- The &apos;filters&apos; property is not necessary since any declared javax.servlet.Filter 
+        bean defined will be automatically acquired and available via its beanName 
+        in chain definitions, but you can perform overrides or parent/child consolidated 
+        configuration here if you like: --&gt;
+    &lt;property name=&quot;filters&quot;&gt;
+        &lt;util:map&gt;
+            &lt;entry key=&quot;perms&quot; value-ref=&quot;URLPermissionsFilter&quot; /&gt;
+        &lt;/util:map&gt;
+    &lt;/property&gt;
+    &lt;property name=&quot;filterChainDefinitions&quot;&gt;
+        &lt;value&gt;
+            /*.ico = anon
+            /*.swf = anon
+            /images/*.png = anon
+            /images/*.jpg = anon
+            /images/*.gif = anon
+            /styles/*.css = anon
+            /scripts/*.js = anon
+            /jplayer/** = anon
+            /My97DatePicker/** = anon
+            /jstree/** = anon
+            /help/** = anon
+            /unauthorized = anon
+            /toLogin = anon
+            /login = anon
+            /logout = anon
+            /welcome = authc
+            /index = authc
+            /sound/mobileUpload = anon
+            /user/resetPwd = anon
+            /404 = anon
+            /** = authc,perms
+        &lt;/value&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+
+&lt;!-- 自定义鉴权拦截器 --&gt;
+&lt;bean id=&quot;URLPermissionsFilter&quot; class=&quot;com.xxx.filter.URLPermissionsFilter&quot; /&gt;
+&lt;bean id=&quot;customCredentialsMatcher&quot; class=&quot;com.xxx.shiro.CustomCredentialsMatcher&quot;&gt;&lt;/bean&gt;
+&lt;bean id=&quot;customRealm&quot; class=&quot;com.xxx.shiro.CustomRealm&quot;&gt;
+    &lt;property name=&quot;credentialsMatcher&quot; ref=&quot;customCredentialsMatcher&quot;&gt;&lt;/property&gt;
+&lt;/bean&gt;
+
+&lt;bean id=&quot;securityManager&quot; class=&quot;org.apache.shiro.web.mgt.DefaultWebSecurityManager&quot;&gt;
+    &lt;property name=&quot;cacheManager&quot; ref=&quot;cacheManager&quot; /&gt;
+    &lt;property name=&quot;sessionMode&quot; value=&quot;native&quot; /&gt;
+    &lt;property name=&quot;realm&quot; ref=&quot;customRealm&quot; /&gt;
+&lt;/bean&gt;
+
+&lt;bean id=&quot;cacheManager&quot; class=&quot;org.apache.shiro.cache.ehcache.EhCacheManager&quot;&gt;
+    &lt;!-- Set a net.sf.ehcache.CacheManager instance here if you already have one.  If not, a new one
+         will be creaed with a default config:
+         &lt;property name=&quot;cacheManager&quot; ref=&quot;ehCacheManager&quot;/&gt; --&gt;
+    &lt;!-- If you don&apos;t have a pre-built net.sf.ehcache.CacheManager instance to inject, but you want
+         a specific Ehcache configuration to be used, specify that here.  If you don&apos;t, a default
+         will be used.:
+    &lt;property name=&quot;cacheManagerConfigFile&quot; value=&quot;classpath:some/path/to/ehcache.xml&quot;/&gt; --&gt;
+&lt;/bean&gt;
+
+
+## 代码
+
+### 用户访问某url时权限字符串的生成
+
+public class URLPermissionsFilter extends PermissionsAuthorizationFilter {
+
+    public boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
+            throws IOException {
+        return super.isAccessAllowed(request, response, buildPermissions(request));
+    }
+
+    /**
+     * 根据请求URL产生权限字符串，这里只产生，而比对的事交给Realm
+     * 
+     * @param request
+     * @return
+     */
+    protected String[] buildPermissions(ServletRequest request) {
+        String[] perms = new String[1];
+        HttpServletRequest req = (HttpServletRequest) request;
+        String path = req.getServletPath();
+        path = path.replaceFirst(&quot;/&quot;, &quot;&quot;);
+        perms[0] = path;// path直接作为权限字符串
+        return perms;
+    }
+}
+
+
+### 获取用户拥有的权限角色信息AuthorizationInfo和用户名密码AuthenticationInfo
+
+public class CustomRealm extends AuthorizingRealm {
+
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        // 用户名
+        String username = (String) principals.fromRealm(getName()).iterator().next();
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.addRoles(角色字符串集合);
+        info.addStringPermissions(权限字符串集合);
+        return info;
+    }
+
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
+        // 令牌——基于用户名和密码的令牌
+        UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
+        // 令牌中可以取出用户名
+        String username = token.getUsername();
+        // 根据用户名去获取密码
+        String password = &quot;&quot;;
+        return new SimpleAuthenticationInfo(username, password, getName());
+    }
+
+}
+
+
+### 用户身份验证(验证密码)
+
+public class CustomCredentialsMatcher extends SimpleCredentialsMatcher {
+
+    @Override
+    public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
+         PasswordService svc = new DefaultPasswordService();
+         UsernamePasswordToken upToken = (UsernamePasswordToken) token;
+         return svc.passwordsMatch(upToken.getCredentials(), info.getCredentials().toString());
+    }
+
+}
+
+
+### 登录时验证身份
+
+UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
+try {
+    SecurityUtils.getSubject().login(token);
+    // 登陆成功
+} catch (AuthenticationException e) {
+    // 登陆失败,用户名或密码错误
+}
+
+
+### 是否拥有某权限判断
+
+if (SecurityUtils.getSubject().hasRole(&quot;superadmin&quot;)) {
+    // yes
+} else {
+    // no
+}
+</code></pre>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Shiro/">Shiro</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2014/08/09/java/java web项目使用shiro权限控制/" data-title="java web项目使用shiro权限控制 | Hexo" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/08/17/linux/linux常用命令记录/" title="linux常用命令">
+  <strong>上一篇：</strong><br/>
+  <span>
+  linux常用命令</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/08/09/sqlserver/sqlserver聚合函数列转行/"  title="sqlserver聚合函数列转行">
+ <strong>下一篇：</strong><br/> 
+ <span>sqlserver聚合函数列转行
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="shane">shane</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

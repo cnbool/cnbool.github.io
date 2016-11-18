@@ -1,0 +1,593 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>axis2+spring开发webservice服务器端 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="shane">
+    
+
+    
+    <meta name="description" content="需求:开发VAC与SP间订购通知接口服务器端(SP端),给定VacSyncService_SPClient.wsdl文件
+首先,官网下载axis2-1.6.2-bin.zip和axis2-1.6.2-war.zipaxis2-1.6.2-bin.zip包含axis2的jar包,工具和例子axis2-1.6.2-war.zip包含了axis2的web应用,发布web服务时,将自己的程序以特定文件结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="axis2+spring开发webservice服务器端">
+<meta property="og:url" content="http://yoursite.com/2013/07/23/java/axis2+spring开发webservice服务器端/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="需求:开发VAC与SP间订购通知接口服务器端(SP端),给定VacSyncService_SPClient.wsdl文件
+首先,官网下载axis2-1.6.2-bin.zip和axis2-1.6.2-war.zipaxis2-1.6.2-bin.zip包含axis2的jar包,工具和例子axis2-1.6.2-war.zip包含了axis2的web应用,发布web服务时,将自己的程序以特定文件结构">
+<meta property="og:updated_time" content="2015-08-28T07:31:30.329Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="axis2+spring开发webservice服务器端">
+<meta name="twitter:description" content="需求:开发VAC与SP间订购通知接口服务器端(SP端),给定VacSyncService_SPClient.wsdl文件
+首先,官网下载axis2-1.6.2-bin.zip和axis2-1.6.2-war.zipaxis2-1.6.2-bin.zip包含axis2的jar包,工具和例子axis2-1.6.2-war.zip包含了axis2的web应用,发布web服务时,将自己的程序以特定文件结构">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/07/23/java/axis2+spring开发webservice服务器端/" title="axis2+spring开发webservice服务器端" itemprop="url">axis2+spring开发webservice服务器端</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-07-22T16:34:56.000Z" itemprop="datePublished"> 发表于 2013-07-23</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>需求:开发VAC与SP间订购通知接口服务器端(SP端),给定VacSyncService_SPClient.wsdl文件</p>
+<p>首先,官网下载axis2-1.6.2-bin.zip和axis2-1.6.2-war.zip<br>axis2-1.6.2-bin.zip包含axis2的jar包,工具和例子<br>axis2-1.6.2-war.zip包含了axis2的web应用,发布web服务时,将自己的程序以特定文件结构发布到axis2的web应用的service目录中<br><a id="more"></a><br><strong>1.根据wsdl生成服务器端代码</strong><br>解压axis2-1.6.2-bin.zip, cmd命令行进入到axis2-1.6.2\bin:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd D:\axis2\axis2-1.6.2\bin</span><br></pre></td></tr></table></figure>
+<p>假设wsdl文件存放于D盘根目录,将服务器端代码生成到D:\gen_code目录:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WSDL2Java -uri D:\VacSyncService_SPClient.wsdl -p com.example -s -ss -sd -ssi -o d:\gen_code</span><br></pre></td></tr></table></figure>
+<p>参数说明:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">　　-o : 指定生成代码的输出路径</span><br><span class="line">　　-a : 生成异步模式的代码</span><br><span class="line">　　-s : 生成同步模式的代码</span><br><span class="line">　　-p : 指定代码的package名称</span><br><span class="line">　　-l : 使用的语言(Java/C) 默认是java</span><br><span class="line">　　-t : 为代码生成测试用例</span><br><span class="line">　　-ss : 生成服务端代码 默认不生成</span><br><span class="line">　　-sd : 生成服务描述文件 services.xml,仅与-ss一同使用</span><br><span class="line">　　-d : 指定databingding，例如，adb,xmlbean,jibx,jaxme and jaxbri</span><br><span class="line">　　-g : 生成服务端和客户端的代码</span><br><span class="line">　　-pn : 当WSDL中有多个port时，指定其中一个port</span><br><span class="line">　　-sn : 选择WSDL中的一个service</span><br><span class="line">　　-u : 展开data-binding的类</span><br><span class="line">　　-r : 为代码生成指定一个repository</span><br><span class="line">　　-ssi : 为服务端实现代码生成接口类</span><br><span class="line">　　-S : 为生成的源码指定存储路径</span><br><span class="line">　　-R : 为生成的resources指定存储路径</span><br><span class="line">　　--noBuildXML : 输出中不生成build.xml文件</span><br><span class="line">　　--noWSDL : 在resources目录中不生成WSDL文件</span><br><span class="line">　　--noMessageReceiver : 不生成MessageReceiver类</span><br></pre></td></tr></table></figure>
+<p>cmd里执行如上命令之后,d:\gen_code会生成如下文件:<br>/gen_code<br>/gen_code/resources<br>/gen_code/resources/services.xml<br>/gen_code/resources/SyncNotifySPServiceService.wsdl<br>/gen_code/src<br>/gen_code/build.xml</p>
+<p><strong>2.根据wsdl生成客户端代码</strong><br>cmd命令行进入到axis2-1.6.2bin:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WSDL2Java -uri D:\myWebService.wsdl -o d:ws_client</span><br></pre></td></tr></table></figure></p>
+<p>使用:在代码中调用刚刚生成的以Stub结尾的类,可以测试服务器端</p>
+<p><strong>3.新建maven web项目</strong><br>项目的spring配置略…<br>pom.xml需要添加axis2的依赖<br>[code lang=”xml”]<br>        <dependency><br>            <groupid>org.apache.axis2</groupid><br>            <artifactid>axis2-kernel</artifactid><br>            <version>1.6.2</version><br>        </dependency><br>        <dependency><br>            <groupid>org.apache.axis2</groupid><br>            <artifactid>axis2-adb</artifactid><br>            <version>1.6.2</version><br>        </dependency><br>        <dependency><br>            <groupid>org.apache.axis2</groupid><br>            <artifactid>axis2-transport-http</artifactid><br>            <version>1.6.2</version><br>        </dependency><br>        <dependency><br>            <groupid>org.apache.axis2</groupid><br>            <artifactid>axis2-jaxws</artifactid><br>            <version>1.6.2</version><br>        </dependency><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">将axis2-1.6.2-war.zip中的war包解压,解压后WEB-INF下的conf,modules,services复制到项目的WEB-INF下</span><br><span class="line">web.xml中的内容复制到web项目的web.xml中,要复制的内容:</span><br><span class="line">[code lang=&quot;xml&quot;]</span><br><span class="line">	&lt;servlet&gt;</span><br><span class="line">		&lt;servlet-name&gt;AxisServlet&lt;/servlet-name&gt;</span><br><span class="line">		&lt;servlet-class&gt;org.apache.axis2.transport.http.AxisServlet&lt;/servlet-class&gt;</span><br><span class="line">		&lt;!--&lt;init-param&gt; --&gt;</span><br><span class="line">		&lt;!--&lt;param-name&gt;axis2.xml.path&lt;/param-name&gt; --&gt;</span><br><span class="line">		&lt;!--&lt;param-value&gt;/WEB-INF/conf/axis2.xml&lt;/param-value&gt; --&gt;</span><br><span class="line">		&lt;!--&lt;param-name&gt;axis2.xml.url&lt;/param-name&gt; --&gt;</span><br><span class="line">		&lt;!--&lt;param-value&gt;http://localhost/myrepo/axis2.xml&lt;/param-value&gt; --&gt;</span><br><span class="line">		&lt;!--&lt;param-name&gt;axis2.repository.path&lt;/param-name&gt; --&gt;</span><br><span class="line">		&lt;!--&lt;param-value&gt;/WEB-INF&lt;/param-value&gt; --&gt;</span><br><span class="line">		&lt;!--&lt;param-name&gt;axis2.repository.url&lt;/param-name&gt; --&gt;</span><br><span class="line">		&lt;!--&lt;param-value&gt;http://localhost/myrepo&lt;/param-value&gt; --&gt;</span><br><span class="line">		&lt;!--&lt;/init-param&gt; --&gt;</span><br><span class="line">		&lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</span><br><span class="line">	&lt;/servlet&gt;</span><br><span class="line">	&lt;servlet-mapping&gt;</span><br><span class="line">		&lt;servlet-name&gt;AxisServlet&lt;/servlet-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;/servlet/AxisServlet&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/servlet-mapping&gt;</span><br><span class="line">	&lt;servlet-mapping&gt;</span><br><span class="line">		&lt;servlet-name&gt;AxisServlet&lt;/servlet-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;*.jws&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/servlet-mapping&gt;</span><br><span class="line">	&lt;servlet-mapping&gt;</span><br><span class="line">		&lt;servlet-name&gt;AxisServlet&lt;/servlet-name&gt;</span><br><span class="line">		&lt;url-pattern&gt;/services/*&lt;/url-pattern&gt;</span><br><span class="line">	&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<p>将生成的服务器端和客户端代码复制到项目中,服务器端代码中以Skeleton结尾的类需要修改并添加业务逻辑代码<br>此类的spring配置<br>[code lang=”xml”]</p>
+<p><bean id="syncNotifySPServiceServiceSkeleton" class="com.xxx.vac.syncservice.SyncNotifySPServiceServiceSkeleton"></bean><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">在web项目的WEB-INF/services目录下建立自己的webservice目录,如下:</span><br><span class="line">WEB-INF/services/MyWebservice</span><br><span class="line">WEB-INF/services/MyWebservice/META-INF</span><br><span class="line">WEB-INF/services/MyWebservice/META-INF/services.xml</span><br><span class="line"></span><br><span class="line">其中的services.xml为之前已生成的/gen_code/resources/services.xml</span><br><span class="line">services.xml内容</span><br><span class="line">[code lang=&quot;xml&quot;]</span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!-- This file was auto-generated from WSDL --&gt;</span><br><span class="line">&lt;!-- by the Apache Axis2 version: 1.6.1  Built on : Aug 31, 2011 (12:22:40 CEST) --&gt;</span><br><span class="line">&lt;serviceGroup&gt;</span><br><span class="line">    &lt;service name=&quot;SyncNotifySPServiceService&quot;&gt;</span><br><span class="line">        &lt;messageReceivers&gt;</span><br><span class="line">            &lt;messageReceiver mep=&quot;http://www.w3.org/ns/wsdl/in-out&quot; class=&quot;com.bjhrrh.vac.syncservice.SyncNotifySPServiceServiceMessageReceiverInOut&quot;/&gt;</span><br><span class="line">        &lt;/messageReceivers&gt;</span><br><span class="line">        &lt;parameter name=&quot;ServiceClass&quot;&gt;com.bjhrrh.vac.syncservice.SyncNotifySPServiceServiceSkeleton&lt;/parameter&gt;</span><br><span class="line">        &lt;parameter name=&quot;useOriginalwsdl&quot;&gt;true&lt;/parameter&gt;</span><br><span class="line">        &lt;parameter name=&quot;modifyUserWSDLPortAddress&quot;&gt;true&lt;/parameter&gt;</span><br><span class="line">        &lt;operation name=&quot;orderRelationUpdateNotify&quot; mep=&quot;http://www.w3.org/ns/wsdl/in-out&quot; namespace=&quot;http://soap.bossagent.vac.unicom.com&quot;&gt;</span><br><span class="line">            &lt;actionMapping&gt;http://soap.bossagent.vac.unicom.com/SyncNotifySPService/orderRelationUpdateNotifyRequest&lt;/actionMapping&gt;</span><br><span class="line">            &lt;outputActionMapping&gt;http://soap.bossagent.vac.unicom.com/SyncNotifySPService/orderRelationUpdateNotifyResponse&lt;/outputActionMapping&gt;</span><br><span class="line">        &lt;/operation&gt;</span><br><span class="line">    &lt;/service&gt;</span><br><span class="line">&lt;/serviceGroup&gt;</span><br></pre></td></tr></table></figure></p>
+<p>修改services.xml为<br>[code lang=”xml” highlight=”10,11”]<br>&lt;?xml version=”1.0” encoding=”UTF-8”?&gt;<br><!-- This file was auto-generated from WSDL --><br><!-- by the Apache Axis2 version: 1.6.1  Built on : Aug 31, 2011 (12:22:40 CEST) --></p>
+<p><servicegroup><br>    <service name="SyncNotifySPServiceService"><br>        <messagereceivers><br>            <messagereceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.bjhrrh.vac.syncservice.SyncNotifySPServiceServiceMessageReceiverInOut"><br>        </messagereceiver></messagereceivers><br>        <parameter name="ServiceClass">com.bjhrrh.vac.syncservice.SyncNotifySPServiceServiceSkeleton</parameter><br>        <parameter name="SpringBeanName">syncNotifySPServiceServiceSkeleton</parameter><br>        <parameter name="useOriginalwsdl">false</parameter><br>        <parameter name="modifyUserWSDLPortAddress">true</parameter><br>        <operation name="orderRelationUpdateNotify" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://soap.bossagent.vac.unicom.com"><br>            <actionmapping><a href="http://soap.bossagent.vac.unicom.com/SyncNotifySPService/orderRelationUpdateNotifyRequest" target="_blank" rel="external">http://soap.bossagent.vac.unicom.com/SyncNotifySPService/orderRelationUpdateNotifyRequest</a></actionmapping><br>            <outputactionmapping><a href="http://soap.bossagent.vac.unicom.com/SyncNotifySPService/orderRelationUpdateNotifyResponse" target="_blank" rel="external">http://soap.bossagent.vac.unicom.com/SyncNotifySPService/orderRelationUpdateNotifyResponse</a></outputactionmapping><br>        </operation><br>    </service><br></servicegroup><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">SpringBeanName的值与spring中配置的bean一致</span><br><span class="line">useOriginalwsdl设置为false时,由axis2生成wsdl文件</span><br><span class="line"></span><br><span class="line">**4.测试代码**</span><br><span class="line">```java</span><br><span class="line">	public class Test &#123;</span><br><span class="line">	static SyncNotifySPServiceServiceStub service;</span><br><span class="line"></span><br><span class="line">	static &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			service = new SyncNotifySPServiceServiceStub(&quot;http://localhost:8080/vacsyncservice/services/SyncNotifySPServiceService&quot;);</span><br><span class="line">		&#125; catch (AxisFault e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) throws RemoteException &#123;</span><br><span class="line">		System.out.println(&quot;begin...&quot;);</span><br><span class="line">		OrderRelationUpdateNotify orderRelationUpdateNotify = new OrderRelationUpdateNotify();</span><br><span class="line">		OrderRelationUpdateNotifyRequest param = new OrderRelationUpdateNotifyRequest();</span><br><span class="line">		orderRelationUpdateNotify.setOrderRelationUpdateNotifyRequest(param);</span><br><span class="line">		OrderRelationUpdateNotifyResponseE respE = service.orderRelationUpdateNotify(orderRelationUpdateNotify);</span><br><span class="line">		OrderRelationUpdateNotifyResponse resp = respE.getOrderRelationUpdateNotifyReturn();</span><br><span class="line">		System.out.println(&quot;ResultCode:&quot; + resp.getResultCode());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Webservice/">Webservice</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2013/07/23/java/axis2+spring开发webservice服务器端/" data-title="axis2+spring开发webservice服务器端 | Hexo" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2013/07/30/java/tomcat 6配置sqlserver数据源(连接池)/" title="tomcat 6配置sqlserver数据源(连接池)">
+  <strong>上一篇：</strong><br/>
+  <span>
+  tomcat 6配置sqlserver数据源(连接池)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/07/04/android/androidsharing-content/"  title="Android:Sharing Content">
+ <strong>下一篇：</strong><br/> 
+ <span>Android:Sharing Content
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="shane">shane</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

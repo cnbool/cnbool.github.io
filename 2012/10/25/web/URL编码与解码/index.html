@@ -1,0 +1,598 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>URL编码与解码 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="shane">
+    
+
+    
+    <meta name="description" content="通常如果一样东西需要编码，说明这样东西并不适合传输。原因多种多样，如Size过大，包含隐私数据，对于Url来说，之所以要进行编码，是因为Url中有些字符会引起歧义。
+例如Url参数字符串中使用key=value键值对这样的形式来传参，键值对之间以&amp;amp;符号分隔，如/s?q=abc&amp;amp;ie=utf-8。如果你的value字符串中包含了=或者&amp;amp;，那么势必会造成接收Url的服务器解析错">
+<meta property="og:type" content="article">
+<meta property="og:title" content="URL编码与解码">
+<meta property="og:url" content="http://yoursite.com/2012/10/25/web/URL编码与解码/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="通常如果一样东西需要编码，说明这样东西并不适合传输。原因多种多样，如Size过大，包含隐私数据，对于Url来说，之所以要进行编码，是因为Url中有些字符会引起歧义。
+例如Url参数字符串中使用key=value键值对这样的形式来传参，键值对之间以&amp;amp;符号分隔，如/s?q=abc&amp;amp;ie=utf-8。如果你的value字符串中包含了=或者&amp;amp;，那么势必会造成接收Url的服务器解析错">
+<meta property="og:updated_time" content="2015-08-28T07:11:51.418Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="URL编码与解码">
+<meta name="twitter:description" content="通常如果一样东西需要编码，说明这样东西并不适合传输。原因多种多样，如Size过大，包含隐私数据，对于Url来说，之所以要进行编码，是因为Url中有些字符会引起歧义。
+例如Url参数字符串中使用key=value键值对这样的形式来传参，键值对之间以&amp;amp;符号分隔，如/s?q=abc&amp;amp;ie=utf-8。如果你的value字符串中包含了=或者&amp;amp;，那么势必会造成接收Url的服务器解析错">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2012/10/25/web/URL编码与解码/" title="URL编码与解码" itemprop="url">URL编码与解码</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2012-10-24T16:32:01.000Z" itemprop="datePublished"> 发表于 2012-10-25</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>通常如果一样东西需要编码，说明这样东西并不适合传输。原因多种多样，如Size过大，包含隐私数据，对于Url来说，之所以要进行编码，是因为Url中有些字符会引起歧义。</p>
+<p>例如Url参数字符串中使用key=value键值对这样的形式来传参，键值对之间以&amp;符号分隔，如/s?q=abc&amp;ie=utf-8。如果你的value字符串中包含了=或者&amp;，那么势必会造成接收Url的服务器解析错误，因此必须将引起歧义的&amp;和=符号进行转义，也就是对其进行编码。<a id="more"></a></p>
+<p>又如，Url的编码格式采用的是ASCII码，而不是Unicode，这也就是说你不能在Url中包含任何非ASCII字符，例如中文。否则如果客户端浏览器和服务端浏览器支持的字符集不同的情况下，中文可能会造成问题。</p>
+<p>Url编码的原则就是使用安全的字符（没有特殊用途或者特殊意义的可打印字符）去表示那些不安全的字符。</p>
+<p>预备知识：URI是统一资源标识的意思，通常我们所说的Url只是URI的一种。典型Url的格式如上面所示。下面提到的Url编码，实际上应该指的是URI编码。</p>
+<p>[code lang=”xml”]<br>foo://example.com:8042/over/there?name=ferret#nose<br>   <em>/ <strong><strong><strong>__</strong></strong></strong>/ <strong><em>__</em></strong>/<strong><em>__</em></strong></em>/ __/<br>    |         |              |         |        |<br>scheme     authority        path     query   fragment<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 哪些字符需要编码</span><br><span class="line"></span><br><span class="line">RFC3986文档规定，Url中只允许包含英文字母（a-zA-Z）、数字（0-9）、-_.~4个特殊字符以及所有保留字符。RFC3986文档对Url的编解码问题做出了详细的建议，指出了哪些字符需要被编码才不会引起Url语义的转变，以及对为什么这些字符需要编码做出了相应的解释。</span><br><span class="line"></span><br><span class="line">US-ASCII字符集中没有对应的可打印字符：Url中只允许使用可打印字符。US-ASCII码中的10-7F字节全都表示控制字符，这些字符都不能直接出现在Url中。同时，对于80-FF字节（ISO-8859-1），由于已经超出了US-ACII定义的字节范围，因此也不可以放在Url中。</span><br><span class="line"></span><br><span class="line">保留字符：Url可以划分成若干个组件，协议、主机、路径等。有一些字符（:/?#[]@）是用作分隔不同组件的。例如:冒号用于分隔协议和主机，/用于分隔主机和路径，?用于分隔路径和查询参数，等等。还有一些字符（!$&amp;&apos;()*+,;=）用于在每个组件中起到分隔作用的，如=用于表示查询参数中的键值对，&amp;符号用于分隔查询多个键值对。当组件中的普通数据包含这些特殊字符时，需要对其进行编码。</span><br><span class="line"></span><br><span class="line">RFC3986中指定了以下字符为保留字符：! * &apos; ( ) ; : @ &amp; = + $ , / ? # [ ]</span><br><span class="line"></span><br><span class="line">不安全字符：还有一些字符，当他们直接放在Url中的时候，可能会引起解析程序的歧义。这些字符被视为不安全字符，原因有很多。</span><br><span class="line"></span><br><span class="line">*   空格：Url在传输的过程，或者用户在排版的过程，或者文本处理程序在处理Url的过程，都有可能引入无关紧要的空格，或者将那些有意义的空格给去掉。</span><br><span class="line">*   引号以及&lt;&gt;：引号和尖括号通常用于在普通文本中起到分隔Url的作用</span><br><span class="line">*   #：通常用于表示书签或者锚点</span><br><span class="line">*   %：百分号本身用作对不安全字符进行编码时使用的特殊字符，因此本身需要编码</span><br><span class="line">*   &#123;&#125;|^[]`~：某一些网关或者传输代理会篡改这些字符</span><br><span class="line">需要注意的是，对于Url中的合法字符，编码和不编码是等价的，但是对于上面提到的这些字符，如果不经过编码，那么它们有可能会造成Url语义的不同。因此对于Url而言，只有普通英文字符和数字，特殊字符$-_.+!*&apos;()还有保留字符，才能出现在未经编码的Url之中。其他字符均需要经过编码之后才能出现在Url中。</span><br><span class="line"></span><br><span class="line">但是由于历史原因，目前尚存在一些不标准的编码实现。例如对于~符号，虽然RFC3986文档规定，对于波浪符号~，不需要进行Url编码，但是还是有很多老的网关或者传输代理会。</span><br><span class="line"></span><br><span class="line">#### 如何对Url中的非法字符进行编码</span><br><span class="line"></span><br><span class="line">Url编码通常也被称为百分号编码（Url Encoding，also known as percent-encoding），是因为它的编码方式非常简单，使用%百分号加上两位的字符——0123456789ABCDEF——代表一个字节的十六进制形式。Url编码默认使用的字符集是US-ASCII。例如a在US-ASCII码中对应的字节是0x61，那么Url编码之后得到的就是%61，我们在地址栏上输入http://g.cn/search?q=%61%62%63，实际上就等同于在google上搜索abc了。又如@符号在ASCII字符集中对应的字节为0x40，经过Url编码之后得到的是%40。</span><br><span class="line"></span><br><span class="line">对于非ASCII字符，需要使用ASCII字符集的超集进行编码得到相应的字节，然后对每个字节执行百分号编码。对于Unicode字符，RFC文档建议使用utf-8对其进行编码得到相应的字节，然后对每个字节执行百分号编码。如&quot;中文&quot;使用UTF-8字符集得到的字节为0xE4 0xB8 0xAD 0xE6 0x96 0x87，经过Url编码之后得到&quot;%E4%B8%AD%E6%96%87&quot;。</span><br><span class="line"></span><br><span class="line">如果某个字节对应着ASCII字符集中的某个非保留字符，则此字节无需使用百分号表示。例如&quot;Url编码&quot;，使用UTF-8编码得到的字节是0x55 0x72 0x6C 0xE7 0xBC 0x96 0xE7 0xA0 0x81，由于前三个字节对应着ASCII中的非保留字符&quot;Url&quot;，因此这三个字节可以用非保留字符&quot;Url&quot;表示。最终的Url编码可以简化成&quot;Url%E7%BC%96%E7%A0%81&quot; ，当然，如果你用&quot;%55%72%6C%E7%BC%96%E7%A0%81&quot;也是可以的。</span><br><span class="line"></span><br><span class="line">由于历史的原因，有一些Url编码实现并不完全遵循这样的原则，下面会提到。</span><br><span class="line"></span><br><span class="line">#### Javascript中的escape,encodeURI和encodeURIComponent的区别</span><br><span class="line"></span><br><span class="line">Javascript中提供了3对函数用来对Url编码以得到合法的Url，它们分别是escape / unescape,encodeURI / decodeURI和encodeURIComponent / decodeURIComponent。由于解码和编码的过程是可逆的，因此这里只解释编码的过程。</span><br><span class="line"></span><br><span class="line">这三个编码的函数——escape，encodeURI，encodeURIComponent——都是用于将不安全不合法的Url字符转换为合法的Url字符表示，它们有以下几个不同点。</span><br><span class="line"></span><br><span class="line">安全字符不同：</span><br><span class="line"></span><br><span class="line">下面列出了这三个函数的安全字符（即函数不会对这些字符进行编码）</span><br><span class="line"></span><br><span class="line">*   escape（69个）：*/@+-._0-9a-zA-Z</span><br><span class="line">*   encodeURI（82个）：!#$&amp;&apos;()*+,/:;=?@-._~0-9a-zA-Z</span><br><span class="line">*   encodeURIComponent（71个）：!&apos;()*-._~0-9a-zA-Z</span><br><span class="line">兼容性不同：escape函数是从Javascript1.0的时候就存在了，其他两个函数是在Javascript1.5才引入的。但是由于Javascript1.5已经非常普及了，所以实际上使用encodeURI和encodeURIComponent并不会有什么兼容性问题。</span><br><span class="line"></span><br><span class="line">对Unicode字符的编码方式不同：这三个函数对于ASCII字符的编码方式相同，均是使用百分号+两位十六进制字符来表示。但是对于Unicode字符，escape的编码方式是%uxxxx，其中的xxxx是用来表示unicode字符的4位十六进制字符。这种方式已经被W3C废弃了。但是在ECMA-262标准中仍然保留着escape的这种编码语法。encodeURI和encodeURIComponent则使用UTF-8对非ASCII字符进行编码，然后再进行百分号编码。这是RFC推荐的。因此建议尽可能的使用这两个函数替代escape进行编码。</span><br><span class="line"></span><br><span class="line">适用场合不同：encodeURI被用作对一个完整的URI进行编码，而encodeURIComponent被用作对URI的一个组件进行编码。从上面提到的安全字符范围表格来看，我们会发现，encodeURIComponent编码的字符范围要比encodeURI的大。我们上面提到过，保留字符一般是用来分隔URI组件（一个URI可以被切割成多个组件，参考预备知识一节）或者子组件（如URI中查询参数的分隔符），如:号用于分隔scheme和主机，?号用于分隔主机和路径。由于encodeURI操纵的对象是一个完整的的URI，这些字符在URI中本来就有特殊用途，因此这些保留字符不会被encodeURI编码，否则意义就变了。</span><br><span class="line"></span><br><span class="line">组件内部有自己的数据表示格式，但是这些数据内部不能包含有分隔组件的保留字符，否则就会导致整个URI中组件的分隔混乱。因此对于单个组件使用encodeURIComponent，需要编码的字符就更多了。</span><br><span class="line"></span><br><span class="line">#### 表单提交</span><br><span class="line"></span><br><span class="line">当Html的表单被提交时，每个表单域都会被Url编码之后才在被发送。由于历史的原因，表单使用的Url编码实现并不符合最新的标准。例如对于空格使用的编码并不是%20，而是+号，如果表单使用的是Post方法提交的，我们可以在HTTP头中看到有一个Content-Type的header，值为application/x-www-form-urlencoded。大部分应用程序均能处理这种非标准实现的Url编码，但是在客户端Javascript中，并没有一个函数能够将+号解码成空格，只能自己写转换函数。还有，对于非ASCII字符，使用的编码字符集取决于当前文档使用的字符集。例如我们在Html头部加上</span><br><span class="line"></span><br><span class="line">[code lang=&quot;xml&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>这样浏览器就会使用gb2312去渲染此文档（注意，当HTML文档中没有设置此meta标签，则浏览器会根据当前用户喜好去自动选择字符集，用户也可以强制当前网站使用某个指定的字符集）。当提交表单时，Url编码使用的字符集就是gb2312。</p>
+<p>之前在使用Aptana（为什么专指aptana下面会提到）遇到一个很迷惑的问题，就是在使用encodeURI的时候，发现它编码得到的结果和我想的很不一样。下面是我的示例代码：</p>
+<p>[code lang=”xml”]</p>
+<script type="text/javascript">// <![CDATA[
+            document.write(encodeURI("中文"));
+
+// ]]></script>
+
+<p>```</p>
+<p>运行结果输出%E6%B6%93%EE%85%9F%E6%9E%83。显然这并不是使用UTF-8字符集进行Url编码得到的结果（在Google上搜索”中文”，Url中显示的是%E4%B8%AD%E6%96%87）。</p>
+<p>所以我当时就很质疑，难道encodeURI还跟页面编码有关，但是我发现，正常情况下，如果你使用gb2312进行Url编码也不会得到这个结果的才是。后来终于被我发现，原来是页面文件存储使用的字符集和Meta标签中指定的字符集不一致导致的问题。Aptana的编辑器默认情况下使用UTF-8字符集。也就是说这个文件实际存储的时候使用的是UTF-8字符集。但是由于Meta标签中指定了gb2312，这个时候，浏览器就会按照gb2312去解析这个文档，那么自然在”中文”这个字符串这里就会出错，因为”中文”字符串用UTF-8编码过后得到的字节是0xE4 0xB8 0xAD 0xE6 0x96 0x87，这6个字节又被浏览器拿gb2312去解码，那么就会得到另外三个汉字”涓枃”（GBK中一个汉字占两个字节），这三个汉字在传入encodeURI函数之后得到的结果就是%E6%B6%93%EE%85%9F%E6%9E%83。因此，encodeURI使用的还是UTF-8，并不会受到页面字符集的影响。</p>
+<p>对于包含中文的Url的处理问题，不同浏览器有不同的表现。例如对于IE，如果你勾选了高级设置”总是以UTF-8发送Url”，那么Url中的路径部分的中文会使用UTF-8进行Url编码之后发送给服务端，而查询参数中的中文部分使用系统默认字符集进行Url编码。为了保证最大互操作性，建议所有放到Url中的组件全部显式指定某个字符集进行Url编码，而不依赖于浏览器的默认实现。</p>
+<p>另外，很多HTTP监视工具或者浏览器地址栏等在显示Url的时候会自动将Url进行一次解码（使用UTF-8字符集），这就是为什么当你在Firefox中访问Google搜索中文的时候，地址栏显示的Url包含中文的缘故。但实际上发送给服务端的原始Url还是经过编码的。你可以在地址栏上使用Javascript访问location.href就可以看出来了。在研究Url编解码的时候千万别被这些假象给迷惑了。</p>
+<p>转自:<a href="http://greatverve.cnblogs.com/archive/2011/12/12/URL-Encoding-Decoding.html" target="_blank" rel="external">http://greatverve.cnblogs.com/archive/2011/12/12/URL-Encoding-Decoding.html</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Web/">Web</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2012/10/25/web/URL编码与解码/" data-title="URL编码与解码 | Hexo" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2012/11/06/java/容器deque学习/" title="容器deque学习">
+  <strong>上一篇：</strong><br/>
+  <span>
+  容器deque学习</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2012/10/24/c#/C#Dictionary类/"  title="C# Dictionary类">
+ <strong>下一篇：</strong><br/> 
+ <span>C# Dictionary类
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="shane">shane</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

@@ -1,0 +1,1023 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="shane">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/9/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/08/14/mybatis/mybatis-example-jpetstore/" title="MyBatis Example:JPetStore" itemprop="url">MyBatis Example:JPetStore</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-08-13T16:28:38.000Z" itemprop="datePublished"> 发表于 2013-08-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="http://code.google.com/p/mybatis/下载JPetStore,了解下MyBatis怎么使用" target="_blank" rel="external">http://code.google.com/p/mybatis/下载JPetStore,了解下MyBatis怎么使用</a>.<br>JPetStore源代码包结构大体如下:<br>–domain<br>–persistence<br>–service<br>–web</p>
+<p>说明:<br>domain: 只包含属性和get,set方法的bean对象<br>persistence: 包含数据访问接口,类名字以Mapper结尾<br>service: 业务逻辑层<br>web: action层</p>
+<p>spring配置信息:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="comment">&lt;!--</span><br><span class="line">    Copyright 2010 The myBatis Team</span><br><span class="line"></span><br><span class="line">    Licensed under the Apache License, Version 2.0 (the "License");</span><br><span class="line">    you may not use this file except in compliance with the License.</span><br><span class="line">    You may obtain a copy of the License at</span><br><span class="line"></span><br><span class="line">        http://www.apache.org/licenses/LICENSE-2.0</span><br><span class="line"></span><br><span class="line">    Unless required by applicable law or agreed to in writing, software</span><br><span class="line">    distributed under the License is distributed on an "AS IS" BASIS,</span><br><span class="line">    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span><br><span class="line">    See the License for the specific language governing permissions and</span><br><span class="line">    limitations under the License.</span><br><span class="line">--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">     <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">     <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span></span><br><span class="line">     <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></span><br><span class="line">     <span class="attr">xmlns:jdbc</span>=<span class="string">"http://www.springframework.org/schema/jdbc"</span></span><br><span class="line">     <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span><br><span class="line">     <span class="attr">xsi:schemaLocation</span>=<span class="string">"</span><br><span class="line">     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd</span><br><span class="line">     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span><br><span class="line">     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd</span><br><span class="line">     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd</span><br><span class="line">     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">&lt;!-- in-memory database and a datasource --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jdbc:embedded-database</span> <span class="attr">id</span>=<span class="string">"dataSource"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdbc:script</span> <span class="attr">location</span>=<span class="string">"classpath:database/jpetstore-hsqldb-schema.sql"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdbc:script</span> <span class="attr">location</span>=<span class="string">"classpath:database/jpetstore-hsqldb-dataload.sql"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">jdbc:embedded-database</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- transaction manager, use JtaTransactionManager for global tx --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- enable component scanning (beware that this does not enable mapper scanning!) --&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"org.mybatis.jpetstore.service"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- enable autowire --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:annotation-config</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- enable transaction demarcation with annotations --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tx:annotation-driven</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- define the SqlSessionFactory --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"typeAliasesPackage"</span> <span class="attr">value</span>=<span class="string">"org.mybatis.jpetstore.domain"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- scan for mappers and let them be autowired --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.mapper.MapperScannerConfigurer"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"basePackage"</span> <span class="attr">value</span>=<span class="string">"org.mybatis.jpetstore.persistence"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>52-55: sqlSessionFactory有两个属性dataSource和domain包名<br>58-60: MapperScannerConfigurer类的basePackage属性指定了Mapper所在包,即persistence包</p>
+<p><strong> Mapper: </strong><br>org.mybatis.jpetstore.persistence.AccountMapper</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.mybatis.jpetstore.persistence;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.mybatis.jpetstore.domain.Account;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AccountMapper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function">Account <span class="title">getAccountByUsername</span><span class="params">(String username)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function">Account <span class="title">getAccountByUsernameAndPassword</span><span class="params">(Account account)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">insertAccount</span><span class="params">(Account account)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">insertProfile</span><span class="params">(Account account)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">insertSignon</span><span class="params">(Account account)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">updateAccount</span><span class="params">(Account account)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">updateProfile</span><span class="params">(Account account)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">updateSignon</span><span class="params">(Account account)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong> Mapper.xml: </strong><br>orgmybatisjpetstorepersistenceAccountMapper.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" </span><br><span class="line">"http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"org.mybatis.jpetstore.persistence.AccountMapper"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">cache</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getAccountByUsername"</span> <span class="attr">parameterType</span>=<span class="string">"string"</span> <span class="attr">resultType</span>=<span class="string">"Account"</span>&gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">          SIGNON.USERNAME,</span><br><span class="line">          ACCOUNT.EMAIL,</span><br><span class="line">          ACCOUNT.FIRSTNAME,</span><br><span class="line">          ACCOUNT.LASTNAME,</span><br><span class="line">          ACCOUNT.STATUS,</span><br><span class="line">          ACCOUNT.ADDR1 AS address1,</span><br><span class="line">          ACCOUNT.ADDR2 AS address2,</span><br><span class="line">          ACCOUNT.CITY,</span><br><span class="line">          ACCOUNT.STATE,</span><br><span class="line">          ACCOUNT.ZIP,</span><br><span class="line">          ACCOUNT.COUNTRY,</span><br><span class="line">          ACCOUNT.PHONE,</span><br><span class="line">          PROFILE.LANGPREF AS languagePreference,</span><br><span class="line">          PROFILE.FAVCATEGORY AS favouriteCategoryId,</span><br><span class="line">          PROFILE.MYLISTOPT AS listOption,</span><br><span class="line">          PROFILE.BANNEROPT AS bannerOption,</span><br><span class="line">          BANNERDATA.BANNERNAME</span><br><span class="line">    FROM ACCOUNT, PROFILE, SIGNON, BANNERDATA</span><br><span class="line">    WHERE ACCOUNT.USERID = #&#123;username&#125;</span><br><span class="line">      AND SIGNON.USERNAME = ACCOUNT.USERID</span><br><span class="line">      AND PROFILE.USERID = ACCOUNT.USERID</span><br><span class="line">      AND PROFILE.FAVCATEGORY = BANNERDATA.FAVCATEGORY</span><br><span class="line">  <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getAccountByUsernameAndPassword"</span> <span class="attr">parameterType</span>=<span class="string">"Account"</span> <span class="attr">resultType</span>=<span class="string">"Account"</span>&gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">      SIGNON.USERNAME,</span><br><span class="line">      ACCOUNT.EMAIL,</span><br><span class="line">      ACCOUNT.FIRSTNAME,</span><br><span class="line">      ACCOUNT.LASTNAME,</span><br><span class="line">      ACCOUNT.STATUS,</span><br><span class="line">      ACCOUNT.ADDR1 AS address1,</span><br><span class="line">      ACCOUNT.ADDR2 AS address2,</span><br><span class="line">      ACCOUNT.CITY,</span><br><span class="line">      ACCOUNT.STATE,</span><br><span class="line">      ACCOUNT.ZIP,</span><br><span class="line">      ACCOUNT.COUNTRY,</span><br><span class="line">      ACCOUNT.PHONE,</span><br><span class="line">      PROFILE.LANGPREF AS languagePreference,</span><br><span class="line">      PROFILE.FAVCATEGORY AS favouriteCategoryId,</span><br><span class="line">      PROFILE.MYLISTOPT AS listOption,</span><br><span class="line">      PROFILE.BANNEROPT AS bannerOption,</span><br><span class="line">      BANNERDATA.BANNERNAME</span><br><span class="line">    FROM ACCOUNT, PROFILE, SIGNON, BANNERDATA</span><br><span class="line">    WHERE ACCOUNT.USERID = #&#123;username&#125;</span><br><span class="line">      AND SIGNON.PASSWORD = #&#123;password&#125;</span><br><span class="line">      AND SIGNON.USERNAME = ACCOUNT.USERID</span><br><span class="line">      AND PROFILE.USERID = ACCOUNT.USERID</span><br><span class="line">      AND PROFILE.FAVCATEGORY = BANNERDATA.FAVCATEGORY</span><br><span class="line">  <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateAccount"</span> <span class="attr">parameterType</span>=<span class="string">"Account"</span>&gt;</span></span><br><span class="line">    UPDATE ACCOUNT SET</span><br><span class="line">      EMAIL = #&#123;email&#125;,</span><br><span class="line">      FIRSTNAME = #&#123;firstName&#125;,</span><br><span class="line">      LASTNAME = #&#123;lastName&#125;,</span><br><span class="line">      STATUS = #&#123;status&#125;,</span><br><span class="line">      ADDR1 = #&#123;address1&#125;,</span><br><span class="line">      ADDR2 = #&#123;address2,jdbcType=VARCHAR&#125;,</span><br><span class="line">      CITY = #&#123;city&#125;,</span><br><span class="line">      STATE = #&#123;state&#125;,</span><br><span class="line">      ZIP = #&#123;zip&#125;,</span><br><span class="line">      COUNTRY = #&#123;country&#125;,</span><br><span class="line">      PHONE = #&#123;phone&#125;</span><br><span class="line">    WHERE USERID = #&#123;username&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertAccount"</span> <span class="attr">parameterType</span>=<span class="string">"Account"</span>&gt;</span></span><br><span class="line">    INSERT INTO ACCOUNT</span><br><span class="line">      (EMAIL, FIRSTNAME, LASTNAME, STATUS, ADDR1, ADDR2, CITY, STATE, ZIP, COUNTRY, PHONE, USERID)</span><br><span class="line">    VALUES</span><br><span class="line">      (#&#123;email&#125;, #&#123;firstName&#125;, #&#123;lastName&#125;, #&#123;status&#125;, #&#123;address1&#125;,  #&#123;address2,jdbcType=VARCHAR&#125;, #&#123;city&#125;, #&#123;state&#125;, #&#123;zip&#125;, #&#123;country&#125;, #&#123;phone&#125;, #&#123;username&#125;)</span><br><span class="line">  <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--  </span><br><span class="line">  TODO MyBatis 3 does not map booleans to integers</span><br><span class="line">  &lt;update id="updateProfile" parameterType="Account"&gt;</span><br><span class="line">    UPDATE PROFILE SET</span><br><span class="line">      LANGPREF = #&#123;languagePreference&#125;,</span><br><span class="line">      FAVCATEGORY = #&#123;favouriteCategoryId&#125;,</span><br><span class="line">      MYLISTOPT = #&#123;listOption&#125;,</span><br><span class="line">      BANNEROPT = #&#123;bannerOption&#125;</span><br><span class="line">    WHERE USERID = #&#123;username&#125;</span><br><span class="line">  &lt;/update&gt;</span><br><span class="line">  --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateProfile"</span> <span class="attr">parameterType</span>=<span class="string">"Account"</span>&gt;</span></span><br><span class="line">    UPDATE PROFILE SET</span><br><span class="line">      LANGPREF = #&#123;languagePreference&#125;,</span><br><span class="line">      FAVCATEGORY = #&#123;favouriteCategoryId&#125;</span><br><span class="line">    WHERE USERID = #&#123;username&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!--  </span><br><span class="line">  TODO MyBatis 3 does not map booleans to integers</span><br><span class="line">  &lt;insert id="insertProfile" parameterType="Account"&gt;</span><br><span class="line">    INSERT INTO PROFILE (LANGPREF, FAVCATEGORY, MYLISTOPT, BANNEROPT, USERID)</span><br><span class="line">    VALUES (#&#123;languagePreference&#125;, #&#123;favouriteCategoryId&#125;, #&#123;listOption&#125;, #&#123;bannerOption&#125;, #&#123;username&#125;)</span><br><span class="line">  &lt;/insert&gt;</span><br><span class="line">  --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertProfile"</span> <span class="attr">parameterType</span>=<span class="string">"Account"</span>&gt;</span></span><br><span class="line">    INSERT INTO PROFILE (LANGPREF, FAVCATEGORY, USERID)</span><br><span class="line">    VALUES (#&#123;languagePreference&#125;, #&#123;favouriteCategoryId&#125;, #&#123;username&#125;)</span><br><span class="line">  <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateSignon"</span> <span class="attr">parameterType</span>=<span class="string">"Account"</span>&gt;</span></span><br><span class="line">    UPDATE SIGNON SET PASSWORD = #&#123;password&#125;</span><br><span class="line">    WHERE USERNAME = #&#123;username&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertSignon"</span> <span class="attr">parameterType</span>=<span class="string">"Account"</span>&gt;</span></span><br><span class="line">    INSERT INTO SIGNON (PASSWORD,USERNAME)</span><br><span class="line">    VALUES (#&#123;password&#125;, #&#123;username&#125;)</span><br><span class="line">  <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong> service: </strong><br>org.mybatis.jpetstore.service.AccountService</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.mybatis.jpetstore.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.mybatis.jpetstore.domain.Account;</span><br><span class="line"><span class="keyword">import</span> org.mybatis.jpetstore.persistence.AccountMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"><span class="keyword">import</span> org.springframework.transaction.annotation.Transactional;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  <span class="keyword">private</span> AccountMapper accountMapper;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Account <span class="title">getAccount</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> accountMapper.getAccountByUsername(username);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Account <span class="title">getAccount</span><span class="params">(String username, String password)</span> </span>&#123;</span><br><span class="line">    Account account = <span class="keyword">new</span> Account();</span><br><span class="line">    account.setUsername(username);</span><br><span class="line">    account.setPassword(password);</span><br><span class="line">    <span class="keyword">return</span> accountMapper.getAccountByUsernameAndPassword(account);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Transactional</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertAccount</span><span class="params">(Account account)</span> </span>&#123;</span><br><span class="line">    accountMapper.insertAccount(account);</span><br><span class="line">    accountMapper.insertProfile(account);</span><br><span class="line">    accountMapper.insertSignon(account);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Transactional</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateAccount</span><span class="params">(Account account)</span> </span>&#123;</span><br><span class="line">    accountMapper.updateAccount(account);</span><br><span class="line">    accountMapper.updateProfile(account);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (account.getPassword() != <span class="keyword">null</span> &amp;&amp; account.getPassword().length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      accountMapper.updateSignon(account);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/mybatis/">mybatis</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/08/13/java/工具类：HttpURLConnection模板/" title="工具类：HttpURLConnection模板" itemprop="url">工具类：HttpURLConnection模板</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-08-12T18:00:14.000Z" itemprop="datePublished"> 发表于 2013-08-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <a id="more"></a>
+<p><strong>源码:</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cnbool.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.net.HttpURLConnection;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * </span><br><span class="line"> * <span class="doctag">@version</span> 1.0</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpURLConnTemplete</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String GET = <span class="string">"GET"</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String POST = <span class="string">"POST"</span>;</span><br><span class="line">	<span class="keyword">private</span> String mothod = GET;</span><br><span class="line">	<span class="keyword">private</span> InputStream in = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">private</span> HttpURLConnection httpConn = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DownloadHander</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(InputStream in)</span></span>;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleErr</span><span class="params">(InputStream in, <span class="keyword">int</span> respCode)</span></span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">download</span><span class="params">(URL url, DownloadHander downloadHander)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			httpConn = (HttpURLConnection) url.openConnection();</span><br><span class="line">			HttpURLConnection.setFollowRedirects(<span class="keyword">true</span>);</span><br><span class="line">			httpConn.setRequestMethod(mothod);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">if</span> (httpConn.getResponseCode() == <span class="number">200</span>) &#123;</span><br><span class="line">				in = httpConn.getInputStream();</span><br><span class="line">				<span class="keyword">if</span> (downloadHander != <span class="keyword">null</span>) &#123;</span><br><span class="line">					downloadHander.handle(in);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				in = httpConn.getErrorStream();</span><br><span class="line">				<span class="keyword">if</span> (downloadHander != <span class="keyword">null</span>) &#123;</span><br><span class="line">					downloadHander.handleErr(in, httpConn.getResponseCode());</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			<span class="keyword">throw</span> e;</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (in != <span class="keyword">null</span>) &#123;</span><br><span class="line">				in.close();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (httpConn != <span class="keyword">null</span>) &#123;</span><br><span class="line">				httpConn.disconnect();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRequestMethod</span><span class="params">(String method)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.mothod = method;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/08/12/java/java-thread/" title="java Thread" itemprop="url">java Thread</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-08-12T15:24:38.000Z" itemprop="datePublished"> 发表于 2013-08-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>java线程的状态Thread.State是枚举类型,它的值有:<br>NEW<br>至今尚未启动的线程处于这种状态。<br>RUNNABLE<br>正在 Java 虚拟机中执行的线程处于这种状态。<br>BLOCKED<br>受阻塞并等待某个监视器锁的线程处于这种状态。<br>WAITING<br>无限期地等待另一个线程来执行某一特定操作的线程处于这种状态。<br>TIMED_WAITING<br>等待另一个线程来执行取决于指定等待时间的操作的线程处于这种状态。<br>TERMINATED<br>已退出的线程处于这种状态。</p>
+<p>通过Thread.getState()可以得到线程的状态.<br>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2013/08/12/java/java-thread/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/07/30/java/tomcat 6配置sqlserver数据源(连接池)/" title="tomcat 6配置sqlserver数据源(连接池)" itemprop="url">tomcat 6配置sqlserver数据源(连接池)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-07-30T13:10:55.000Z" itemprop="datePublished"> 发表于 2013-07-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>1.1修改tomcat的conf文件夹下的context.xml配置文件<br>[code lang=”xml” highlight=”0,16-22”]</p>
+<context>
+
+<pre><code>&lt;!-- Default set of monitored resources --&gt;
+&lt;WatchedResource&gt;WEB-INF/web.xml&lt;/WatchedResource&gt;
+
+&lt;!-- Uncomment this to disable session persistence across Tomcat restarts --&gt;
+&lt;!--
+&lt;Manager pathname=&quot;&quot; /&gt;
+--&gt;
+
+&lt;!-- Uncomment this to enable Comet connection tacking (provides events
+     on session expiration as well as webapp lifecycle) --&gt;
+&lt;!--
+&lt;Valve className=&quot;org.apache.catalina.valves.CometConnectionManagerValve&quot; /&gt;
+--&gt;
+</code></pre>   <resource name="jdbc/TestDB" auth="Container" type="javax.sql.DataSource" maxactive="100" maxidle="30" maxwait="10000" username="sa" password="1234!@#$" driverclassname="net.sourceforge.jtds.jdbc.Driver" url="jdbc:jtds:sqlserver://192.168.0.250:1433;databaseName=4test">
+
+<p></p></resource></context><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--more--&gt;</span><br><span class="line">1.2在项目的web.xml中加入资源引用</span><br><span class="line">[code lang=&quot;xml&quot;]</span><br><span class="line">  &lt;resource-ref&gt;</span><br><span class="line">      &lt;description&gt;DB Connection&lt;/description&gt;</span><br><span class="line">      &lt;res-ref-name&gt;jdbc/TestDB&lt;/res-ref-name&gt;</span><br><span class="line">      &lt;res-type&gt;javax.sql.DataSource&lt;/res-type&gt;</span><br><span class="line">      &lt;res-auth&gt;Container&lt;/res-auth&gt;</span><br><span class="line">  &lt;/resource-ref&gt;</span><br></pre></td></tr></table></figure><p></p>
+<p>1.3 spring中使用数据源<br>[code lang=”xml”]<br>    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"><br>        <property name="jndiName"><br>            <value>java:comp/env/jdbc/TestDB</value><br>        </property><br>    </bean><br>```</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Tomcat/">Tomcat</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/07/23/java/axis2+spring开发webservice服务器端/" title="axis2+spring开发webservice服务器端" itemprop="url">axis2+spring开发webservice服务器端</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-07-22T16:34:56.000Z" itemprop="datePublished"> 发表于 2013-07-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>需求:开发VAC与SP间订购通知接口服务器端(SP端),给定VacSyncService_SPClient.wsdl文件</p>
+<p>首先,官网下载axis2-1.6.2-bin.zip和axis2-1.6.2-war.zip<br>axis2-1.6.2-bin.zip包含axis2的jar包,工具和例子<br>axis2-1.6.2-war.zip包含了axis2的web应用,发布web服务时,将自己的程序以特定文件结构发布到axis2的web应用的service目录中<br>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2013/07/23/java/axis2+spring开发webservice服务器端/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Webservice/">Webservice</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/07/04/android/androidsharing-content/" title="Android:Sharing Content" itemprop="url">Android:Sharing Content</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-07-03T17:33:25.000Z" itemprop="datePublished"> 发表于 2013-07-04</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="1-Sending-Content-to-Other-Apps"><a href="#1-Sending-Content-to-Other-Apps" class="headerlink" title="1.Sending Content to Other Apps"></a>1.Sending Content to Other Apps</h1><h2 id="Send-Text-Content"><a href="#Send-Text-Content" class="headerlink" title="Send Text Content"></a>Send Text Content</h2><hr>
+<pre>Intent sendIntent = new Intent();
+sendIntent.setAction(Intent.ACTION_SEND);
+sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+sendIntent.setType("text/plain");
+startActivity(**Intent.createChooser(sendIntent, getResources().getText(R.string.send_to))**);</pre>
+
+<h2 id="Send-Binary-Content"><a href="#Send-Binary-Content" class="headerlink" title="Send Binary Content"></a>Send Binary Content</h2><hr>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2013/07/04/android/androidsharing-content/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Other/">Other</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/07/03/android/androidsending-the-user-to-another-app/" title="Android:Interacting with Other Apps" itemprop="url">Android:Interacting with Other Apps</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-07-03T14:07:51.000Z" itemprop="datePublished"> 发表于 2013-07-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="1-Sending-the-User-to-Another-App"><a href="#1-Sending-the-User-to-Another-App" class="headerlink" title="1.Sending the User to Another App"></a>1.Sending the User to Another App</h1><p>This lesson shows you how to create an implicit intent for a particular action, and how to use it to start an activity that performs the action in another app.<br>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2013/07/03/android/androidsending-the-user-to-another-app/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Android/">Android</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/07/03/sqlserver/sqlserver触发器/" title="sqlserver触发器" itemprop="url">sqlserver触发器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-07-03T13:28:29.000Z" itemprop="datePublished"> 发表于 2013-07-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>Instead of 和 After触发器</strong><br>SQL Server2000提供了两种触发器:Instead of 和After 触发器。<br>Instead of触发器用于替代引起触发器执行的T-SQL语句。除表之外,Instead of 触发器也可以用于视图,用来扩展视图可以支持的更新操作。<br>After触发器在一个Insert,Update或Deleted语句之后执行,进行约束检查等动作都在After触发器被激活之前发生。After触发器只能用于表。<br>一个表或视图的每一个修改动作(insert,update和delete)都可以有一个instead of 触发器,一个表的每个修改动作都可以有多个After触发器。<br>例子:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> user_info_insert</span><br><span class="line"><span class="keyword">on</span> user_info</span><br><span class="line"><span class="keyword">after</span> <span class="keyword">insert</span></span><br><span class="line"><span class="keyword">as</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> user_log(phone_num, oper_type, oper_way, oper_time) </span><br><span class="line"><span class="keyword">select</span> phone_num, <span class="number">0</span>, <span class="number">4</span>, <span class="keyword">getdate</span>() <span class="keyword">from</span> inserted</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> user_info_update</span><br><span class="line"><span class="keyword">on</span> user_info</span><br><span class="line"><span class="keyword">after</span> <span class="keyword">update</span></span><br><span class="line"><span class="keyword">as</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> user_log(phone_num, oper_type, oper_way, oper_time) </span><br><span class="line"><span class="keyword">select</span> phone_num, <span class="number">1</span>, <span class="number">4</span>, <span class="keyword">getdate</span>() <span class="keyword">from</span> deleted</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">trigger</span> user_info_delete</span><br><span class="line"><span class="keyword">on</span> user_info</span><br><span class="line"><span class="keyword">after</span> <span class="keyword">delete</span></span><br><span class="line"><span class="keyword">as</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> user_log(phone_num, oper_type, oper_way, oper_time) </span><br><span class="line"><span class="keyword">select</span> phone_num, <span class="number">2</span>, <span class="number">4</span>, <span class="keyword">getdate</span>() <span class="keyword">from</span> deleted</span><br></pre></td></tr></table></figure></p>
+<p>部分内容源自:<a href="http://www.cnblogs.com/gsk99/archive/2011/08/31/2160973.html" target="_blank" rel="external">http://www.cnblogs.com/gsk99/archive/2011/08/31/2160973.html</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/SqlServer/">SqlServer</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/06/19/android/安卓应用public-key/" title="安卓应用public key" itemprop="url">安卓应用public key</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-06-18T16:44:23.000Z" itemprop="datePublished"> 发表于 2013-06-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetPublicKey</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 获取签名公钥</span><br><span class="line">	 * </span><br><span class="line">	 * <span class="doctag">@param</span> mContext</span><br><span class="line">	 * <span class="doctag">@return</span></span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">static</span> String <span class="title">getSignInfo</span><span class="params">(Context mContext)</span> </span>&#123;</span><br><span class="line">		String signcode = <span class="string">""</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			PackageInfo packageInfo = mContext.getPackageManager()</span><br><span class="line">					.getPackageInfo(GetAppInfo.getPackageName(mContext),</span><br><span class="line">							PackageManager.GET_SIGNATURES);</span><br><span class="line">			Signature[] signs = packageInfo.signatures;</span><br><span class="line">			Signature sign = signs[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">			signcode = parseSignature(sign.toByteArray());</span><br><span class="line">			signcode = signcode.toLowerCase();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">			<span class="comment">// Log.e(Constants.TAG, e.getMessage(), e);</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> signcode;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">static</span> String <span class="title">parseSignature</span><span class="params">(<span class="keyword">byte</span>[] signature)</span> </span>&#123;</span><br><span class="line">		String sign = <span class="string">""</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			CertificateFactory certFactory = CertificateFactory</span><br><span class="line">					.getInstance(<span class="string">"X.509"</span>);</span><br><span class="line">			X509Certificate cert = (X509Certificate) certFactory</span><br><span class="line">					.generateCertificate(<span class="keyword">new</span> ByteArrayInputStream(signature));</span><br><span class="line">			String pubKey = cert.getPublicKey().toString();</span><br><span class="line">			String ss = subString(pubKey);</span><br><span class="line">			ss = ss.replace(<span class="string">","</span>, <span class="string">""</span>);</span><br><span class="line">			ss = ss.toLowerCase();</span><br><span class="line">			<span class="keyword">int</span> aa = ss.indexOf(<span class="string">"modulus"</span>);</span><br><span class="line">			<span class="keyword">int</span> bb = ss.indexOf(<span class="string">"publicexponent"</span>);</span><br><span class="line">			sign = ss.substring(aa + <span class="number">8</span>, bb);</span><br><span class="line">		&#125; <span class="keyword">catch</span> (CertificateException e) &#123;</span><br><span class="line">			<span class="comment">// Log.e(Constants.TAG, e.getMessage(), e);</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> sign;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">subString</span><span class="params">(String sub)</span> </span>&#123;</span><br><span class="line">		Pattern pp = Pattern.compile(<span class="string">"\s*|t|r|n"</span>);</span><br><span class="line">		Matcher mm = pp.matcher(sub);</span><br><span class="line">		<span class="keyword">return</span> mm.replaceAll(<span class="string">""</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Android/">Android</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/06/18/android/读小宾代码记/" title="读小宾代码记" itemprop="url">读小宾代码记</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-06-18T10:40:25.000Z" itemprop="datePublished"> 发表于 2013-06-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>判断网络是否可用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isNetworkAvailable</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">	ConnectivityManager connectivity = (ConnectivityManager) context</span><br><span class="line">			.getSystemService(Context.CONNECTIVITY_SERVICE);</span><br><span class="line">	<span class="keyword">if</span> (connectivity == <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		NetworkInfo[] info = connectivity.getAllNetworkInfo();</span><br><span class="line">		<span class="keyword">if</span> (info != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; info.length; i++) &#123;</span><br><span class="line">				<span class="keyword">if</span> (info[i].getState() == NetworkInfo.State.CONNECTED) &#123;</span><br><span class="line">					<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2013/06/18/android/读小宾代码记/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Android/">Android</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/8/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/10/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="shane">shane</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

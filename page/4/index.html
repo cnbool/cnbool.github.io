@@ -47,7 +47,7 @@
 				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -65,7 +65,7 @@
  					
 						<form class="search">
 							<label>Search</label>
-						<input type="text" id="ts-search-input" name="q" size="30" placeholder="Search"><br>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
@@ -82,21 +82,697 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2012/09/08/spring/spring-构造函数注入/" title="Spring 构造函数注入" itemprop="url">Spring 构造函数注入</a>
+      <a href="/2015/06/08/linux/CentOS-网络相关命令/" title="CentOS网络相关命令" itemprop="url">CentOS网络相关命令</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
 		
   <p class="article-time">
-    <time datetime="2012-09-07T19:28:27.000Z" itemprop="datePublished"> Published 2012-09-08</time>
+    <time datetime="2015-06-08T07:38:16.000Z" itemprop="datePublished"> 发表于 2015-06-08</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.home;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">private</span> String country;</span><br><span class="line"></span><br><span class="line">    User(<span class="keyword">int</span> age, String country)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.age=age;</span><br><span class="line">        <span class="keyword">this</span>.country=country;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id=&quot;user&quot; class=&quot;com.home.User&quot; &gt;</span><br><span class="line">        &lt;constructor-arg index=&quot;0&quot; type=&quot;int&quot; value=&quot;24&quot;/&gt;</span><br><span class="line">        &lt;constructor-arg index=&quot;1&quot; type=&quot;java.lang.String&quot; value=&quot;China&quot;/&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+        <p><strong>查看网卡信息</strong></p>
+<pre><code>ifconfig
+
+
+**查看某块网卡流量**
+
+nload eth0
+
+
+**查看某网络端口状态**
+
+netstat -anp | grep 9998
+
+
+参数:
+
+-a (all)显示所有选项，默认不显示LISTEN相关
+-t (tcp)仅显示tcp相关选项
+-u (udp)仅显示udp相关选项
+-n 拒绝显示别名，能显示数字的全部转化成数字。
+-l 仅列出有在 Listen (监听) 的服務状态
+
+-p 显示建立相关链接的程序名
+-r 显示路由信息，路由表
+-e 显示扩展信息，例如uid等
+-s 按各个协议进行统计
+-c 每隔一个固定时间，执行该netstat命令。
+
+
+**查看socket信息**
+
+ss
+
+
+参数:
+
+-h, --help  帮助信息
+-V, --version   程序版本信息
+-n, --numeric   不解析服务名称
+-r, --resolve        解析主机名
+-a, --all   显示所有套接字（sockets）
+-l, --listening 显示监听状态的套接字（sockets）
+-o, --options        显示计时器信息
+-e, --extended       显示详细的套接字（sockets）信息
+-m, --memory         显示套接字（socket）的内存使用情况
+-p, --processes 显示使用套接字（socket）的进程
+-i, --info  显示 TCP内部信息
+-s, --summary   显示套接字（socket）使用概况
+-4, --ipv4           仅显示IPv4的套接字（sockets）
+-6, --ipv6           仅显示IPv6的套接字（sockets）
+-0, --packet            显示 PACKET 套接字（socket）
+-t, --tcp   仅显示 TCP套接字（sockets）
+-u, --udp   仅显示 UCP套接字（sockets）
+-d, --dccp  仅显示 DCCP套接字（sockets）
+-w, --raw   仅显示 RAW套接字（sockets）
+-x, --unix  仅显示 Unix套接字（sockets）
+-f, --family=FAMILY  显示 FAMILY类型的套接字（sockets），FAMILY可选，支持  unix, inet, inet6, link, netlink
+-A, --query=QUERY, --socket=QUERY
+      QUERY := {all|inet|tcp|udp|raw|unix|packet|netlink}[,QUERY]
+-D, --diag=FILE     将原始TCP套接字（sockets）信息转储到文件
+ -F, --filter=FILE   从文件中都去过滤器信息
+       FILTER := [ state TCP-STATE ] [ EXPRESSION ]
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/CentOS/">CentOS</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/06/08/java/java枚举类型的使用/" title="java枚举类型的使用" itemprop="url">java枚举类型的使用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2015-06-08T06:42:45.000Z" itemprop="datePublished"> 发表于 2015-06-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <pre><code>public enum NodeType {
+TYPE_BEGIN(&quot;是否区分上下班&quot;, 0),
+TYPE_WORK_REST(&quot;区分上下班[上下班时间]&quot;, 1),
+TYPE_TO_EXTENSION(&quot;提示用户拨分机号&quot;, 2),
+TYPE_SPECIFY_KEY(&quot;进入下级菜单&quot;, 3),
+TYPE_CALL_MANUAL_SERVICE(&quot;呼叫指定分机&quot;, 4),
+TYPE_LEAVE_MESSAGE(&quot;语音提示&quot;, 5),
+TYPE_REPLAY_VOICE(&quot;重放语音提示&quot;, 6),
+TYPE_AREA_ROUTE(&quot;区域路由&quot;, 7),
+TYPE_RETURN(&quot;返回上一级&quot;, 8),
+TYPE_RETURN_TOP(&quot;返回第一级&quot;, 9);
+
+int type;
+String name;
+
+NodeType(String name, int type) {
+    this.name = name;
+    this.type = type;
+}
+
+public static NodeType valueOf(Integer type) {
+    for (NodeType nodeType : NodeType.values()) {
+        if (type.equals(nodeType.getType())) {
+            return nodeType;
+        }
+    }
+    return null;
+}
+
+public int getType() {
+    return type;
+}
+
+public String getName() {
+    return name;
+}
+
+public String toString() {
+    return name;
+}
+
+}
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/04/27/java/科大讯飞在线语音合成Java SDK使用/" title="科大讯飞在线语音合成Java SDK使用" itemprop="url">科大讯飞在线语音合成Java SDK使用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2015-04-27T06:37:33.000Z" itemprop="datePublished"> 发表于 2015-04-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>项目中需要将文本转换为语音,使用了科大讯飞在线语音合成SDK,因为离线语音合成是收费的.</p>
+<p><strong>获得appid</strong></p>
+<p>使用讯飞在线语音合成功能需要注册讯飞开放平台账号</p>
+<p>讯飞开放平台地址:<a href="http://www.xfyun.cn/" target="_blank" rel="external">http://www.xfyun.cn/</a></p>
+<p>注册账户后新建”应用”,”应用平台”选择”Java”</p>
+<p>新建好应用后可以查看到应用的<strong>appid</strong>,例如:5539b565,在代码中需要用到这个值.</p>
+<p><strong>集成Java SDK</strong></p>
+<p>下载SDK后,将开发工具包中 lib 目录下的 Msc.jar 复制到项目中并添加到Build Path(本地Java项目)</p>
+<p>将开发包中lib目录下的 libmsc64.so libmsc32.so msc64.dll msc32.dll 放入本地Java工程的根目录</p>
+<p>注意:在web项目中使用时,将 libmsc64.so libmsc32.so msc64.dll msc32.dll 放到jre/bin目录才可以调用</p>
+<p><strong>语音合成代码</strong></p>
+<p>首先需要初始化</p>
+<pre><code>SpeechUtility.createUtility(context, SpeechConstant.APPID +&quot;=5539b565&quot;);
+
+
+无声合成
+
+//1.创建 SpeechSynthesizer 对象
+SpeechSynthesizer mTts= SpeechSynthesizer.createSynthesizer( );
+//2.合成参数设置，详见《iFlytek MSC Reference Manual》 SpeechSynthesizer 类
+mTts.setParameter(SpeechConstant.VOICE_NAME, &quot;xiaoyan&quot;);//设置发音人
+mTts.setParameter(SpeechConstant.SPEED, &quot;50&quot;);//设置语速，范围 0~100
+mTts.setParameter(SpeechConstant.PITCH, &quot;50&quot;);//设置语调，范围 0~100
+mTts.setParameter(SpeechConstant.VOLUME, &quot;50&quot;);//设置音量，范围 0~100
+
+//合成监听器
+SynthesizeToUriListener synthesizeToUriListener = new SynthesizeToUriListener() {
+  //progress为合成进度0~100
+  public void onBufferProgress(int progress) {}
+  //会话合成完成回调接口
+  //uri为合成保存地址， error为错误信息，为null时表示合成会话成功
+  public void onSynthesizeCompleted(String uri, SpeechError error) {}
+};
+
+//3.开始合成
+//设置合成音频保存位置（可自定义保存位置），默认保存在“./iflytek.pcm”
+mTts.synthesizeToUri(&quot;科大讯飞语音合成测试程序&quot;, &quot;D:/test.pcm&quot;,synthesizeToUriListener);
+
+
+* * *
+
+合成的pcm格式音频采样率16k,采样精度16bit
+
+需要将合成的pcm添加wav头部,变为wav格式
+
+网站找到一个工具类,可以给pcm文件加入wav头部,代码如下:
+
+public class WavWriter {
+    /** constant define */
+    private static final int SIZE_OF_WAVE_HEADER = 44;
+    private static final String CHUNK_ID = &quot;RIFF&quot;;
+    private static final String FORMAT = &quot;WAVE&quot;;
+    private static final String SUB_CHUNK1_ID = &quot;fmt &quot;;
+    private static final int SUB_CHUNK1_SIZE = 16;
+    private static final String SUB_CHUNK2_ID = &quot;data&quot;;
+    private static final short FORMAT_PCM = 1; // Indicates PCM format.
+    private static final short DEFAULT_NUM_CHANNELS = 1;
+    private static final short DEFAULT_BITS_PER_SAMPLE = 16;
+
+    /** member properties */
+    private RandomAccessFile mInternalWriter;
+    private short mNumChannels;
+    private int mSampleRate;
+    private short mBitsPerSample;
+
+    public WavWriter(File file,int sample) throws IOException {
+        init(file, DEFAULT_NUM_CHANNELS, sample,
+                DEFAULT_BITS_PER_SAMPLE);
+    }
+
+    private boolean init(File file, short numChannels, int sampleRate,
+            short bitsPerSample) throws IOException {
+        if (null == file)
+            return false;
+
+        mInternalWriter = new RandomAccessFile(file, &quot;rw&quot;);
+        if (null == mInternalWriter)
+            return false;
+
+        mNumChannels = numChannels;
+        mSampleRate = sampleRate;
+        mBitsPerSample = bitsPerSample;
+        byte[] buffer = new byte[SIZE_OF_WAVE_HEADER];
+        mInternalWriter.write(buffer);
+        return true;
+    }
+
+    public void write(byte[] buffer) throws IOException {
+        mInternalWriter.write(buffer);
+    }
+
+    public void writeChars(String val) throws IOException {
+        for (int i = 0; i &lt; val.length(); i++)
+            mInternalWriter.write(val.charAt(i));
+    }
+
+    public void writeInt(int val) throws IOException {
+        mInternalWriter.write(val &gt;&gt; 0);
+        mInternalWriter.write(val &gt;&gt; 8);
+        mInternalWriter.write(val &gt;&gt; 16);
+        mInternalWriter.write(val &gt;&gt; 24);
+    }
+
+    public void writeShort(short val) throws IOException {
+        mInternalWriter.write(val &gt;&gt; 0);
+        mInternalWriter.write(val &gt;&gt; 8);
+    }
+
+    public int getDataSize() throws IOException {
+        return (int) (mInternalWriter.length() - SIZE_OF_WAVE_HEADER);
+    }
+
+    public void writeHeader() throws IOException {
+        /* RIFF header */
+        mInternalWriter.seek(0);
+        writeChars(CHUNK_ID);
+
+        writeInt(36 + getDataSize());
+        writeChars(FORMAT);
+
+        /** format chunk */
+        writeChars(SUB_CHUNK1_ID);
+        writeInt(SUB_CHUNK1_SIZE);
+        writeShort(FORMAT_PCM);
+        writeShort(mNumChannels);
+        writeInt(mSampleRate);
+
+        writeInt(mNumChannels * mSampleRate * mBitsPerSample / 8);
+        writeShort((short) (mNumChannels * mBitsPerSample / 8));
+        writeShort(mBitsPerSample);
+
+        /** data chunk */
+        writeChars(SUB_CHUNK2_ID);
+        writeInt(getDataSize());
+    }
+
+    public void close() throws IOException {
+        if (mInternalWriter != null) {
+            mInternalWriter.close();
+            mInternalWriter = null;
+        }
+    }
+}
+
+
+如果想把合成后的pcm音频转换成wav,合成监听器可以这么写:
+
+// 合成监听器
+SynthesizeToUriListener synthesizeToUriListener = new SynthesizeToUriListener() {
+    // progress为合成进度0~100
+    public void onBufferProgress(int progress) {
+    }
+
+    // 会话合成完成回调接口
+    // uri为合成保存地址， error为错误信息，为null时表示合成会话成功
+    public void onSynthesizeCompleted(String uri, SpeechError error) {
+        try {
+            if (error == null) {
+                File tmpWav = new File(uri);
+                if (tmpWav.exists() &amp;&amp; tmpWav.isFile()) {
+                    // 生成的PCM文件写入WAV头部
+                    WavWriter wavWriter = new WavWriter(tmpWav, 16000);
+                    wavWriter.writeHeader();
+                    tmpWav.delete();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
+    }
+};
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/04/23/java/java构造方法/" title="java构造方法" itemprop="url">java构造方法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2015-04-23T06:49:14.000Z" itemprop="datePublished"> 发表于 2015-04-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>java构造方法</strong></p>
+<p>子类无条件地继承父类的不含参数的构造方法。</p>
+<p>如果子类自己没有构造方法，则它将继承父类的无参数构造方法作为自己的构造方法；</p>
+<p>如果子类自己定义了构造方法，则在创建新对象时，它将先执行继承自父类的无参数构造方法，然后再执行自己的构造方法。</p>
+<p>对于父类含参数的构造方法，子类可以通过在自己的构造方法中使用 super 关键字来调用它，但这个调用语句必须是子类构造方法的第一个可执行语句</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/04/20/others/windows查询本地端口状况/" title="windows查询本地端口状况" itemprop="url">windows查询本地端口状况</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2015-04-20T04:12:36.000Z" itemprop="datePublished"> 发表于 2015-04-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>查询本地端口状况</strong></p>
+<pre><code>netstat -ano|findstr &quot;8080&quot;
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Windows/">Windows</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/03/30/java/java byte转无符号数/" title="java byte转无符号数" itemprop="url">java byte转无符号数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2015-03-30T04:15:54.000Z" itemprop="datePublished"> 发表于 2015-03-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>背景</strong></p>
+<p>解析byte格式的信令时候有两个这样的字段</p>
+<p>MSC信令点编码(OPC) 3 BYTE</p>
+<p>BSC信令点编码（OPC） 3 BYTE</p>
+<p>这两个字段是国内信令点编码(24位),需要解析成这样:4-254-39</p>
+<p><strong>java 中的byte</strong></p>
+<p>国内信令点编码范围是0~255</p>
+<p>java中的byte类型是8位有符号的,取值范围-128~127</p>
+<p><strong>byte中的值转化为无符号数</strong></p>
+<pre><code>byte b = -3;
+int i = b &amp; 0xff;
+</code></pre><p>此时i中的值即为byte所含值的无符号数</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/03/26/java/正则表达式记录/" title="正则表达式记录" itemprop="url">正则表达式记录</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2015-03-26T03:39:34.000Z" itemprop="datePublished"> 发表于 2015-03-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>匹配汉字和字母</strong></p>
+<pre><code>[\u4E00-\u9FA5|\w]{20}
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Other/">Other</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/28/spring/spring-mvc-interceptor/" title="spring mvc interceptor" itemprop="url">spring mvc interceptor</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2014-10-28T14:17:02.000Z" itemprop="datePublished"> 发表于 2014-10-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>HandlerInterceptor接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Workflow interface that allows for customized handler execution chains.</span><br><span class="line"> * Applications can register any number of existing or custom interceptors</span><br><span class="line"> * for certain groups of handlers, to add common preprocessing behavior</span><br><span class="line"> * without needing to modify each handler implementation.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;A HandlerInterceptor gets called before the appropriate HandlerAdapter</span><br><span class="line"> * triggers the execution of the handler itself. This mechanism can be used</span><br><span class="line"> * for a large field of preprocessing aspects, e.g. for authorization checks,</span><br><span class="line"> * or common handler behavior like locale or theme changes. Its main purpose</span><br><span class="line"> * is to allow for factoring out repetitive handler code.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;In an async processing scenario, the handler may be executed in a separate</span><br><span class="line"> * thread while the main thread exits without rendering or invoking the</span><br><span class="line"> * &#123;<span class="doctag">@code</span> postHandle&#125; and &#123;<span class="doctag">@code</span> afterCompletion&#125; callbacks. When concurrent</span><br><span class="line"> * handler execution completes, the request is dispatched back in order to</span><br><span class="line"> * proceed with rendering the model and all methods of this contract are invoked</span><br><span class="line"> * again. For further options and details see</span><br><span class="line"> * &#123;<span class="doctag">@code</span> org.springframework.web.servlet.AsyncHandlerInterceptor&#125;</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;Typically an interceptor chain is defined per HandlerMapping bean,</span><br><span class="line"> * sharing its granularity. To be able to apply a certain interceptor chain</span><br><span class="line"> * to a group of handlers, one needs to map the desired handlers via one</span><br><span class="line"> * HandlerMapping bean. The interceptors themselves are defined as beans</span><br><span class="line"> * in the application context, referenced by the mapping bean definition</span><br><span class="line"> * via its "interceptors" property (in XML: a &lt;list&gt; of &lt;ref&gt;).</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;HandlerInterceptor is basically similar to a Servlet 2.3 Filter, but in</span><br><span class="line"> * contrast to the latter it just allows custom pre-processing with the option</span><br><span class="line"> * of prohibiting the execution of the handler itself, and custom post-processing.</span><br><span class="line"> * Filters are more powerful, for example they allow for exchanging the request</span><br><span class="line"> * and response objects that are handed down the chain. Note that a filter</span><br><span class="line"> * gets configured in web.xml, a HandlerInterceptor in the application context.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;As a basic guideline, fine-grained handler-related preprocessing tasks are</span><br><span class="line"> * candidates for HandlerInterceptor implementations, especially factored-out</span><br><span class="line"> * common handler code and authorization checks. On the other hand, a Filter</span><br><span class="line"> * is well-suited for request content and view content handling, like multipart</span><br><span class="line"> * forms and GZIP compression. This typically shows when one needs to map the</span><br><span class="line"> * filter to certain content types (e.g. images), or to all requests.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@author</span> Juergen Hoeller</span><br><span class="line"> * <span class="doctag">@since</span> 20.06.2003</span><br><span class="line"> * <span class="doctag">@see</span> HandlerExecutionChain#getInterceptors</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.handler.HandlerInterceptorAdapter</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.handler.AbstractHandlerMapping#setInterceptors</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.i18n.LocaleChangeInterceptor</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.theme.ThemeChangeInterceptor</span><br><span class="line"> * <span class="doctag">@see</span> javax.servlet.Filter</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Intercept the execution of a handler. Called after HandlerMapping determined</span><br><span class="line">	 * an appropriate handler object, but before HandlerAdapter invokes the handler.</span><br><span class="line">	 * &lt;p&gt;DispatcherServlet processes a handler in an execution chain, consisting</span><br><span class="line">	 * of any number of interceptors, with the handler itself at the end.</span><br><span class="line">	 * With this method, each interceptor can decide to abort the execution chain,</span><br><span class="line">	 * typically sending a HTTP error or writing a custom response.</span><br><span class="line">	 * <span class="doctag">@param</span> request current HTTP request</span><br><span class="line">	 * <span class="doctag">@param</span> response current HTTP response</span><br><span class="line">	 * <span class="doctag">@param</span> handler chosen handler to execute, for type and/or instance evaluation</span><br><span class="line">	 * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if the execution chain should proceed with the</span><br><span class="line">	 * next interceptor or the handler itself. Else, DispatcherServlet assumes</span><br><span class="line">	 * that this interceptor has already dealt with the response itself.</span><br><span class="line">	 * <span class="doctag">@throws</span> Exception in case of errors</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span></span><br><span class="line">	    <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Intercept the execution of a handler. Called after HandlerAdapter actually</span><br><span class="line">	 * invoked the handler, but before the DispatcherServlet renders the view.</span><br><span class="line">	 * Can expose additional model objects to the view via the given ModelAndView.</span><br><span class="line">	 * &lt;p&gt;DispatcherServlet processes a handler in an execution chain, consisting</span><br><span class="line">	 * of any number of interceptors, with the handler itself at the end.</span><br><span class="line">	 * With this method, each interceptor can post-process an execution,</span><br><span class="line">	 * getting applied in inverse order of the execution chain.</span><br><span class="line">	 * <span class="doctag">@param</span> request current HTTP request</span><br><span class="line">	 * <span class="doctag">@param</span> response current HTTP response</span><br><span class="line">	 * <span class="doctag">@param</span> handler handler (or &#123;<span class="doctag">@link</span> HandlerMethod&#125;) that started async</span><br><span class="line">	 * execution, for type and/or instance examination</span><br><span class="line">	 * <span class="doctag">@param</span> modelAndView the &#123;<span class="doctag">@code</span> ModelAndView&#125; that the handler returned</span><br><span class="line">	 * (can also be &#123;<span class="doctag">@code</span> null&#125;)</span><br><span class="line">	 * <span class="doctag">@throws</span> Exception in case of errors</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(</span><br><span class="line">			HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span></span><br><span class="line">			<span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Callback after completion of request processing, that is, after rendering</span><br><span class="line">	 * the view. Will be called on any outcome of handler execution, thus allows</span><br><span class="line">	 * for proper resource cleanup.</span><br><span class="line">	 * &lt;p&gt;Note: Will only be called if this interceptor's &#123;<span class="doctag">@code</span> preHandle&#125;</span><br><span class="line">	 * method has successfully completed and returned &#123;<span class="doctag">@code</span> true&#125;!</span><br><span class="line">	 * &lt;p&gt;As with the &#123;<span class="doctag">@code</span> postHandle&#125; method, the method will be invoked on each</span><br><span class="line">	 * interceptor in the chain in reverse order, so the first interceptor will be</span><br><span class="line">	 * the last to be invoked.</span><br><span class="line">	 * <span class="doctag">@param</span> request current HTTP request</span><br><span class="line">	 * <span class="doctag">@param</span> response current HTTP response</span><br><span class="line">	 * <span class="doctag">@param</span> handler handler (or &#123;<span class="doctag">@link</span> HandlerMethod&#125;) that started async</span><br><span class="line">	 * execution, for type and/or instance examination</span><br><span class="line">	 * <span class="doctag">@param</span> ex exception thrown on handler execution, if any</span><br><span class="line">	 * <span class="doctag">@throws</span> Exception in case of errors</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(</span><br><span class="line">			HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span></span><br><span class="line">			<span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>spring root bean属性添加<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">添加xmlns:mvc=<span class="string">"http://www.springframework.org/schema/mvc"</span></span><br><span class="line">xsi:schemaLocation添加http:<span class="comment">//www.springframework.org/schema/mvc</span></span><br></pre></td></tr></table></figure></p>
+<p>拦截器配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;mvc:interceptors&gt;</span><br><span class="line">	&lt;mvc:interceptor&gt;</span><br><span class="line">		&lt;!-- 拦截路径(可配置多个) --&gt;</span><br><span class="line">		&lt;mvc:mapping path="/abc" /&gt;</span><br><span class="line">		&lt;!-- 继承HandlerInterceptor的拦截器实现 --&gt;</span><br><span class="line">		&lt;bean class="com.example.interceptor.ExampleInterceptor1" /&gt;</span><br><span class="line">	&lt;/mvc:interceptor&gt;</span><br><span class="line">	&lt;mvc:interceptor&gt;</span><br><span class="line">		&lt;mvc:mapping path="/def/*" /&gt;</span><br><span class="line">		&lt;mvc:mapping path="/opq/*" /&gt;</span><br><span class="line">		&lt;mvc:mapping path="/rsd/*" /&gt;</span><br><span class="line">		&lt;bean class="com.example.interceptor.ExampleInterceptor2" /&gt;</span><br><span class="line">	&lt;/mvc:interceptor&gt;</span><br><span class="line">&lt;/mvc:interceptors&gt;</span><br></pre></td></tr></table></figure></p>
 
         
         
@@ -138,34 +814,25 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2012/08/31/spring/spring-JDBC接口学习/" title="Spring JDBC 接口学习" itemprop="url">Spring JDBC 接口学习</a>
+      <a href="/2014/10/28/java/xmemcached配置和使用/" title="xmemcached配置和使用" itemprop="url">xmemcached配置和使用</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
 		
   <p class="article-time">
-    <time datetime="2012-08-30T19:21:11.000Z" itemprop="datePublished"> Published 2012-08-31</time>
+    <time datetime="2014-10-28T13:54:06.000Z" itemprop="datePublished"> 发表于 2014-10-28</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>(本文内容源自<a href="http://lsy.iteye.com/blog/85651" target="_blank" rel="external">http://lsy.iteye.com/blog/85651</a>)</p>
-<p>1.org.springframework.jdbc.core.RowMapper<br>用于处理查询结果，获得ResultSet对象里的数据，把每一行的数据放在一个DTO对象里，然后由JdbcTemplate对象把所有DTO对象放在一个List</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserRowMapper</span> <span class="keyword">implements</span> <span class="title">RowMapper</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">mapRow</span><span class="params">(ResultSet rs, <span class="keyword">int</span> index)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setId(rs.getString(user_id));</span><br><span class="line">        user.setName(rs.getString(name));</span><br><span class="line">        user.setSex(rs.getString(sex).charAt(<span class="number">0</span>));</span><br><span class="line">        user.setAge(rs.getInt(age));</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">String sql = ;SELECT * FROM USER&amp;;;</span><br><span class="line">jdbcTemplate.query(sql, <span class="keyword">new</span> RowMapperResultReader(<span class="keyword">new</span> UserRowMapper()));</span><br></pre></td></tr></table></figure>
-<p>2.org.springframework.jdbc.core.ResultSetExtractor<br>需要执行ResultSet.next()方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ResultSetExtractor rse = <span class="keyword">new</span> ResultSetExtractor()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">extractData</span><span class="params">(ResultSet rs)</span> <span class="keyword">throws</span> SQLException, DataAccessException </span>&#123;</span><br><span class="line">　　　　　　　　　List list = <span class="keyword">new</span> ArrayList();</span><br><span class="line">　　　　　　　　　<span class="keyword">while</span>(rs.next()) &#123;</span><br><span class="line">　　　　　　　　　　　　list.add(<span class="keyword">new</span> String[]&#123;rs.getString(user_id), rs.getString(name)&#125;);</span><br><span class="line">　　　　　　　　　&#125;</span><br><span class="line">　　　　　　　　　<span class="keyword">return</span> list;</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>3.org.springframework.jdbc.core.RowCallbackHandler<br>用于处理查询结果，获得ResultSet对象里的数据</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> User user = <span class="keyword">new</span> User();</span><br><span class="line">jdbcTemplate.query(;SELECT * FROM USER WHERE user_id = ?,</span><br><span class="line">                    <span class="keyword">new</span> Object[] &#123;id&#125;,</span><br><span class="line">                    <span class="keyword">new</span> RowCallbackHandler() &#123;</span><br><span class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processRow</span><span class="params">(ResultSet rs)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">                            user.setId(rs.getString(user_id));</span><br><span class="line">                            user.setName(rs.getString(name));</span><br><span class="line">                            user.setSex(rs.getString(sex).charAt(<span class="number">0</span>));</span><br><span class="line">                            user.setAge(rs.getInt(age));</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br></pre></td></tr></table></figure>
-<p>4.接口org.springframework.jdbc.core.PreparedStatementSetter<br>用于PrepraredStatement对象动态设置参数，PrepraredStatement对象由JdbcTemplate对象创建</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">jdbcTemplate.update(;<span class="function">INSERT INTO USER <span class="title">VALUES</span><span class="params">(?, ?, ?, ?)</span>,</span><br><span class="line">                     new <span class="title">PreparedStatementSetter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValues</span><span class="params">(PreparedStatement ps)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">                             ps.setString(<span class="number">1</span>, id);</span><br><span class="line">                             ps.setString(<span class="number">2</span>, name);</span><br><span class="line">                             ps.setString(<span class="number">3</span>, sex);</span><br><span class="line">                             ps.setInt(<span class="number">4</span>, age);</span><br><span class="line">                         &#125;</span><br><span class="line">                     &#125;);</span><br></pre></td></tr></table></figure>
-<p>5.org.springframework.jdbc.core.PreparedStatementCreator<br>用JdbcTemplate提供的Connection创建PreparedStatement对象，子类需要提供SQL以及为PreparedStatement对象设置必要的参数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PreparedStatementCreator psc = <span class="keyword">new</span> PreparedStatementCreator()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> PreparedStatement <span class="title">createPreparedStatement</span><span class="params">(Connection con)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">　　　　　　　　　PreparedStatement pstmt = con.prepareStatement(select * from user where name=? and age=?);</span><br><span class="line">　　　　　　　　　pstmt.setString(<span class="number">1</span>, <span class="string">"lsy"</span>);</span><br><span class="line">                                pstmt.setInt(<span class="number">2</span>, <span class="number">24</span>);</span><br><span class="line">　　　　　　　　　<span class="keyword">return</span> pstmt;</span><br><span class="line">　　&#125;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
+        <p>maven配置<br>[code lang=”xml”]<br>        <dependency><br>            <groupId>com.googlecode.xmemcached</groupId><br>            <artifactId>xmemcached</artifactId><br>            <version>2.0.0</version><br>        </dependency><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">spring配置</span><br><span class="line">[code lang=&quot;xml&quot;]</span><br><span class="line">	&lt;bean id=&quot;memcachedClientBuilder&quot; class=&quot;net.rubyeye.xmemcached.XMemcachedClientBuilder&quot;&gt;</span><br><span class="line">		&lt;!-- XMemcachedClientBuilder have two arguments.First is server list,and </span><br><span class="line">			second is weights array. --&gt;</span><br><span class="line">		&lt;constructor-arg&gt;</span><br><span class="line">			&lt;list&gt;</span><br><span class="line">				&lt;bean class=&quot;java.net.InetSocketAddress&quot;&gt;</span><br><span class="line">					&lt;constructor-arg&gt;</span><br><span class="line">						&lt;value&gt;127.0.0.1&lt;/value&gt;</span><br><span class="line">					&lt;/constructor-arg&gt;</span><br><span class="line">					&lt;constructor-arg&gt;</span><br><span class="line">						&lt;value&gt;11211&lt;/value&gt;</span><br><span class="line">					&lt;/constructor-arg&gt;</span><br><span class="line">				&lt;/bean&gt;</span><br><span class="line">				&lt;bean class=&quot;java.net.InetSocketAddress&quot;&gt;</span><br><span class="line">					&lt;constructor-arg&gt;</span><br><span class="line">						&lt;value&gt;127.0.0.1&lt;/value&gt;</span><br><span class="line">					&lt;/constructor-arg&gt;</span><br><span class="line">					&lt;constructor-arg&gt;</span><br><span class="line">						&lt;value&gt;11212&lt;/value&gt;</span><br><span class="line">					&lt;/constructor-arg&gt;</span><br><span class="line">				&lt;/bean&gt;</span><br><span class="line">			&lt;/list&gt;</span><br><span class="line">		&lt;/constructor-arg&gt;</span><br><span class="line">		&lt;constructor-arg&gt;</span><br><span class="line">			&lt;list&gt;</span><br><span class="line">				&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">				&lt;value&gt;1&lt;/value&gt;</span><br><span class="line">			&lt;/list&gt;</span><br><span class="line">		&lt;/constructor-arg&gt;</span><br><span class="line">		&lt;property name=&quot;connectionPoolSize&quot; value=&quot;1&quot;&gt;&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;commandFactory&quot;&gt;</span><br><span class="line">			&lt;bean class=&quot;net.rubyeye.xmemcached.command.TextCommandFactory&quot;&gt;&lt;/bean&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;sessionLocator&quot;&gt;</span><br><span class="line">			&lt;bean class=&quot;net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator&quot;&gt;&lt;/bean&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">		&lt;property name=&quot;transcoder&quot;&gt;</span><br><span class="line">			&lt;bean class=&quot;net.rubyeye.xmemcached.transcoders.SerializingTranscoder&quot; /&gt;</span><br><span class="line">		&lt;/property&gt;</span><br><span class="line">	&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- Use factory bean to build memcached client --&gt;</span><br><span class="line">	&lt;bean id=&quot;memc1&quot; factory-bean=&quot;memcachedClientBuilder&quot;</span><br><span class="line">		factory-method=&quot;build&quot; destroy-method=&quot;shutdown&quot; /&gt;</span><br><span class="line">	&lt;bean id=&quot;memc2&quot; factory-bean=&quot;memcachedClientBuilder&quot;</span><br><span class="line">		factory-method=&quot;build&quot; destroy-method=&quot;shutdown&quot; /&gt;</span><br><span class="line">	&lt;bean id=&quot;memc3&quot; factory-bean=&quot;memcachedClientBuilder&quot;</span><br><span class="line">		factory-method=&quot;build&quot; destroy-method=&quot;shutdown&quot; /&gt;</span><br></pre></td></tr></table></figure></p>
         
         
         <p class="article-more-link">
+          
+            <a href="/2014/10/28/java/xmemcached配置和使用/#more">Read More</a>
           
        </p>
     </div>
@@ -174,7 +841,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/spring/">spring</a>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
 </div>
 
 
@@ -203,25 +870,26 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2012/08/15/oracle/plsql-case/" title="PL/SQL CASE" itemprop="url">PL/SQL CASE</a>
+      <a href="/2014/10/28/apache-commons/apache/" title="apache httpclient 4.3使用例子" itemprop="url">apache httpclient 4.3使用例子</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
 		
   <p class="article-time">
-    <time datetime="2012-08-15T09:46:44.000Z" itemprop="datePublished"> Published 2012-08-15</time>
+    <time datetime="2014-10-28T13:26:06.000Z" itemprop="datePublished"> 发表于 2014-10-28</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>1.CASE中存在selector，不返回值</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">declare</span> input_str varchar2(<span class="number">20</span>):=(<span class="string">'&amp;str'</span>);</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">                <span class="keyword">case</span> input_str</span><br><span class="line">                     <span class="keyword">when</span> <span class="string">'A'</span> <span class="keyword">then</span> dbms_output.put_line(input_str||<span class="number">1</span>);</span><br><span class="line">                     when 'B' then dbms_output.put_line(input_str||2);</span><br><span class="line">                     when 'C' then dbms_output.put_line(input_str||3);</span><br><span class="line">                     when 'D' then dbms_output.put_line(input_str||4);</span><br><span class="line">                     when 'E' then dbms_output.put_line(input_str||5);</span><br><span class="line">                     else dbms_output.put_line('输入未知字符!');</span><br><span class="line">                <span class="keyword">end</span> <span class="keyword">case</span>;</span><br><span class="line">        <span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
-<p>2.CASE中存在selector，作为表达式使用</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> input_str varchar2(<span class="number">20</span>):=(<span class="string">'&amp;str'</span>);result_srt varchar2(50);</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">                result_srt:=<span class="keyword">case</span> input_str</span><br><span class="line">                     <span class="keyword">when</span> <span class="string">'A'</span> <span class="keyword">then</span> input_str||<span class="number">1</span></span><br><span class="line">                     <span class="keyword">when</span> <span class="string">'B'</span> <span class="keyword">then</span> input_str||<span class="number">2</span></span><br><span class="line">                     <span class="keyword">when</span> <span class="string">'C'</span> <span class="keyword">then</span> input_str||<span class="number">3</span></span><br><span class="line">                     <span class="keyword">when</span> <span class="string">'D'</span> <span class="keyword">then</span> input_str||<span class="number">4</span></span><br><span class="line">                     <span class="keyword">when</span> <span class="string">'E'</span> <span class="keyword">then</span> input_str||<span class="number">5</span></span><br><span class="line">                     <span class="keyword">else</span> <span class="string">'输入未知字符!'</span></span><br><span class="line">                <span class="keyword">end</span>;</span><br><span class="line">                dbms_output.put_line(result_srt);</span><br><span class="line">        <span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
-<p>3.不使用CASE中的选择器搜索CASE</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> input_str varchar2(<span class="number">20</span>):=(<span class="string">'&amp;str'</span>);result_srt varchar2(50);</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">                result_srt:=<span class="keyword">case</span></span><br><span class="line">                     <span class="keyword">when</span> input_str=<span class="string">'A'</span> <span class="keyword">then</span> input_str||<span class="number">1</span></span><br><span class="line">                     <span class="keyword">when</span> input_str=<span class="string">'B'</span> <span class="keyword">then</span> input_str||<span class="number">2</span></span><br><span class="line">                     <span class="keyword">when</span> input_str=<span class="string">'C'</span> <span class="keyword">then</span> input_str||<span class="number">3</span></span><br><span class="line">                     <span class="keyword">when</span> input_str=<span class="string">'D'</span> <span class="keyword">then</span> input_str||<span class="number">4</span></span><br><span class="line">                     <span class="keyword">when</span> input_str=<span class="string">'E'</span> <span class="keyword">then</span> input_str||<span class="number">5</span></span><br><span class="line">                     <span class="keyword">else</span> <span class="string">'输入未知字符!'</span></span><br><span class="line">                <span class="keyword">end</span>;</span><br><span class="line">                dbms_output.put_line(result_srt);</span><br><span class="line">        <span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+        <p>源自:<a href="http://hc.apache.org/httpcomponents-client-ga/examples.html" target="_blank" rel="external">http://hc.apache.org/httpcomponents-client-ga/examples.html</a>]</p>
+<p>maven配置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.httpcomponents<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>httpclient<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.3.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>实现ResponseHandler解析HttpResponse<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientWithResponseHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpGet httpget = <span class="keyword">new</span> HttpGet(<span class="string">"http://localhost/"</span>);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request "</span> + httpget.getRequestLine());</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Create a custom response handler</span></span><br><span class="line">            ResponseHandler&lt;String&gt; responseHandler = <span class="keyword">new</span> ResponseHandler&lt;String&gt;() &#123;</span><br><span class="line"></span><br><span class="line">                <span class="function"><span class="keyword">public</span> String <span class="title">handleResponse</span><span class="params">(</span><br><span class="line">                        <span class="keyword">final</span> HttpResponse response)</span> <span class="keyword">throws</span> ClientProtocolException, IOException </span>&#123;</span><br><span class="line">                    <span class="keyword">int</span> status = response.getStatusLine().getStatusCode();</span><br><span class="line">                    <span class="keyword">if</span> (status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">                        HttpEntity entity = response.getEntity();</span><br><span class="line">                        <span class="keyword">return</span> entity != <span class="keyword">null</span> ? EntityUtils.toString(entity) : <span class="keyword">null</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> ClientProtocolException(<span class="string">"Unexpected response status: "</span> + status);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;;</span><br><span class="line">            String responseBody = httpclient.execute(httpget, responseHandler);</span><br><span class="line">            System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">            System.out.println(responseBody);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>资源的释放<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientConnectionRelease</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpGet httpget = <span class="keyword">new</span> HttpGet(<span class="string">"http://localhost/"</span>);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request "</span> + httpget.getRequestLine());</span><br><span class="line">            CloseableHttpResponse response = httpclient.execute(httpget);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">                System.out.println(response.getStatusLine());</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Get hold of the response entity</span></span><br><span class="line">                HttpEntity entity = response.getEntity();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// If the response does not enclose an entity, there is no need</span></span><br><span class="line">                <span class="comment">// to bother about connection release</span></span><br><span class="line">                <span class="keyword">if</span> (entity != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    InputStream instream = entity.getContent();</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        instream.read();</span><br><span class="line">                        <span class="comment">// do something useful with the response</span></span><br><span class="line">                    &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                        <span class="comment">// In case of an IOException the connection will be released</span></span><br><span class="line">                        <span class="comment">// back to the connection manager automatically</span></span><br><span class="line">                        <span class="keyword">throw</span> ex;</span><br><span class="line">                    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                        <span class="comment">// Closing the input stream will trigger connection release</span></span><br><span class="line">                        instream.close();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>中止请求<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientAbortMethod</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpGet httpget = <span class="keyword">new</span> HttpGet(<span class="string">"http://www.apache.org/"</span>);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request "</span> + httpget.getURI());</span><br><span class="line">            CloseableHttpResponse response = httpclient.execute(httpget);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">                System.out.println(response.getStatusLine());</span><br><span class="line">                <span class="comment">// Do not feel like reading the response body</span></span><br><span class="line">                <span class="comment">// Call abort on the request object</span></span><br><span class="line">                httpget.abort();</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>将输入流数据Chunk编码Post<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientChunkEncodedPost</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (args.length != <span class="number">1</span>)  &#123;</span><br><span class="line">            System.out.println(<span class="string">"File path not given"</span>);</span><br><span class="line">            System.exit(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpPost httppost = <span class="keyword">new</span> HttpPost(<span class="string">"http://localhost/"</span>);</span><br><span class="line"></span><br><span class="line">            File file = <span class="keyword">new</span> File(args[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">            InputStreamEntity reqEntity = <span class="keyword">new</span> InputStreamEntity(</span><br><span class="line">                    <span class="keyword">new</span> FileInputStream(file), -<span class="number">1</span>, ContentType.APPLICATION_OCTET_STREAM);</span><br><span class="line">            reqEntity.setChunked(<span class="keyword">true</span>);</span><br><span class="line">            <span class="comment">// It may be more appropriate to use FileEntity class in this particular</span></span><br><span class="line">            <span class="comment">// instance but we are using a more generic InputStreamEntity to demonstrate</span></span><br><span class="line">            <span class="comment">// the capability to stream out data from any arbitrary source</span></span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">            <span class="comment">// FileEntity entity = new FileEntity(file, "binary/octet-stream");</span></span><br><span class="line"></span><br><span class="line">            httppost.setEntity(reqEntity);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request: "</span> + httppost.getRequestLine());</span><br><span class="line">            CloseableHttpResponse response = httpclient.execute(httppost);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">                System.out.println(response.getStatusLine());</span><br><span class="line">                EntityUtils.consume(response.getEntity());</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Post请求添加键值对<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">CloseableHttpClient httpClient = HttpClients.createDefault();</span><br><span class="line">HttpPost httpPost = <span class="keyword">new</span> HttpPost(<span class="string">"http://localhost:8080/sample/servlet1"</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	List&lt;NameValuePair&gt; pairList = <span class="keyword">new</span> ArrayList&lt;NameValuePair&gt;();</span><br><span class="line">	pairList.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"param1"</span>, <span class="string">"val1"</span>));</span><br><span class="line">	pairList.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"param2"</span>, <span class="string">"val2"</span>));</span><br><span class="line">	httpPost.setEntity(<span class="keyword">new</span> UrlEncodedFormEntity(pairList));</span><br><span class="line">	CloseableHttpResponse response = httpClient.execute(httpPost);</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">              System.out.println(response.getStatusLine());</span><br><span class="line">              HttpEntity entity = response.getEntity();</span><br><span class="line">              <span class="comment">// do something</span></span><br><span class="line">		EntityUtils.consume(entity);</span><br><span class="line">	&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">		response.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">	httpClient.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
         
         
@@ -234,7 +902,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/oracle/">oracle</a>
+  <a class="article-category-link" href="/categories/apache-commons/">apache-commons</a>
 </div>
 
 
@@ -259,14 +927,14 @@
 
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -274,15 +942,99 @@
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分类</p>
 		<ul>
 		
 		  
-			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>4</sup></a></li>
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
 		  
 		
 		  
@@ -290,7 +1042,17 @@
 		  
 		
 		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
 		  
 		
 		  
@@ -302,11 +1064,17 @@
 		  
 		
 		  
-			<li><a href="/categories/oracle/" title="oracle">oracle<sup>15</sup></a></li>
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
 		  
 		
 		  
 			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
 		  
 		
 		</ul>
@@ -316,7 +1084,7 @@
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
     </ul>
@@ -326,11 +1094,11 @@
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">Weibo</p>
+  <p class="asidetitle">新浪微博</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
 </div>
 
@@ -473,7 +1241,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

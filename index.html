@@ -47,7 +47,7 @@
 				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="Menu">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -65,7 +65,7 @@
  					
 						<form class="search">
 							<label>Search</label>
-						<input type="text" id="ts-search-input" name="q" size="30" placeholder="Search"><br>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
 						</form>
 					
 					</li>
@@ -82,6 +82,184 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/10/29/oracle/oracle11g安装和使用PLSQL连接/" title="oracle11g安装和使用PLSQL连接" itemprop="url">oracle11g安装和使用PLSQL连接</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-29T07:54:24.000Z" itemprop="datePublished"> 发表于 2016-10-29</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="Oracle-11g-R2下载安装"><a href="#Oracle-11g-R2下载安装" class="headerlink" title="Oracle 11g R2下载安装"></a>Oracle 11g R2下载安装</h2><p>windows版:<br><a href="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/112010-win64soft-094461.html" target="_blank" rel="external">http://www.oracle.com/technetwork/database/enterprise-edition/downloads/112010-win64soft-094461.html</a></p>
+<p>下载文件:<br>win64_11gR2_database_1of2.zip<br>win64_11gR2_database_2of2.zip</p>
+<p>下载后在服务器解压安装<br>oracle数据库home目录:D:\app\用户名\product\11.2.0\dbhome_1<br>配置文件所在目录:D:\app\用户名\product\11.2.0\dbhome_1\NETWORK\ADMIN</p>
+<h2 id="oracle-client下载安装"><a href="#oracle-client下载安装" class="headerlink" title="oracle client下载安装"></a>oracle client下载安装</h2><p>上文链接中包含oracle客户端win64_11gR2_client.zip<br>下载后安装到需要连接oracle的机器上<br>oracle client安装后目录:D:\app\用户名\product\11.2.0\client_1<br>配置文件所在目录:D:\app\用户名\product\11.2.0\client_1\network\admin</p>
+<h2 id="PL-SQL-Developer下载安装"><a href="#PL-SQL-Developer下载安装" class="headerlink" title="PL/SQL Developer下载安装"></a>PL/SQL Developer下载安装</h2><p><a href="https://www.allroundautomations.com/" target="_blank" rel="external">https://www.allroundautomations.com/</a><br>下载PL/SQL Developer 64 bit Version 11.0.6<br>同oracle client安装在同一台机器上</p>
+<h2 id="PL-SQL-Developer配置"><a href="#PL-SQL-Developer配置" class="headerlink" title="PL/SQL Developer配置"></a>PL/SQL Developer配置</h2><p>PL/SQL Developer连接Oracle前需要配置oracle client<br>复制oracle服务器的<br>D:\app\用户名\product\11.2.0\dbhome_1\NETWORK\ADMIN\tnsnames.ora<br>至oracle client所在机器的<br>D:\app\用户名\product\11.2.0\client_1\network\admin\tnsnames.ora<br>修改tnsnames.ora内容,将HOST的值修改为服务器端IP,例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ORCL =</span><br><span class="line">  (DESCRIPTION =</span><br><span class="line">    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.1.122)(PORT = 1521))</span><br><span class="line">    (CONNECT_DATA =</span><br><span class="line">      (SERVER = DEDICATED)</span><br><span class="line">      (SERVICE_NAME = orcl)</span><br><span class="line">    )</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+<p>打开PL/SQL Developer即可登录</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/oracle/">oracle</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/10/28/linux/CentOS-7-Redis集群安装/" title="CentOS 7 Redis集群安装" itemprop="url">CentOS 7 Redis集群安装</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-28T01:57:13.000Z" itemprop="datePublished"> 发表于 2016-10-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>创建目录redis-cluster</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir redis-cluster</span><br></pre></td></tr></table></figure>
+<p>在此目录下创建子目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir 7000 7001 7002 7003 7004 7005</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum install ruby</span><br><span class="line"></span><br><span class="line">yum install rubygems</span><br><span class="line"></span><br><span class="line">gem install redis</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/CentOS/">CentOS</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/30/java/java动态代理/" title="java动态代理" itemprop="url">java动态代理</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2016-07-30T03:07:52.000Z" itemprop="datePublished"> 发表于 2016-07-30</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="JDK-动态代理"><a href="#JDK-动态代理" class="headerlink" title="JDK 动态代理"></a>JDK 动态代理</h2><p>特点：仅能代理继承接口的类</p>
+<p>被代理类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class MyJob implements Runnable &#123;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public void run() &#123;</span><br><span class="line">		System.out.println(&quot;coding...&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代理需继承InvocationHandler：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class MyJobProxy implements InvocationHandler &#123;</span><br><span class="line">	private Object obj;</span><br><span class="line"></span><br><span class="line">    public MyJobProxy(Object obj) &#123;</span><br><span class="line">        this.obj = obj;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @SuppressWarnings(&quot;unchecked&quot;)</span><br><span class="line">	public &lt;T&gt; T getProxy() &#123;</span><br><span class="line">    	return (T) Proxy.newProxyInstance(obj.getClass().getClassLoader(), obj.getClass().getInterfaces(),</span><br><span class="line">				new MyInvocationHandler(obj));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">		System.out.println(&quot;before invoke&quot;);</span><br><span class="line">		Object rst = method.invoke(obj, args);</span><br><span class="line">		System.out.println(&quot;after invoke&quot;);</span><br><span class="line">		return rst;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用代理类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) throws Exception &#123;</span><br><span class="line">	MyJob obj = new MyJob();</span><br><span class="line">	Runnable proxy = new MyJobProxy(obj).getProxy();</span><br><span class="line">	proxy.run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/java/">java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/06/19/linux/arch安装到U盘/" title="arch安装到U盘" itemprop="url">arch安装到U盘</a>
   </h1>
   <p class="article-author">By
@@ -89,7 +267,7 @@
 		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
 		
   <p class="article-time">
-    <time datetime="2016-06-19T09:19:31.000Z" itemprop="datePublished"> Published 2016-06-19</time>
+    <time datetime="2016-06-19T09:19:31.000Z" itemprop="datePublished"> 发表于 2016-06-19</time>
     
   </p>
 </header>
@@ -203,6 +381,123 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/06/17/sqlserver/sqlserver附加数据库后用户登录/" title="sqlserver附加数据库后用户登录" itemprop="url">sqlserver附加数据库后用户登录</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-17T07:37:19.000Z" itemprop="datePublished"> 发表于 2016-06-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>Sqlserver 2008<br>数据库:mydb<br>用户名:xiaoming</p>
+<p>将此数据库文件复制到其他机器，附加此数据库后需要新建登录账户：<br>在’安全性’-‘登录名’中新建登录用户mydb<br>将此用户映射到mydb，数据库角色成员身份：db_owner<br>点击确定后提示：服务器主体’xiaoming’已存在。(MicrosoftSQL Server，错误:15025)</p>
+<p>执行如下sql可将登录名’xiaoming’与数据库中的’xiaoming’ 关联起来</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> mydb</span><br><span class="line"><span class="keyword">GO</span></span><br><span class="line">sp_change_users_login <span class="string">'update_one'</span>, <span class="string">'xiaoming'</span>, <span class="string">'xiaoming'</span></span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/SqlServer/">SqlServer</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/17/others/sublime-text-3包管理/" title="sublime text 3包管理" itemprop="url">sublime text 3包管理</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2016-06-17T02:36:30.000Z" itemprop="datePublished"> 发表于 2016-06-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong> 安装Package Control </strong></p>
+<p>菜单 View-&gt;Show Console中输入如下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import urllib.request,os; pf = &apos;Package Control.sublime-package&apos;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &apos;wb&apos;).write(urllib.request.urlopen( &apos;http://sublime.wbond.net/&apos; + pf.replace(&apos; &apos;,&apos;%20&apos;)).read())</span><br></pre></td></tr></table></figure></p>
+<p><strong> 使用Package Control安装插件 </strong></p>
+<p><strong><em> 安装MarkDown Preview </em></strong><br>快捷键Ctrl + Shift + P 在弹出的输入框中，输入Install Package 回车,稍等后输入MarkDown Preview回车</p>
+<p><strong><em> 安装ConvertToUTF8 </em></strong><br>ConvertToUTF8可以解决GBK中文乱码问题<br>快捷键Ctrl + Shift + P 在弹出的输入框中，输入Install Package 回车,稍等后输入ConvertToUTF8回车</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Other/">Other</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/05/24/git/git-添加remote-url/" title="git-添加remote url" itemprop="url">git-添加remote url</a>
   </h1>
   <p class="article-author">By
@@ -210,7 +505,7 @@
 		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-24T02:51:44.000Z" itemprop="datePublished"> Published 2016-05-24</time>
+    <time datetime="2016-05-24T02:51:44.000Z" itemprop="datePublished"> 发表于 2016-05-24</time>
     
   </p>
 </header>
@@ -273,7 +568,7 @@
 		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-15T11:42:00.000Z" itemprop="datePublished"> Published 2016-05-15</time>
+    <time datetime="2016-05-15T11:42:00.000Z" itemprop="datePublished"> 发表于 2016-05-15</time>
     
   </p>
 </header>
@@ -352,78 +647,25 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/11/hello-world/" title="Hello World" itemprop="url">Hello World</a>
+      <a href="/2016/03/08/android/android退出程序/" title="Android退出程序" itemprop="url">Android退出程序</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-11T01:58:46.325Z" itemprop="datePublished"> Published 2016-05-11</time>
+    <time datetime="2016-03-08T06:00:08.000Z" itemprop="datePublished"> 发表于 2016-03-08</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>文章源自:<a href="http://blog.csdn.net/soul_code/article/details/50453934" target="_blank" rel="external">http://blog.csdn.net/soul_code/article/details/50453934</a></p>
+<h2 id="设置MainActivity的加载模式为singleTask"><a href="#设置MainActivity的加载模式为singleTask" class="headerlink" title="设置MainActivity的加载模式为singleTask"></a>设置MainActivity的加载模式为singleTask</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:launchMode=&quot;singleTask&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="方法一-在MainActivity中双击返回键退出"><a href="#方法一-在MainActivity中双击返回键退出" class="headerlink" title="方法一:在MainActivity中双击返回键退出"></a>方法一:在MainActivity中双击返回键退出</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> mIsExit;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="comment">/**</span><br><span class="line">   * 双击返回键退出</span><br><span class="line">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onKeyDown</span><span class="params">(<span class="keyword">int</span> keyCode, KeyEvent event)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (keyCode == KeyEvent.KEYCODE_BACK) &#123;</span><br><span class="line">          <span class="keyword">if</span> (mIsExit) &#123;</span><br><span class="line">              <span class="keyword">this</span>.finish();</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              Toast.makeText(<span class="keyword">this</span>, <span class="string">"再按一次退出"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">              mIsExit = <span class="keyword">true</span>;</span><br><span class="line">              <span class="keyword">new</span> Handler().postDelayed(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                  <span class="meta">@Override</span></span><br><span class="line">                  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                      mIsExit = <span class="keyword">false</span>;</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125;, <span class="number">2000</span>);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">super</span>.onKeyDown(keyCode, event);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="方法二-在Intent中添加退出的tag"><a href="#方法二-在Intent中添加退出的tag" class="headerlink" title="方法二:在Intent中添加退出的tag"></a>方法二:在Intent中添加退出的tag</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG_EXIT = <span class="string">"EXIT"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onNewIntent</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">super</span>.onNewIntent(intent);</span><br><span class="line">      <span class="keyword">if</span> (intent != <span class="keyword">null</span>) &#123;</span><br><span class="line">          <span class="keyword">boolean</span> isExit = intent.getBooleanExtra(TAG_EXIT, <span class="keyword">false</span>);</span><br><span class="line">          <span class="keyword">if</span> (isExit) &#123;</span><br><span class="line">              <span class="keyword">this</span>.finish();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>退出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = new Intent(this, MainActivity.class);</span><br><span class="line">  intent.putExtra(MainActivity.TAG_EXIT, true);</span><br><span class="line">  startActivity(intent);</span><br></pre></td></tr></table></figure></p>
 
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/09/01/apache-commons/使用HttpClient测试网站是否可登录/" title="使用HttpClient测试网站是否可登录" itemprop="url">使用HttpClient测试网站是否可登录</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
-		
-  <p class="article-time">
-    <time datetime="2015-09-01T08:27:55.000Z" itemprop="datePublished"> Published 2015-09-01</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 测试网站登录</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestLoginTask</span> <span class="keyword">extends</span> <span class="title">MonitorTask</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * </span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> HttpPost httpPost;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * </span><br><span class="line">	 * <span class="doctag">@param</span> clientIp 客户端IP</span><br><span class="line">	 * <span class="doctag">@param</span> interval 执行间隔，单位毫秒</span><br><span class="line">	 * <span class="doctag">@param</span> url	      登录提交地址</span><br><span class="line">	 * <span class="doctag">@param</span> username 用户名</span><br><span class="line">	 * <span class="doctag">@param</span> pwd	      密码</span><br><span class="line">	 * <span class="doctag">@throws</span> UnsupportedEncodingException</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TestLoginTask</span><span class="params">(String clientIp, <span class="keyword">int</span> interval, String url, String username, String pwd)</span> <span class="keyword">throws</span> UnsupportedEncodingException </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(clientIp, interval);</span><br><span class="line">		<span class="keyword">this</span>.httpPost = <span class="keyword">new</span> HttpPost(url);</span><br><span class="line">		List&lt;NameValuePair&gt; pairList = <span class="keyword">new</span> ArrayList&lt;NameValuePair&gt;();</span><br><span class="line">		pairList.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"userName"</span>, username));</span><br><span class="line">		pairList.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"password"</span>, pwd));</span><br><span class="line">		httpPost.setEntity(<span class="keyword">new</span> UrlEncodedFormEntity(pairList));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> TaskResult <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		CloseableHttpClient httpClient = HttpClients.createDefault();</span><br><span class="line">		CloseableHttpResponse response = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			response = httpClient.execute(httpPost);</span><br><span class="line">			HttpEntity entity = response.getEntity();</span><br><span class="line">			EntityUtils.consume(entity);</span><br><span class="line"></span><br><span class="line">			Header[] val = response.getHeaders(<span class="string">"Location"</span>);</span><br><span class="line">			<span class="comment">// 如果跳转到index，登录成功</span></span><br><span class="line">			<span class="keyword">if</span> (response.getStatusLine().getStatusCode() == <span class="number">302</span> &amp;&amp; val.length &gt; <span class="number">0</span></span><br><span class="line">					&amp;&amp; val[<span class="number">0</span>].getValue().contains(<span class="string">"/index"</span>)) &#123;</span><br><span class="line">				<span class="comment">// 登录成功</span></span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">new</span> TaskResult(<span class="keyword">this</span>, State.OK, httpPost.getURI() + <span class="string">"测试登录成功"</span>, <span class="keyword">null</span>);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="keyword">new</span> TaskResult(<span class="keyword">this</span>, State.CRITICAL, httpPost.getURI() + <span class="string">"测试登录失败"</span>, <span class="keyword">null</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				<span class="keyword">if</span> (response != <span class="keyword">null</span>) &#123;</span><br><span class="line">					response.close();</span><br><span class="line">				&#125;</span><br><span class="line">				httpClient.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
         
         <p class="article-more-link">
@@ -435,7 +677,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/apache-commons/">apache-commons</a>
+  <a class="article-category-link" href="/categories/Android/">Android</a>
 </div>
 
 
@@ -464,91 +706,21 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/08/20/git/git-autocrlf/" title="git-autocrlf" itemprop="url">git-autocrlf</a>
+      <a href="/2016/01/19/mysql/mysql常见错误及解决方法/" title="mysql常见错误及解决方法" itemprop="url">mysql常见错误及解决方法</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
 		
   <p class="article-time">
-    <time datetime="2015-08-20T08:36:44.000Z" itemprop="datePublished"> Published 2015-08-20</time>
+    <time datetime="2016-01-19T09:51:05.000Z" itemprop="datePublished"> 发表于 2016-01-19</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h2 id="LF和CRLF"><a href="#LF和CRLF" class="headerlink" title="LF和CRLF"></a>LF和CRLF</h2><h3 id="Windows-r-n是回车换行-CRLF"><a href="#Windows-r-n是回车换行-CRLF" class="headerlink" title="Windows \r\n是回车换行 CRLF"></a>Windows \r\n是回车换行 CRLF</h3><h3 id="Linux-n是换行-LF"><a href="#Linux-n是换行-LF" class="headerlink" title="Linux \n是换行 LF"></a>Linux \n是换行 LF</h3><h2 id="AutoCRLF"><a href="#AutoCRLF" class="headerlink" title="AutoCRLF"></a>AutoCRLF</h2><h3 id="提交时转换为LF，检出时转换为CRLF"><a href="#提交时转换为LF，检出时转换为CRLF" class="headerlink" title="提交时转换为LF，检出时转换为CRLF"></a>提交时转换为LF，检出时转换为CRLF</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.autocrlf true</span><br></pre></td></tr></table></figure>
-<h3 id="提交时转换为LF，检出时不转换"><a href="#提交时转换为LF，检出时不转换" class="headerlink" title="提交时转换为LF，检出时不转换"></a>提交时转换为LF，检出时不转换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.autocrlf input</span><br></pre></td></tr></table></figure>
-<h3 id="提交检出均不转换"><a href="#提交检出均不转换" class="headerlink" title="提交检出均不转换"></a>提交检出均不转换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.autocrlf false</span><br></pre></td></tr></table></figure>
-<h2 id="SafeCRLF"><a href="#SafeCRLF" class="headerlink" title="SafeCRLF"></a>SafeCRLF</h2><h3 id="拒绝提交包含混合换行符的文件"><a href="#拒绝提交包含混合换行符的文件" class="headerlink" title="拒绝提交包含混合换行符的文件"></a>拒绝提交包含混合换行符的文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.safecrlf true</span><br></pre></td></tr></table></figure>
-<h3 id="允许提交包含混合换行符的文件"><a href="#允许提交包含混合换行符的文件" class="headerlink" title="允许提交包含混合换行符的文件"></a>允许提交包含混合换行符的文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.safecrlf false</span><br></pre></td></tr></table></figure>
-<h3 id="提交包含混合换行符的文件时给出警告"><a href="#提交包含混合换行符的文件时给出警告" class="headerlink" title="提交包含混合换行符的文件时给出警告"></a>提交包含混合换行符的文件时给出警告</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global core.safecrlf warn</span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/git/">git</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/07/10/apache-commons/apache-commons-io之File-Monitor/" title="apache-commons-io之File-Monitor" itemprop="url">apache-commons-io之File-Monitor</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
-		
-  <p class="article-time">
-    <time datetime="2015-07-09T16:30:55.000Z" itemprop="datePublished"> Published 2015-07-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><strong> File Monitor组件使用了观察者模式，实现了监控目录和文件的创建/更新/删除事件 </strong></p>
-<p><strong> FileAlterationListener </strong><br>FileAlterationListener是File Monitor组件唯一的接口,包含8个方法:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>    <span class="title">onDirectoryChange</span><span class="params">(File directory)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onDirectoryCreate</span><span class="params">(File directory)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onDirectoryDelete</span><span class="params">(File directory)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onFileChange</span><span class="params">(File file)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onFileCreate</span><span class="params">(File file)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onFileDelete</span><span class="params">(File file)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onStart</span><span class="params">(FileAlterationObserver observer)</span> </span><br><span class="line"><span class="keyword">void</span>    <span class="title">onStop</span><span class="params">(FileAlterationObserver observer)</span></span></span><br></pre></td></tr></table></figure>
-<p>目录的创建，更新和删除3个方法，文件的创建，更新和删除3个方法<br>onStart：当Observer开始检查事件的时候调用<br>onStop：当Observer结束检查事件的时候调用<br>Observer检查事件又是怎么回事呢，下文会提到</p>
-<p><strong> FileAlterationListenerAdaptor </strong><br>这个类继承了FileAlterationListener接口，没有任何实现。<br>继承此类比直接继承FileAlterationListener接口方便的地方在于不需覆盖一些没有用到的方法，用到哪个方法就重写哪个方法。</p>
-<p><strong> FileAlterationMonitor </strong><br>此类继承了Runnable接口，产生一个线程，以指定的时间间隔触发观察者的checkAndNotify方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">FileAlterationMonitor</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">long</span> interval;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;FileAlterationObserver&gt; observers = <span class="keyword">new</span> CopyOnWriteArrayList&lt;FileAlterationObserver&gt;();</span><br><span class="line">    <span class="keyword">private</span> Thread thread = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> ThreadFactory threadFactory;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> running = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Construct a monitor with a default interval of 10 seconds.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileAlterationMonitor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="number">10000</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Construct a monitor with the specified interval.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> interval The amount of time in miliseconds to wait between</span><br><span class="line">     * checks of the file system</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileAlterationMonitor</span><span class="params">(<span class="keyword">long</span> interval)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.interval = interval;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * Construct a monitor with the specified interval and set of observers.</span><br><span class="line">     *</span><br><span class="line">     * <span class="doctag">@param</span> interval The amount of time in miliseconds to wait between</span><br><span class="line">     * checks of the file system</span><br><span class="line">     * <span class="doctag">@param</span> observers The set of observers to add to the monitor.</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileAlterationMonitor</span><span class="params">(<span class="keyword">long</span> interval, FileAlterationObserver... observers)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(interval);</span><br><span class="line">        <span class="keyword">if</span> (observers != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (FileAlterationObserver observer : observers) &#123;</span><br><span class="line">                addObserver(observer);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//. . . </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果实例化时使用默认的构造函数，则触发间隔为10000毫秒，即10秒<br>此类维护了一个观察者列表observers</p>
-<p>FileAlterationMonitor的启动</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Start monitoring.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@throws</span> Exception if an error occurs initializing the observer</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (running) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Monitor is already running"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (FileAlterationObserver observer : observers) &#123;</span><br><span class="line">        observer.initialize();</span><br><span class="line">    &#125;</span><br><span class="line">    running = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (threadFactory != <span class="keyword">null</span>) &#123;</span><br><span class="line">        thread = threadFactory.newThread(<span class="keyword">this</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        thread = <span class="keyword">new</span> Thread(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    thread.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>启动时首先检查是否已在启动状态，即start方法是否已经掉用过<br>然后调用所有观察者的初始化方法，之后将启动标志running设置为true<br>创建新线程并启动,因本类实现了Runnable接口，所以创建线程时参数为 this<br>新线程执行的方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Run.</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (running) &#123;</span><br><span class="line">        <span class="keyword">for</span> (FileAlterationObserver observer : observers) &#123;</span><br><span class="line">            observer.checkAndNotify();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!running) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(interval);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (<span class="keyword">final</span> InterruptedException ignored) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此线程每隔指定时间调用Observer的checkAndNotify方法</p>
+        <p>Error Code: 1175. You are using safe update mode and you tried to update a table without a WHERE that uses a KEY column To disable safe mode,<br>toggle the option in Preferences -&gt; SQL Queries and reconnect.</p>
+<p>解决方法:<br>SET SQL_SAFE_UPDATES = 0;</p>
 
         
         
@@ -561,224 +733,7 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/apache-commons/">apache-commons</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/07/02/spring/spring-mvc使用JSR-303校验/" title="spring mvc使用JSR-303校验" itemprop="url">spring mvc使用JSR-303校验</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
-		
-  <p class="article-time">
-    <time datetime="2015-07-02T10:59:04.000Z" itemprop="datePublished"> Published 2015-07-02</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="Maven配置"><a href="#Maven配置" class="headerlink" title="Maven配置"></a>Maven配置</h3><p>添加JSR-303 API和Hibernate实现</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.validation<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>validation-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.0.Final<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.hibernate<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hibernate-validator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.3.Final<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="Bean属性上添加JSR-303注解"><a href="#Bean属性上添加JSR-303注解" class="headerlink" title="Bean属性上添加JSR-303注解"></a>Bean属性上添加JSR-303注解</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BlacklistInfo</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp=<span class="string">"^(13[0-9]|15[012356789]|18[02356789]|14[57])[0-9]&#123;8&#125;$"</span>, message=<span class="string">"请填写正确的电话号码"</span>)</span><br><span class="line">    <span class="keyword">private</span> String phonenum;</span><br><span class="line">    <span class="meta">@Max</span>(value=<span class="number">20</span>, message=<span class="string">"备注长度过长"</span>)</span><br><span class="line">    <span class="keyword">private</span> String remark;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//..</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Bean-Validation-中的-constraint"><a href="#Bean-Validation-中的-constraint" class="headerlink" title="Bean Validation 中的 constraint"></a>Bean Validation 中的 constraint</h3><pre><code>Constraint  详细信息
-
-@Null   被注释的元素必须为 null
-
-@NotNull    被注释的元素必须不为 null
-
-@AssertTrue 被注释的元素必须为 true
-
-@AssertFalse    被注释的元素必须为 false
-
-@Min(value) 被注释的元素必须是一个数字，其值必须大于等于指定的最小值
-
-@Max(value) 被注释的元素必须是一个数字，其值必须小于等于指定的最大值
-
-@DecimalMin(value)  被注释的元素必须是一个数字，其值必须大于等于指定的最小值
-
-@DecimalMax(value)  被注释的元素必须是一个数字，其值必须小于等于指定的最大值
-
-@Size(max, min) 被注释的元素的大小必须在指定的范围内
-
-@Digits (integer, fraction) 被注释的元素必须是一个数字，其值必须在可接受的范围内
-
-@Past   被注释的元素必须是一个过去的日期
-
-@Future 被注释的元素必须是一个将来的日期
-
-@Pattern(value) 被注释的元素必须符合指定的正则表达式
-
-Hibernate Validator 附加的 constraint
-
-Constraint  详细信息
-
-@Email  被注释的元素必须是电子邮箱地址
-
-@Length 被注释的字符串的大小必须在指定的范围内
-
-@NotEmpty   被注释的字符串的必须非空
-
-@Range  被注释的元素必须在合适的范围内
-</code></pre><h3 id="Controller配置"><a href="#Controller配置" class="headerlink" title="Controller配置"></a>Controller配置</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/add"</span>, method = RequestMethod.POST)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">add</span><span class="params">(@Valid BlacklistInfo blacklistInfo, Errors errors, ModelMap map)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (errors.hasErrors()) &#123;</span><br><span class="line">        List&lt;ObjectError&gt; list = errors.getAllErrors();</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (ObjectError err : list) &#123;</span><br><span class="line">            sb.append(err.getDefaultMessage()).append(<span class="string">"&lt;br/&gt;"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(<span class="string">"info"</span>, sb.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Bean前的@ModelAttribute替换为@Valid,error包含验证后的错误列表</p>
-<p>ObjectError.getDefaultMessage()获得默认提示信息，即注解中message的内容</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/spring/">spring</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2014/10/28/spring/spring-mvc-interceptor/" title="spring mvc interceptor" itemprop="url">spring mvc interceptor</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
-		
-  <p class="article-time">
-    <time datetime="2014-10-28T14:17:02.000Z" itemprop="datePublished"> Published 2014-10-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>HandlerInterceptor接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Workflow interface that allows for customized handler execution chains.</span><br><span class="line"> * Applications can register any number of existing or custom interceptors</span><br><span class="line"> * for certain groups of handlers, to add common preprocessing behavior</span><br><span class="line"> * without needing to modify each handler implementation.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;A HandlerInterceptor gets called before the appropriate HandlerAdapter</span><br><span class="line"> * triggers the execution of the handler itself. This mechanism can be used</span><br><span class="line"> * for a large field of preprocessing aspects, e.g. for authorization checks,</span><br><span class="line"> * or common handler behavior like locale or theme changes. Its main purpose</span><br><span class="line"> * is to allow for factoring out repetitive handler code.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;In an async processing scenario, the handler may be executed in a separate</span><br><span class="line"> * thread while the main thread exits without rendering or invoking the</span><br><span class="line"> * &#123;<span class="doctag">@code</span> postHandle&#125; and &#123;<span class="doctag">@code</span> afterCompletion&#125; callbacks. When concurrent</span><br><span class="line"> * handler execution completes, the request is dispatched back in order to</span><br><span class="line"> * proceed with rendering the model and all methods of this contract are invoked</span><br><span class="line"> * again. For further options and details see</span><br><span class="line"> * &#123;<span class="doctag">@code</span> org.springframework.web.servlet.AsyncHandlerInterceptor&#125;</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;Typically an interceptor chain is defined per HandlerMapping bean,</span><br><span class="line"> * sharing its granularity. To be able to apply a certain interceptor chain</span><br><span class="line"> * to a group of handlers, one needs to map the desired handlers via one</span><br><span class="line"> * HandlerMapping bean. The interceptors themselves are defined as beans</span><br><span class="line"> * in the application context, referenced by the mapping bean definition</span><br><span class="line"> * via its "interceptors" property (in XML: a &lt;list&gt; of &lt;ref&gt;).</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;HandlerInterceptor is basically similar to a Servlet 2.3 Filter, but in</span><br><span class="line"> * contrast to the latter it just allows custom pre-processing with the option</span><br><span class="line"> * of prohibiting the execution of the handler itself, and custom post-processing.</span><br><span class="line"> * Filters are more powerful, for example they allow for exchanging the request</span><br><span class="line"> * and response objects that are handed down the chain. Note that a filter</span><br><span class="line"> * gets configured in web.xml, a HandlerInterceptor in the application context.</span><br><span class="line"> *</span><br><span class="line"> * &lt;p&gt;As a basic guideline, fine-grained handler-related preprocessing tasks are</span><br><span class="line"> * candidates for HandlerInterceptor implementations, especially factored-out</span><br><span class="line"> * common handler code and authorization checks. On the other hand, a Filter</span><br><span class="line"> * is well-suited for request content and view content handling, like multipart</span><br><span class="line"> * forms and GZIP compression. This typically shows when one needs to map the</span><br><span class="line"> * filter to certain content types (e.g. images), or to all requests.</span><br><span class="line"> *</span><br><span class="line"> * <span class="doctag">@author</span> Juergen Hoeller</span><br><span class="line"> * <span class="doctag">@since</span> 20.06.2003</span><br><span class="line"> * <span class="doctag">@see</span> HandlerExecutionChain#getInterceptors</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.handler.HandlerInterceptorAdapter</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.handler.AbstractHandlerMapping#setInterceptors</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.i18n.LocaleChangeInterceptor</span><br><span class="line"> * <span class="doctag">@see</span> org.springframework.web.servlet.theme.ThemeChangeInterceptor</span><br><span class="line"> * <span class="doctag">@see</span> javax.servlet.Filter</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Intercept the execution of a handler. Called after HandlerMapping determined</span><br><span class="line">	 * an appropriate handler object, but before HandlerAdapter invokes the handler.</span><br><span class="line">	 * &lt;p&gt;DispatcherServlet processes a handler in an execution chain, consisting</span><br><span class="line">	 * of any number of interceptors, with the handler itself at the end.</span><br><span class="line">	 * With this method, each interceptor can decide to abort the execution chain,</span><br><span class="line">	 * typically sending a HTTP error or writing a custom response.</span><br><span class="line">	 * <span class="doctag">@param</span> request current HTTP request</span><br><span class="line">	 * <span class="doctag">@param</span> response current HTTP response</span><br><span class="line">	 * <span class="doctag">@param</span> handler chosen handler to execute, for type and/or instance evaluation</span><br><span class="line">	 * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if the execution chain should proceed with the</span><br><span class="line">	 * next interceptor or the handler itself. Else, DispatcherServlet assumes</span><br><span class="line">	 * that this interceptor has already dealt with the response itself.</span><br><span class="line">	 * <span class="doctag">@throws</span> Exception in case of errors</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span></span><br><span class="line">	    <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Intercept the execution of a handler. Called after HandlerAdapter actually</span><br><span class="line">	 * invoked the handler, but before the DispatcherServlet renders the view.</span><br><span class="line">	 * Can expose additional model objects to the view via the given ModelAndView.</span><br><span class="line">	 * &lt;p&gt;DispatcherServlet processes a handler in an execution chain, consisting</span><br><span class="line">	 * of any number of interceptors, with the handler itself at the end.</span><br><span class="line">	 * With this method, each interceptor can post-process an execution,</span><br><span class="line">	 * getting applied in inverse order of the execution chain.</span><br><span class="line">	 * <span class="doctag">@param</span> request current HTTP request</span><br><span class="line">	 * <span class="doctag">@param</span> response current HTTP response</span><br><span class="line">	 * <span class="doctag">@param</span> handler handler (or &#123;<span class="doctag">@link</span> HandlerMethod&#125;) that started async</span><br><span class="line">	 * execution, for type and/or instance examination</span><br><span class="line">	 * <span class="doctag">@param</span> modelAndView the &#123;<span class="doctag">@code</span> ModelAndView&#125; that the handler returned</span><br><span class="line">	 * (can also be &#123;<span class="doctag">@code</span> null&#125;)</span><br><span class="line">	 * <span class="doctag">@throws</span> Exception in case of errors</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(</span><br><span class="line">			HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView)</span></span><br><span class="line">			<span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * Callback after completion of request processing, that is, after rendering</span><br><span class="line">	 * the view. Will be called on any outcome of handler execution, thus allows</span><br><span class="line">	 * for proper resource cleanup.</span><br><span class="line">	 * &lt;p&gt;Note: Will only be called if this interceptor's &#123;<span class="doctag">@code</span> preHandle&#125;</span><br><span class="line">	 * method has successfully completed and returned &#123;<span class="doctag">@code</span> true&#125;!</span><br><span class="line">	 * &lt;p&gt;As with the &#123;<span class="doctag">@code</span> postHandle&#125; method, the method will be invoked on each</span><br><span class="line">	 * interceptor in the chain in reverse order, so the first interceptor will be</span><br><span class="line">	 * the last to be invoked.</span><br><span class="line">	 * <span class="doctag">@param</span> request current HTTP request</span><br><span class="line">	 * <span class="doctag">@param</span> response current HTTP response</span><br><span class="line">	 * <span class="doctag">@param</span> handler handler (or &#123;<span class="doctag">@link</span> HandlerMethod&#125;) that started async</span><br><span class="line">	 * execution, for type and/or instance examination</span><br><span class="line">	 * <span class="doctag">@param</span> ex exception thrown on handler execution, if any</span><br><span class="line">	 * <span class="doctag">@throws</span> Exception in case of errors</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(</span><br><span class="line">			HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span></span><br><span class="line">			<span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>spring root bean属性添加<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">添加xmlns:mvc=<span class="string">"http://www.springframework.org/schema/mvc"</span></span><br><span class="line">xsi:schemaLocation添加http:<span class="comment">//www.springframework.org/schema/mvc</span></span><br></pre></td></tr></table></figure></p>
-<p>拦截器配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;mvc:interceptors&gt;</span><br><span class="line">	&lt;mvc:interceptor&gt;</span><br><span class="line">		&lt;!-- 拦截路径(可配置多个) --&gt;</span><br><span class="line">		&lt;mvc:mapping path="/abc" /&gt;</span><br><span class="line">		&lt;!-- 继承HandlerInterceptor的拦截器实现 --&gt;</span><br><span class="line">		&lt;bean class="com.example.interceptor.ExampleInterceptor1" /&gt;</span><br><span class="line">	&lt;/mvc:interceptor&gt;</span><br><span class="line">	&lt;mvc:interceptor&gt;</span><br><span class="line">		&lt;mvc:mapping path="/def/*" /&gt;</span><br><span class="line">		&lt;mvc:mapping path="/opq/*" /&gt;</span><br><span class="line">		&lt;mvc:mapping path="/rsd/*" /&gt;</span><br><span class="line">		&lt;bean class="com.example.interceptor.ExampleInterceptor2" /&gt;</span><br><span class="line">	&lt;/mvc:interceptor&gt;</span><br><span class="line">&lt;/mvc:interceptors&gt;</span><br></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/spring/">spring</a>
-</div>
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2014/10/28/apache-commons/apache-httpclient-4.3使用例子/" title="apache httpclient 4.3使用例子" itemprop="url">apache httpclient 4.3使用例子</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
-		
-  <p class="article-time">
-    <time datetime="2014-10-28T13:26:06.000Z" itemprop="datePublished"> Published 2014-10-28</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>源自:<a href="http://hc.apache.org/httpcomponents-client-ga/examples.html" target="_blank" rel="external">http://hc.apache.org/httpcomponents-client-ga/examples.html</a>]</p>
-<p>maven配置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.httpcomponents<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>httpclient<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.3.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>实现ResponseHandler解析HttpResponse<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientWithResponseHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpGet httpget = <span class="keyword">new</span> HttpGet(<span class="string">"http://localhost/"</span>);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request "</span> + httpget.getRequestLine());</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Create a custom response handler</span></span><br><span class="line">            ResponseHandler&lt;String&gt; responseHandler = <span class="keyword">new</span> ResponseHandler&lt;String&gt;() &#123;</span><br><span class="line"></span><br><span class="line">                <span class="function"><span class="keyword">public</span> String <span class="title">handleResponse</span><span class="params">(</span><br><span class="line">                        <span class="keyword">final</span> HttpResponse response)</span> <span class="keyword">throws</span> ClientProtocolException, IOException </span>&#123;</span><br><span class="line">                    <span class="keyword">int</span> status = response.getStatusLine().getStatusCode();</span><br><span class="line">                    <span class="keyword">if</span> (status &gt;= <span class="number">200</span> &amp;&amp; status &lt; <span class="number">300</span>) &#123;</span><br><span class="line">                        HttpEntity entity = response.getEntity();</span><br><span class="line">                        <span class="keyword">return</span> entity != <span class="keyword">null</span> ? EntityUtils.toString(entity) : <span class="keyword">null</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> ClientProtocolException(<span class="string">"Unexpected response status: "</span> + status);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;;</span><br><span class="line">            String responseBody = httpclient.execute(httpget, responseHandler);</span><br><span class="line">            System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">            System.out.println(responseBody);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>资源的释放<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientConnectionRelease</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpGet httpget = <span class="keyword">new</span> HttpGet(<span class="string">"http://localhost/"</span>);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request "</span> + httpget.getRequestLine());</span><br><span class="line">            CloseableHttpResponse response = httpclient.execute(httpget);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">                System.out.println(response.getStatusLine());</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Get hold of the response entity</span></span><br><span class="line">                HttpEntity entity = response.getEntity();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// If the response does not enclose an entity, there is no need</span></span><br><span class="line">                <span class="comment">// to bother about connection release</span></span><br><span class="line">                <span class="keyword">if</span> (entity != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    InputStream instream = entity.getContent();</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        instream.read();</span><br><span class="line">                        <span class="comment">// do something useful with the response</span></span><br><span class="line">                    &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                        <span class="comment">// In case of an IOException the connection will be released</span></span><br><span class="line">                        <span class="comment">// back to the connection manager automatically</span></span><br><span class="line">                        <span class="keyword">throw</span> ex;</span><br><span class="line">                    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                        <span class="comment">// Closing the input stream will trigger connection release</span></span><br><span class="line">                        instream.close();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>中止请求<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientAbortMethod</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpGet httpget = <span class="keyword">new</span> HttpGet(<span class="string">"http://www.apache.org/"</span>);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request "</span> + httpget.getURI());</span><br><span class="line">            CloseableHttpResponse response = httpclient.execute(httpget);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">                System.out.println(response.getStatusLine());</span><br><span class="line">                <span class="comment">// Do not feel like reading the response body</span></span><br><span class="line">                <span class="comment">// Call abort on the request object</span></span><br><span class="line">                httpget.abort();</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>将输入流数据Chunk编码Post<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientChunkEncodedPost</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (args.length != <span class="number">1</span>)  &#123;</span><br><span class="line">            System.out.println(<span class="string">"File path not given"</span>);</span><br><span class="line">            System.exit(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        CloseableHttpClient httpclient = HttpClients.createDefault();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpPost httppost = <span class="keyword">new</span> HttpPost(<span class="string">"http://localhost/"</span>);</span><br><span class="line"></span><br><span class="line">            File file = <span class="keyword">new</span> File(args[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">            InputStreamEntity reqEntity = <span class="keyword">new</span> InputStreamEntity(</span><br><span class="line">                    <span class="keyword">new</span> FileInputStream(file), -<span class="number">1</span>, ContentType.APPLICATION_OCTET_STREAM);</span><br><span class="line">            reqEntity.setChunked(<span class="keyword">true</span>);</span><br><span class="line">            <span class="comment">// It may be more appropriate to use FileEntity class in this particular</span></span><br><span class="line">            <span class="comment">// instance but we are using a more generic InputStreamEntity to demonstrate</span></span><br><span class="line">            <span class="comment">// the capability to stream out data from any arbitrary source</span></span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">            <span class="comment">// FileEntity entity = new FileEntity(file, "binary/octet-stream");</span></span><br><span class="line"></span><br><span class="line">            httppost.setEntity(reqEntity);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Executing request: "</span> + httppost.getRequestLine());</span><br><span class="line">            CloseableHttpResponse response = httpclient.execute(httppost);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">                System.out.println(response.getStatusLine());</span><br><span class="line">                EntityUtils.consume(response.getEntity());</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            httpclient.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Post请求添加键值对<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">CloseableHttpClient httpClient = HttpClients.createDefault();</span><br><span class="line">HttpPost httpPost = <span class="keyword">new</span> HttpPost(<span class="string">"http://localhost:8080/sample/servlet1"</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	List&lt;NameValuePair&gt; pairList = <span class="keyword">new</span> ArrayList&lt;NameValuePair&gt;();</span><br><span class="line">	pairList.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"param1"</span>, <span class="string">"val1"</span>));</span><br><span class="line">	pairList.add(<span class="keyword">new</span> BasicNameValuePair(<span class="string">"param2"</span>, <span class="string">"val2"</span>));</span><br><span class="line">	httpPost.setEntity(<span class="keyword">new</span> UrlEncodedFormEntity(pairList));</span><br><span class="line">	CloseableHttpResponse response = httpClient.execute(httpPost);</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"----------------------------------------"</span>);</span><br><span class="line">              System.out.println(response.getStatusLine());</span><br><span class="line">              HttpEntity entity = response.getEntity();</span><br><span class="line">              <span class="comment">// do something</span></span><br><span class="line">		EntityUtils.consume(entity);</span><br><span class="line">	&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">		response.close();</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">	httpClient.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/apache-commons/">apache-commons</a>
+  <a class="article-category-link" href="/categories/Mysql/">Mysql</a>
 </div>
 
 
@@ -803,14 +758,14 @@ Constraint  详细信息
 
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
-      <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
 <aside class="clearfix">
 
   
@@ -818,15 +773,99 @@ Constraint  详细信息
 
   
 <div class="categorieslist">
-	<p class="asidetitle">Categories</p>
+	<p class="asidetitle">分类</p>
 		<ul>
 		
 		  
-			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>4</sup></a></li>
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
 		  
 		
 		  
@@ -834,7 +873,17 @@ Constraint  详细信息
 		  
 		
 		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
 		  
 		
 		  
@@ -846,11 +895,17 @@ Constraint  详细信息
 		  
 		
 		  
-			<li><a href="/categories/oracle/" title="oracle">oracle<sup>15</sup></a></li>
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
 		  
 		
 		  
 			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
 		  
 		
 		</ul>
@@ -860,7 +915,7 @@ Constraint  详细信息
   
 
   <div class="linkslist">
-  <p class="asidetitle">Links</p>
+  <p class="asidetitle">友情链接</p>
     <ul>
         
     </ul>
@@ -870,11 +925,11 @@ Constraint  详细信息
 
 
   <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS</a>
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
 </div>
 
   <div class="weiboshow">
-  <p class="asidetitle">Weibo</p>
+  <p class="asidetitle">新浪微博</p>
     <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
 </div>
 
@@ -1017,7 +1072,7 @@ var _hmt = _hmt || [];
 <!-- Totop Begin -->
 
 	<div id="totop">
-	<a title="Back to Top"><img src="/img/scrollup.png"/></a>
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
 	</div>
 	<script src="/js/totop.js"></script>
 

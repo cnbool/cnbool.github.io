@@ -1,0 +1,582 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>sqlserver bulk insert将文本数据导入数据库 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="shane">
+    
+
+    
+    <meta name="description" content="现需要将文本数据导入sqlserver数据库,使用sqlserver的bulk insert命令,文本中的字段与表的列对应依靠format文件表结构:12345678910CREATE TABLE [T_Temp] (	[RecordSequenceID] [char] (18) COLLATE Chinese_PRC_CI_AS NULL ,	[UserIdType] [int] NULL ,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqlserver bulk insert将文本数据导入数据库">
+<meta property="og:url" content="http://yoursite.com/2013/05/05/sqlserver/sqlserver bulk insert将文本数据导入数据库/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="现需要将文本数据导入sqlserver数据库,使用sqlserver的bulk insert命令,文本中的字段与表的列对应依靠format文件表结构:12345678910CREATE TABLE [T_Temp] (	[RecordSequenceID] [char] (18) COLLATE Chinese_PRC_CI_AS NULL ,	[UserIdType] [int] NULL ,">
+<meta property="og:updated_time" content="2015-12-08T14:08:50.934Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sqlserver bulk insert将文本数据导入数据库">
+<meta name="twitter:description" content="现需要将文本数据导入sqlserver数据库,使用sqlserver的bulk insert命令,文本中的字段与表的列对应依靠format文件表结构:12345678910CREATE TABLE [T_Temp] (	[RecordSequenceID] [char] (18) COLLATE Chinese_PRC_CI_AS NULL ,	[UserIdType] [int] NULL ,">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/05/05/sqlserver/sqlserver bulk insert将文本数据导入数据库/" title="sqlserver bulk insert将文本数据导入数据库" itemprop="url">sqlserver bulk insert将文本数据导入数据库</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-05-04T22:11:44.000Z" itemprop="datePublished"> 发表于 2013-05-05</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p>现需要将文本数据导入sqlserver数据库,使用sqlserver的bulk insert命令,文本中的字段与表的列对应依靠format文件<br><strong>表结构:</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> [T_Temp] (</span><br><span class="line">	[RecordSequenceID] [<span class="built_in">char</span>] (<span class="number">18</span>) <span class="keyword">COLLATE</span> Chinese_PRC_CI_AS <span class="literal">NULL</span> ,</span><br><span class="line">	[UserIdType] [<span class="built_in">int</span>] <span class="literal">NULL</span> ,</span><br><span class="line">	[UserId] [<span class="built_in">varchar</span>] (<span class="number">36</span>) <span class="keyword">COLLATE</span> Chinese_PRC_CI_AS <span class="literal">NULL</span> ,</span><br><span class="line">	[ServiceType] [<span class="built_in">char</span>] (<span class="number">2</span>) <span class="keyword">COLLATE</span> Chinese_PRC_CI_AS <span class="literal">NULL</span> ,</span><br><span class="line">	[SpId] [<span class="built_in">varchar</span>] (<span class="number">21</span>) <span class="keyword">COLLATE</span> Chinese_PRC_CI_AS <span class="literal">NULL</span> ,</span><br><span class="line">	[ProductId] [<span class="built_in">varchar</span>] (<span class="number">21</span>) <span class="keyword">COLLATE</span> Chinese_PRC_CI_AS <span class="literal">NULL</span> ,</span><br><span class="line">	[UpdateType] [<span class="built_in">int</span>] <span class="literal">NULL</span> ,</span><br><span class="line">	[UpdateTime] [<span class="built_in">varchar</span>] (<span class="number">19</span>) <span class="keyword">COLLATE</span> Chinese_PRC_CI_AS <span class="literal">NULL</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p><strong>数据文件D:/data.txt内容:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">0001000002013042619000090219700101000000209901010000000000032755                    </span><br><span class="line">00000001	1	861557778	90	11234	9059002200	1	20130426181958	1231000000	0426190000</span><br><span class="line">00000002	1	861557876	90	11234	9059001300	1	20130426181957	1231000000	0426190000</span><br><span class="line">00000003	1	861319757	90	11234	9059002200	1	20130426181957	1231000000	0426190000</span><br><span class="line">00000004	1	861313280	90	11234	9059001300	1	20130426181957	1231000000	0426190000</span><br><span class="line">00000005	1	861321139	90	11234	9059002200	1	20130426181957	1231000000	0426190000</span><br><span class="line">00000006	1	861321159	90	11234	9059002200	1	20130426181957	1231000000	0426190000</span><br><span class="line">00000007	1	861320778	90	11234	9059001300	1	20130426181957	1231000000	0426190000</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p><strong>bulk insert语句</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">BULK <span class="keyword">INSERT</span> T_Temp <span class="keyword">FROM</span> <span class="string">'D:/data.txt'</span></span><br><span class="line"><span class="keyword">WITH</span></span><br><span class="line">(</span><br><span class="line">	FIRSTROW   =   <span class="number">2</span>,</span><br><span class="line">	FORMATFILE = <span class="string">'D:/T_Temp.fmt'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>FROM 后跟的是数据文件的位置<br>FIRSTROW 表示 数据以文本文件的第二行开始<br>FORMATFILE指定格式化文件的位置</p>
+<p><strong>format文本文件D:/T_Temp.fmt,内容如下:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">8.0</span><br><span class="line">9</span><br><span class="line">1       SQLCHAR       0       18      &quot;t&quot;       1     RecordSequenceID     Chinese_PRC_CI_AS</span><br><span class="line">2       SQLCHAR       0       12      &quot;t&quot;       2     UserIdType           &quot;&quot;</span><br><span class="line">3       SQLCHAR       0       36      &quot;t&quot;       3     UserId               Chinese_PRC_CI_AS</span><br><span class="line">4       SQLCHAR       0       2       &quot;t&quot;       4     ServiceType          Chinese_PRC_CI_AS</span><br><span class="line">5       SQLCHAR       0       21      &quot;t&quot;       5     SpId                 Chinese_PRC_CI_AS</span><br><span class="line">6       SQLCHAR       0       21      &quot;t&quot;       6     ProductId            Chinese_PRC_CI_AS</span><br><span class="line">7       SQLCHAR       0       12      &quot;t&quot;       7     UpdateType           &quot;&quot;</span><br><span class="line">8       SQLCHAR       0       14      &quot;t&quot;       8     UpdateTime           Chinese_PRC_CI_AS</span><br><span class="line">9       SQLCHAR       0       300      &quot;n&quot;       0    ExtraField           Chinese_PRC_CI_AS</span><br></pre></td></tr></table></figure></p>
+<p>第一行:8.0表示格式化文件的版本<br>第二行:9表示列数<br>3-11行:<br>第一列:数据文件中字段的次序<br>第二列:数据的类型<br>第三列:前缀长度<br>第四列:数据的长度<br>第五列:字段的结束符<br>第六列:数据库表 列顺序<br>第七列:数据库表 列名<br>第八列:排序规则<br>Chinese_PRC_CS_AI_WS<br>前半部份：指UNICODE字符集，Chinese<em>PRC</em>指针对大陆简体字UNICODE的排序规则。<br>排序规则的后半部份即后缀 含义：<br>_BIN 二进制排序<br>_CI(CS) 是否区分大小写，CI不区分，CS区分<br>_AI(AS) 是否区分重音，AI不区分，AS区分<br>_KI(KS) 是否区分假名类型,KI不区分，KS区分<br>_WI(WS) 是否区分宽度 WI不区分，WS区分<br>区分大小写:如果想让比较将大写字母和小写字母视为不等，请选择该选项。<br>区分重音:如果想让比较将重音和非重音字母视为不等，请选择该选项。如果选择该选项，比较还将重音不同的字母视为不等。<br>区分假名:如果想让比较将片假名和平假名日语音节视为不等，请选择该选项。<br>区分宽度:如果想让比较将半角字符和全角字符视为不等，请选择该选项</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/SqlServer/">SqlServer</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2013/05/05/sqlserver/sqlserver bulk insert将文本数据导入数据库/" data-title="sqlserver bulk insert将文本数据导入数据库 | Hexo" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2013/05/21/mysql/mysql学习笔记/" title="mysql学习笔记">
+  <strong>上一篇：</strong><br/>
+  <span>
+  mysql学习笔记</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/04/19/sqlserver/SQL Server变量赋值 SET和SELECT的区别/"  title="SQL Server变量赋值 SET和SELECT的区别">
+ <strong>下一篇：</strong><br/> 
+ <span>SQL Server变量赋值 SET和SELECT的区别
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="shane">shane</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

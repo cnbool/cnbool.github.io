@@ -1,0 +1,582 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>工具类：W3cDomTemplete | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="shane">
+    
+
+    
+    <meta name="description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工具类：W3cDomTemplete">
+<meta property="og:url" content="http://yoursite.com/2013/08/14/java/w3cdomtemplete/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021">
+<meta property="og:updated_time" content="2015-08-28T07:31:30.335Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="工具类：W3cDomTemplete">
+<meta name="twitter:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/08/14/java/w3cdomtemplete/" title="工具类：W3cDomTemplete" itemprop="url">工具类：W3cDomTemplete</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-08-13T17:49:48.000Z" itemprop="datePublished"> 发表于 2013-08-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cnbool.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.DocumentBuilder;</span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.DocumentBuilderFactory;</span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.ParserConfigurationException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.Document;</span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.Element;</span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.Node;</span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.NodeList;</span><br><span class="line"><span class="keyword">import</span> org.xml.sax.SAXException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * </span><br><span class="line"> * <span class="doctag">@version</span>	1.0</span><br><span class="line"> *</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">W3cDomTemplete</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">NodeExtractor</span> </span>&#123;</span><br><span class="line">		<span class="function"><span class="keyword">public</span> Object <span class="title">extractNode</span><span class="params">(Element node)</span></span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 从xml输入流中提取对象</span><br><span class="line">	 * <span class="doctag">@param</span> in	xml输入流</span><br><span class="line">	 * <span class="doctag">@param</span> nodeExtractor	对象提取器</span><br><span class="line">	 * <span class="doctag">@return</span></span><br><span class="line">	 * <span class="doctag">@throws</span> SAXException</span><br><span class="line">	 * <span class="doctag">@throws</span> IOException</span><br><span class="line">	 * <span class="doctag">@throws</span> ParserConfigurationException</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">extract</span><span class="params">(InputStream in, NodeExtractor nodeExtractor)</span> <span class="keyword">throws</span> SAXException, IOException, ParserConfigurationException </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> nodeExtractor.extractNode(getRoot(in));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 从xml输入流中提取对象</span><br><span class="line">	 * <span class="doctag">@param</span> in	xml输入流</span><br><span class="line">	 * <span class="doctag">@param</span> c</span><br><span class="line">	 * <span class="doctag">@return</span></span><br><span class="line">	 * <span class="doctag">@throws</span> SAXException</span><br><span class="line">	 * <span class="doctag">@throws</span> IOException</span><br><span class="line">	 * <span class="doctag">@throws</span> ParserConfigurationException</span><br><span class="line">	 * <span class="doctag">@throws</span> InstantiationException</span><br><span class="line">	 * <span class="doctag">@throws</span> IllegalAccessException</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; T <span class="title">extract</span><span class="params">(InputStream in, Class&lt;?&gt; c)</span> <span class="keyword">throws</span> SAXException, IOException, ParserConfigurationException, InstantiationException, IllegalAccessException </span>&#123;</span><br><span class="line">		Element root = getRoot(in);</span><br><span class="line">		<span class="keyword">return</span> extractOne(root, c);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 从xml输入流中提取对象列表</span><br><span class="line">	 * <span class="doctag">@param</span> in	xml输入流</span><br><span class="line">	 * <span class="doctag">@param</span> c</span><br><span class="line">	 * <span class="doctag">@return</span></span><br><span class="line">	 * <span class="doctag">@throws</span> SAXException</span><br><span class="line">	 * <span class="doctag">@throws</span> IOException</span><br><span class="line">	 * <span class="doctag">@throws</span> ParserConfigurationException</span><br><span class="line">	 * <span class="doctag">@throws</span> InstantiationException</span><br><span class="line">	 * <span class="doctag">@throws</span> IllegalAccessException</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; List&lt;T&gt; <span class="title">extractList</span><span class="params">(InputStream in, Class&lt;?&gt; c)</span> <span class="keyword">throws</span> SAXException, IOException, ParserConfigurationException, InstantiationException, IllegalAccessException </span>&#123;</span><br><span class="line">		Element root = getRoot(in);</span><br><span class="line">		List&lt;T&gt; resultList = <span class="keyword">new</span> ArrayList&lt;T&gt;();</span><br><span class="line">		matchNodes(resultList, root.getChildNodes(), c);</span><br><span class="line">		<span class="keyword">return</span> resultList;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 从xml输入流中提取对象列表</span><br><span class="line">	 * <span class="doctag">@param</span> in	xml输入流</span><br><span class="line">	 * <span class="doctag">@param</span> tagName	对象对应的标签名称</span><br><span class="line">	 * <span class="doctag">@param</span> nodeExtractor	节点提取器</span><br><span class="line">	 * <span class="doctag">@return</span></span><br><span class="line">	 * <span class="doctag">@throws</span> SAXException</span><br><span class="line">	 * <span class="doctag">@throws</span> IOException</span><br><span class="line">	 * <span class="doctag">@throws</span> ParserConfigurationException</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span>&lt;T&gt; List&lt;T&gt; <span class="title">extractList</span><span class="params">(InputStream in, String tagName, NodeExtractor nodeExtractor)</span> <span class="keyword">throws</span> SAXException, IOException, ParserConfigurationException </span>&#123;</span><br><span class="line">		Element root = getRoot(in);</span><br><span class="line">		NodeList nodes = root.getElementsByTagName(tagName);</span><br><span class="line">		List&lt;T&gt; resultList = <span class="keyword">new</span> ArrayList&lt;T&gt;(nodes.getLength());</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nodes.getLength(); i++) &#123;</span><br><span class="line">			Object row = nodeExtractor.extractNode((Element) nodes.item(i));</span><br><span class="line">			resultList.add((T) row);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> resultList;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 匹配合适的节点</span><br><span class="line">	 * <span class="doctag">@param</span> resultList</span><br><span class="line">	 * <span class="doctag">@param</span> nodes</span><br><span class="line">	 * <span class="doctag">@param</span> c</span><br><span class="line">	 * <span class="doctag">@throws</span> InstantiationException</span><br><span class="line">	 * <span class="doctag">@throws</span> IllegalAccessException</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">matchNodes</span><span class="params">(List&lt;T&gt; resultList, NodeList nodes, Class&lt;?&gt; c)</span> <span class="keyword">throws</span> InstantiationException, IllegalAccessException </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nodes.getLength(); i++) &#123;</span><br><span class="line">			Node subNode = nodes.item(i);</span><br><span class="line">			<span class="keyword">if</span> (subNode.getNodeType() == Node.ELEMENT_NODE) &#123;</span><br><span class="line">				<span class="keyword">if</span> (c.getSimpleName().equalsIgnoreCase(subNode.getNodeName())) &#123;</span><br><span class="line">					T obj = extractOne(subNode, c);</span><br><span class="line">					resultList.add(obj);</span><br><span class="line">				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">					matchNodes(resultList, subNode.getChildNodes(), c);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 从xml节点中提取一个对象</span><br><span class="line">	 * <span class="doctag">@param</span> node</span><br><span class="line">	 * <span class="doctag">@param</span> c</span><br><span class="line">	 * <span class="doctag">@return</span></span><br><span class="line">	 * <span class="doctag">@throws</span> InstantiationException</span><br><span class="line">	 * <span class="doctag">@throws</span> IllegalAccessException</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span>&lt;T&gt; T <span class="title">extractOne</span><span class="params">(Node node, Class&lt;?&gt; c)</span> <span class="keyword">throws</span> InstantiationException, IllegalAccessException </span>&#123;</span><br><span class="line">		Object obj = c.newInstance();</span><br><span class="line">		Field[] fields = c.getDeclaredFields();</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (node != <span class="keyword">null</span> &amp;&amp; c.getSimpleName().equalsIgnoreCase(node.getNodeName())) &#123;</span><br><span class="line">			NodeList nodelist = node.getChildNodes();</span><br><span class="line"></span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nodelist.getLength(); i++) &#123;</span><br><span class="line">				Node subNode = nodelist.item(i);</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span> (subNode.getNodeType() == Node.ELEMENT_NODE &amp;&amp; subNode.getFirstChild().getNodeType() == Node.TEXT_NODE) &#123;</span><br><span class="line">					<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; fields.length; j++) &#123;</span><br><span class="line">						<span class="keyword">if</span> (fields[j].getName().equalsIgnoreCase(subNode.getNodeName())) &#123;</span><br><span class="line">							fields[j].setAccessible(<span class="keyword">true</span>);</span><br><span class="line">							fields[j].set(obj, subNode.getFirstChild().getNodeValue());</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> (T) obj;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 从xml输入流中取得根节点</span><br><span class="line">	 * <span class="doctag">@param</span> in	xml输入流</span><br><span class="line">	 * <span class="doctag">@return</span></span><br><span class="line">	 * <span class="doctag">@throws</span> SAXException</span><br><span class="line">	 * <span class="doctag">@throws</span> IOException</span><br><span class="line">	 * <span class="doctag">@throws</span> ParserConfigurationException</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Element <span class="title">getRoot</span><span class="params">(InputStream in)</span> <span class="keyword">throws</span> SAXException, IOException, ParserConfigurationException </span>&#123;</span><br><span class="line">		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();</span><br><span class="line">		DocumentBuilder builder = factory.newDocumentBuilder();</span><br><span class="line">		Document document = builder.parse(in); </span><br><span class="line">		<span class="keyword">return</span> document.getDocumentElement();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>如何使用:</strong><br><strong><br>Student:</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> String num;</span><br><span class="line">	<span class="keyword">private</span> String classes;</span><br><span class="line">	<span class="keyword">private</span> String address;</span><br><span class="line">	<span class="keyword">private</span> String tel;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getNum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> num;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNum</span><span class="params">(String num)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.num = num;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getClasses</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> classes;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setClasses</span><span class="params">(String classes)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.classes = classes;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getAddress</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> address;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddress</span><span class="params">(String address)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.address = address;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getTel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> tel;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTel</span><span class="params">(String tel)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.tel = tel;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong><br>d:/test/Student.xml:</strong><br>[code lang=”xml”]<br>&lt;?xml version = “1.0” encoding = “gb2312”?&gt;</p>
+<p><student><br>        <name>小明</name><br>        <num>1006010033</num><br>        <classes>信管1</classes><br>        <address>浙江杭州</address><br>        <tel>18600001111</tel><br></student><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**提取Student对象:**</span><br><span class="line">```java</span><br><span class="line">//Method 1:</span><br><span class="line">Student student = W3cDomTemplete.extract(getInputStream(&quot;d:/test/Student.xml&quot;), Student.class);</span><br><span class="line"></span><br><span class="line">//Method 2:</span><br><span class="line">Student student = (Student) W3cDomTemplete.extract(getInputStream(&quot;d:/test/Student.xml&quot;), new NodeExtractor() &#123;</span><br><span class="line"></span><br><span class="line">			@Override</span><br><span class="line">			public Object extractNode(Element node) &#123;</span><br><span class="line">				Student student = new Student();</span><br><span class="line">				student.setName(node.getElementsByTagName(&quot;Name&quot;).item(0).getFirstChild().getNodeValue());</span><br><span class="line">				student.setNum(node.getElementsByTagName(&quot;Num&quot;).item(0).getFirstChild().getNodeValue());</span><br><span class="line">				student.setClasses(node.getElementsByTagName(&quot;Classes&quot;).item(0).getFirstChild().getNodeValue());</span><br><span class="line">				student.setAddress(node.getElementsByTagName(&quot;Address&quot;).item(0).getFirstChild().getNodeValue());</span><br><span class="line">				student.setTel(node.getElementsByTagName(&quot;Tel&quot;).item(0).getFirstChild().getNodeValue());</span><br><span class="line">				return student;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><strong><br>d:/test/School.xml:</strong><br>[code lang=”xml”]<br>&lt;?xml version = “1.0” encoding = “gb2312”?&gt;</p>
+<p><school><br>    <stufar><br>        <student><br>            <name>沈1</name><br>            <num>1006010022</num><br>            <classes>信管</classes><br>            <address>浙江杭州</address><br>            <tel>123456</tel><br>        </student><br>        <student><br>            <name>沈2</name><br>            <num>1006010033</num><br>            <classes>信管</classes><br>            <address>浙江杭州</address><br>            <tel>234567</tel><br>        </student><br>        <student><br>            <name>沈3</name><br>            <num>1006010044</num><br>            <classes>生工</classes><br>            <address>浙江杭州</address><br>            <tel>345678</tel><br>        </student><br>        <student><br>            <name>沈4</name><br>            <num>1006010055</num><br>            <classes>电子</classes><br>            <address>浙江杭州</address><br>            <tel>456789</tel><br>        </student><br>        <lalala><br>            <student><br>                <name>沈5</name><br>                <num>124234</num><br>                <classes>生工</classes><br>                <address>浙江杭州</address><br>                <tel>345678</tel><br>            </student><br>            <student><br>                <name>沈6</name><br>                <num>23545</num><br>                <classes>电子</classes><br>                <address>浙江杭州</address><br>                <tel>456789</tel><br>            </student><br>        </lalala><br>    </stufar><br></school><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**提取Student集合:**</span><br><span class="line">```java</span><br><span class="line">//Method 1:</span><br><span class="line">List&lt;Student&gt; studentList =  W3cDomTemplete.extractList(getInputStream(&quot;d:/test/School.xml&quot;), Student.class);</span><br><span class="line"></span><br><span class="line">//Method 2:</span><br><span class="line">List&lt;Student&gt; studentList =  W3cDomTemplete.extractList(getInputStream(&quot;d:/test/School.xml&quot;), &quot;Student&quot;, new NodeExtractor() &#123;</span><br><span class="line"></span><br><span class="line">				@Override</span><br><span class="line">				public Object extractNode(Element node) &#123;</span><br><span class="line">					Student student = new Student();</span><br><span class="line">					student.setName(node.getElementsByTagName(&quot;Name&quot;).item(0).getFirstChild().getNodeValue());</span><br><span class="line">					student.setNum(node.getElementsByTagName(&quot;Num&quot;).item(0).getFirstChild().getNodeValue());</span><br><span class="line">					student.setClasses(node.getElementsByTagName(&quot;Classes&quot;).item(0).getFirstChild().getNodeValue());</span><br><span class="line">					student.setAddress(node.getElementsByTagName(&quot;Address&quot;).item(0).getFirstChild().getNodeValue());</span><br><span class="line">					student.setTel(node.getElementsByTagName(&quot;Tel&quot;).item(0).getFirstChild().getNodeValue());</span><br><span class="line">					return student;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2013/08/14/java/w3cdomtemplete/" data-title="工具类：W3cDomTemplete | Hexo" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2013/08/14/java/json-libjava与json相互转换/" title="json-lib:java与json相互转换">
+  <strong>上一篇：</strong><br/>
+  <span>
+  json-lib:java与json相互转换</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/08/14/mybatis/mybatis-example-jpetstore/"  title="MyBatis Example:JPetStore">
+ <strong>下一篇：</strong><br/> 
+ <span>MyBatis Example:JPetStore
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="shane">shane</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

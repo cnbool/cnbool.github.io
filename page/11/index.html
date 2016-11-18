@@ -1,0 +1,1078 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="shane">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/11/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/03/03/oracle/创建oracle数据库账号,并限制权限/" title="创建oracle数据库账号,并限制权限" itemprop="url">创建oracle数据库账号,并限制权限</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-03-02T23:05:34.000Z" itemprop="datePublished"> 发表于 2013-03-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>需求:现需要给外包方提供oracle数据库的账号,将一些表和视图开放给外包方,并且让其可以建立自己的表</p>
+<p><strong>1.首先登录数据库用户user_business,在此用户下创建外包方数据库用户</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--创建用户，指定默认表空间</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> user_wb <span class="keyword">identified</span> <span class="keyword">by</span> pwd_wb </span><br><span class="line"><span class="keyword">DEFAULT</span> <span class="keyword">TABLESPACE</span> TB_DATA;</span><br></pre></td></tr></table></figure>
+<p><strong>2.赋予权限</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">resource</span>, <span class="keyword">connect</span> <span class="keyword">to</span> user_wb;</span><br><span class="line"></span><br><span class="line"><span class="comment">--将table_a的所有操作权限赋予user_wb</span></span><br><span class="line"><span class="keyword">GRANT</span> ALL <span class="keyword">ON</span> table_a <span class="keyword">TO</span> user_wb;</span><br><span class="line"></span><br><span class="line"><span class="comment">--将V_GET_MSG视图的查询权限赋予user_wb</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> V_GET_MSG <span class="keyword">TO</span> user_wb;</span><br></pre></td></tr></table></figure>
+<p><strong>3.用user_wb账户登录,即可查询table_a和V_GET_MSG</strong><br>因为表table_a和视图V_GET_MSG属于用户user_business,所以使用时必须加上前缀user_business</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> user_business.table_a;</span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> user_business.table_a;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> user_business.V_GET_MSG;</span><br></pre></td></tr></table></figure>
+<p><strong>4.使用同义词简化语句</strong><br>登录user_business</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--为user_business.table_a创建全局同义词table_a</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PUBLIC</span> <span class="keyword">SYNONYM</span> table_a <span class="keyword">for</span> user_business.table_a;</span><br><span class="line"></span><br><span class="line"><span class="comment">--为user_business.V_GET_MSG创建全局同义词V_GET_MSG</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PUBLIC</span> <span class="keyword">SYNONYM</span> V_GET_MSG <span class="keyword">for</span> user_business.V_GET_MSG;</span><br></pre></td></tr></table></figure>
+<p>在user_wb账户下即可使用如下查询</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> table_a;</span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> table_a;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> V_GET_MSG;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/oracle/">oracle</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/03/03/oracle/oracle-db-link的使用/" title="oracle db-link的使用" itemprop="url">oracle db-link的使用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-03-02T17:36:44.000Z" itemprop="datePublished"> 发表于 2013-03-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>现在需要从不同的oracle数据库中取得数据,使用db-link可以做到<br>假设从数据库A需要访问数据库B的某张表,建立db-link的步骤如下<br><strong>1.更改数据库A的tnsnames.ora文件</strong></p>
+<p>如果数据库是11g,这个文件在appAdministratorproduct11.2.0dbhome_1NETWORKADMIN<br>增加如下内容:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ORCL_B=</span><br><span class="line"> (DESCRIPTION=</span><br><span class="line">   (ADDRESS=</span><br><span class="line">     (PROTOCOL=TCP)</span><br><span class="line">     (HOST=192.168.1.16)</span><br><span class="line">     (PORT=1521)</span><br><span class="line">   )</span><br><span class="line">   (CONNECT_DATA=</span><br><span class="line">     (SERVER=dedicated)</span><br><span class="line">     (SERVICE_NAME=orcl)</span><br><span class="line">   )</span><br><span class="line"> )</span><br></pre></td></tr></table></figure>
+<p>说明:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1行: ORCL_B:数据库B连接字符串</span><br><span class="line">5,6行: B数据库的ip,port</span><br><span class="line">10行: 数据库B的sid</span><br></pre></td></tr></table></figure>
+<p><strong>2.执行SQL创建db-link</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">PUBLIC</span> <span class="keyword">DATABASE</span> <span class="keyword">LINK</span> DB_B</span><br><span class="line"><span class="keyword">CONNECT</span> <span class="keyword">TO</span> db_b_username <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> db_b_pwd</span><br><span class="line"><span class="keyword">USING</span> <span class="string">'ORCL_B'</span></span><br></pre></td></tr></table></figure>
+<p>说明:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DB_B 是db-link的名字</span><br><span class="line">db_b_username,db_b_pwd 是数据库B的用户名,密码</span><br><span class="line">ORCL_B 是tnsnames.ora文件中的数据库B连接字符串</span><br></pre></td></tr></table></figure>
+<p><strong>3.使用db-link</strong><br>从数据库A中访问数据库B的table_in_b表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> table_in_b@DB_B;</span><br></pre></td></tr></table></figure>
+<p>db-link详解:<a href="http://www.cnblogs.com/allenlf/archive/2012/04/02/2430265.html" title="http://www.cnblogs.com/allenlf/archive/2012/04/02/2430265.html" target="_blank" rel="external">http://www.cnblogs.com/allenlf/archive/2012/04/02/2430265.html</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/oracle/">oracle</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/01/27/java/eclipse提示org.w3c.dom.Node下的getTextContent()方法undefined/" title="eclipse提示org.w3c.dom.Node下的getTextContent()方法undefined" itemprop="url">eclipse提示org.w3c.dom.Node下的getTextContent()方法undefined</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-01-27T13:39:44.000Z" itemprop="datePublished"> 发表于 2013-01-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>今天打开之前的一个项目, 发现org.w3c.dom.Node的getTextContent()方法eclipse提示:The method getTextContent() is undefined for the type Node, 百度了一下找到了解决方法:<br>eclipse 中 如果加入了 其他了xfire 等其他xml解析包的话,使用org.w3c.dom.Node下的getTextContent()方法会出现The method getTextContent() is undefined for the type Node 提示,解决方法如下:</p>
+<p>project–&gt;properties-&gt;java build path–&gt;order and export 把JRE System 提升到顶部既可,前提记得是java版本是jdk1.5以上</p>
+<p>源自:<a href="http://www.cnblogs.com/edwardlauxh/archive/2012/07/01/2572249.html" title="http://www.cnblogs.com/edwardlauxh/archive/2012/07/01/2572249.html" target="_blank" rel="external">http://www.cnblogs.com/edwardlauxh/archive/2012/07/01/2572249.html</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Java/">Java</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/01/26/oracle/查看oracle正在执行sql,等待sql和锁/" title="查看oracle正在执行sql,等待sql和锁" itemprop="url">查看oracle正在执行sql,等待sql和锁</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-01-25T17:37:03.000Z" itemprop="datePublished"> 发表于 2013-01-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>查询当前执行的SQL SID, CPU_TIME， SQL_TEXT<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">SID</span>,<span class="built_in">SERIAL</span>#, OSUSER, PROGRAM, USERNAME, SCHEMANAME, B.Cpu_Time, <span class="keyword">STATUS</span>, B.SQL_TEXT</span><br><span class="line"><span class="keyword">from</span> V$<span class="keyword">SESSION</span> A</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> V$<span class="keyword">SQL</span> B <span class="keyword">ON</span> A.SQL_ADDRESS = B.ADDRESS</span><br><span class="line"><span class="keyword">AND</span> A.SQL_HASH_VALUE = B.HASH_VALUE</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">SID</span> <span class="keyword">IN</span> (<span class="keyword">SELECT</span> <span class="keyword">SID</span> <span class="keyword">FROM</span> v$session_wait)</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> b.cpu_time <span class="keyword">desc</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">kill</span> <span class="keyword">session</span>:</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'sid, s.serial#'</span>;</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">system</span> <span class="keyword">kill</span> <span class="keyword">session</span> <span class="string">'117 ,2929'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>确定等待最多的SQL<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a.user_id, d.username, s.sql_text,</span><br><span class="line"><span class="keyword">SUM</span>(a.wait_time + a.time_waited) total_wait_time</span><br><span class="line"><span class="keyword">FROM</span> v$active_session_history a,</span><br><span class="line">v$sqlarea s,</span><br><span class="line">dba_users d</span><br><span class="line"><span class="keyword">WHERE</span> a.sample_time <span class="keyword">between</span> <span class="keyword">sysdate</span> - <span class="number">30</span>/<span class="number">2800</span> <span class="keyword">and</span> <span class="keyword">sysdate</span></span><br><span class="line"><span class="keyword">AND</span> a.sql_id = s.sql_id</span><br><span class="line"><span class="keyword">AND</span> a.user_id = d.user_id</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> a.user_id, s.sql_text, d.username</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> total_wait_time <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></p>
+<p>v$system_wait_class<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> wait_class, time_waited</span><br><span class="line"><span class="keyword">FROM</span> v$system_wait_class</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> time_waited <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></p>
+<p>按照单个会话得到每种等待花费时间<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> wait_class, time_waited</span><br><span class="line"><span class="keyword">FROM</span> v$session_wait_class</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">sid</span> = <span class="number">117</span></span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> time_waited <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure></p>
+<p>查出oracle当前的被锁对象<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> l.session_id <span class="keyword">sid</span>,</span><br><span class="line">       s.serial#,</span><br><span class="line">       l.locked_mode 锁模式,</span><br><span class="line">       l.oracle_username 登录用户,</span><br><span class="line">       l.os_user_name 登录机器用户名,</span><br><span class="line">       s.machine 机器名,</span><br><span class="line">       s.terminal 终端用户名,</span><br><span class="line">       o.object_name 被锁对象名,</span><br><span class="line">       s.logon_time 登录数据库时间</span><br><span class="line"><span class="keyword">FROM</span> v$locked_object l, all_objects o, v$<span class="keyword">session</span> s</span><br><span class="line"><span class="keyword">WHERE</span> l.object_id = o.object_id</span><br><span class="line">   <span class="keyword">AND</span> l.session_id = s.sid</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">sid</span>, s.serial#;</span><br></pre></td></tr></table></figure></p>
+<p>查看正在执行sql的发起者的程序<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> OSUSER 电脑登录身份,</span><br><span class="line">       PROGRAM 发起请求的程序,</span><br><span class="line">       USERNAME 登录系统的用户名,</span><br><span class="line">       SCHEMANAME,</span><br><span class="line">       B.Cpu_Time 花费cpu的时间,</span><br><span class="line">       <span class="keyword">STATUS</span>,</span><br><span class="line">       B.SQL_TEXT 执行的<span class="keyword">sql</span></span><br><span class="line"><span class="keyword">FROM</span> V$<span class="keyword">SESSION</span> A</span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> V$<span class="keyword">SQL</span> B <span class="keyword">ON</span> A.SQL_ADDRESS = B.ADDRESS</span><br><span class="line">                   <span class="keyword">AND</span> A.SQL_HASH_VALUE = B.HASH_VALUE</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> b.cpu_time <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure></p>
+<p>查询oracle job信息<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> job_name,comments <span class="keyword">from</span> dba_scheduler_jobs;</span><br></pre></td></tr></table></figure></p>
+<p>disable automatic optimizer statistics collection<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">  DBMS_AUTO_TASK_ADMIN.DISABLE(</span><br><span class="line">    client_name =&gt; <span class="string">'auto optimizer stats collection'</span>, </span><br><span class="line">    operation =&gt; <span class="literal">NULL</span>, </span><br><span class="line">    window_name =&gt; <span class="literal">NULL</span>);</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure></p>
+<p>enable automatic optimizer statistics collection<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">  DBMS_AUTO_TASK_ADMIN.ENABLE(</span><br><span class="line">    client_name =&gt; <span class="string">'auto optimizer stats collection'</span>, </span><br><span class="line">    operation =&gt; <span class="literal">NULL</span>, </span><br><span class="line">    window_name =&gt; <span class="literal">NULL</span>);</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/oracle/">oracle</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/01/26/oracle/oracle锁/" title="oracle锁" itemprop="url">oracle锁</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-01-25T17:25:38.000Z" itemprop="datePublished"> 发表于 2013-01-26</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> v$<span class="keyword">lock</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> v$locked_object;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> b.owner,b.object_name,a.session_id,a.locked_mode</span><br><span class="line"><span class="keyword">from</span> v$locked_object a,dba_objects b</span><br><span class="line"><span class="keyword">where</span> b.object_id = a.object_id;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> b.owner,b.object_name,l.session_id,l.locked_mode</span><br><span class="line"><span class="keyword">from</span> v$locked_object l, dba_objects b</span><br><span class="line"><span class="keyword">where</span> b.object_id=l.object_id</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> t2.username,t2.sid,t2.serial#,t2.logon_time </span><br><span class="line"><span class="keyword">from</span> v$locked_object t1,v$<span class="keyword">session</span> t2 </span><br><span class="line"><span class="keyword">where</span> t1.session_id=t2.sid <span class="keyword">order</span> <span class="keyword">by</span> t2.logon_time</span><br></pre></td></tr></table></figure>
+<p>ORACLE里锁有以下几种模式:</p>
+<p>0：none</p>
+<p>1：null 空</p>
+<p>2：Row-S 行共享(RS)：共享表锁，sub share</p>
+<p>3：Row-X 行独占(RX)：用于行的修改，sub exclusive</p>
+<p>4：Share 共享锁(S)：阻止其他DML操作，share</p>
+<p>5：S/Row-X 共享行独占(SRX)：阻止其他事务操作，share/sub exclusive</p>
+<p>6：exclusive 独占(X)：独立访问使用，exclusive</p>
+<p>数字越大锁级别越高, 影响的操作越多。</p>
+<p>1级锁有：Select，有时会在v$locked_object出现。</p>
+<p>2级锁有：Select for update,Lock For Update,Lock Row Share</p>
+<p>select for update当对话使用for update子串打开一个游标时，所有返回集中的数据行都将处于行级(Row-X)独占式锁定，其他对象只能查询这些数据行，不能进行update、delete或select for update操作。</p>
+<p>3级锁有：Insert, Update, Delete, Lock Row Exclusive</p>
+<p>没有commit之前插入同样的一条记录会没有反应, 因为后一个3的锁会一直等待上一个3的锁, 我们必须释放掉上一个才能继续工作。</p>
+<p>4级锁有：Create Index, Lock Share</p>
+<p>locked_mode为2,3,4不影响DML(insert,delete,update,select)操作, 但DDL(alter,drop等)操作会提示ora-00054错误。</p>
+<p>00054, 00000, “resource busy and acquire with NOWAIT specified”</p>
+<p>// *Cause: Resource interested is busy.</p>
+<p>// *Action: Retry if necessary.</p>
+<p>5级锁有：Lock Share Row Exclusive</p>
+<p>具体来讲有主外键约束时update / delete … ; 可能会产生4,5的锁。</p>
+<p>6级锁有：Alter table, Drop table, Drop Index, Truncate table, Lock Exclusive</p>
+<p>内容源自:<a href="http://www.cnblogs.com/elucsn/archive/2012/04/05/2433315.html" title="http://www.cnblogs.com/elucsn/archive/2012/04/05/2433315.html" target="_blank" rel="external">http://www.cnblogs.com/elucsn/archive/2012/04/05/2433315.html</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/oracle/">oracle</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/01/23/oracle/oracle-null相关函数/" title="oracle null相关函数" itemprop="url">oracle null相关函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-01-23T15:05:55.000Z" itemprop="datePublished"> 发表于 2013-01-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>NVL(N, M) N为null的情况下，取M的值，否则取N的值<br>NVL2(N, A, B) N为null时，取A的值，否则取B的值 (纠正，N为null时，取B的值，否则取A的值)<br>NULLIF(M, N) 如果 M 和 N 相等，返回 NULL，否则返回 M。<br>COALESCE(A1, ……,AN ) 返回第一个不为NULL的值。</p>
+<p>源自:<a href="http://akunamotata.iteye.com/blog/421730" title="http://akunamotata.iteye.com/blog/421730" target="_blank" rel="external">http://akunamotata.iteye.com/blog/421730</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/oracle/">oracle</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/01/13/others/单词积累/" title="单词积累" itemprop="url">单词积累</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-01-12T18:56:30.000Z" itemprop="datePublished"> 发表于 2013-01-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>infrastructure [英][ˈinfrəˌstrʌktʃə] [美][ˈɪnfrəˌstrʌktʃɚ]<br>基础设施；基础建设<br>iaas:<br>Infrastructure as a Service 基础设施即服务</p>
+<p>paas:</p>
+<p>Platform as a Service 平台即服务</p>
+<p>saas:</p>
+<p>Software as a Service</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Other/">Other</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/01/08/oracle/oracle物化视图/" title="oracle物化视图" itemprop="url">oracle物化视图</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-01-07T20:13:10.000Z" itemprop="datePublished"> 发表于 2013-01-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>有一张短信下发记录表和短信回执表,记录数各有4000w+.两张表需要关联起来查询特别的慢,请刘哥帮忙把回执表的两个字段RECEIPT_RESULT,RESULTTIME更新到下发记录表中,刘哥没有这么干,他使用了”物化视图”.</p>
+<p>两张表的表结构如下:<br>T_SMS_AD</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> T_SMS_AD</span><br><span class="line">(</span><br><span class="line">  SEQUENCEID     VARCHAR2(<span class="number">64</span>),</span><br><span class="line">  PHONENO        VARCHAR2(<span class="number">64</span>),</span><br><span class="line">  SENDTIME       <span class="built_in">DATE</span>,</span><br><span class="line">  MESSAGECONTENT VARCHAR2(<span class="number">600</span>),</span><br><span class="line">  SUBMIT_RESULT  VARCHAR2(<span class="number">5</span>),</span><br><span class="line">  RECEIPT_RESULT VARCHAR2(<span class="number">64</span>),</span><br><span class="line">  RESULTTIME     <span class="built_in">DATE</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>T_SMS_CB</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> T_SMS_CB</span><br><span class="line">(</span><br><span class="line">  SEQUENCEID VARCHAR2(<span class="number">64</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">  RECEIPT_RESULT VARCHAR2(<span class="number">64</span>),</span><br><span class="line">  RESULTTIME <span class="built_in">DATE</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>使用物化视图:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_AD <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_CB <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> AD_MV</span><br><span class="line">   <span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">range</span>(SENDTIME)</span><br><span class="line">   <span class="built_in">INTERVAL</span>(NUMTODSINTERVAL(<span class="number">1</span>,<span class="string">'day'</span>)) <span class="keyword">store</span> <span class="keyword">in</span>(AD_MV)</span><br><span class="line">   (<span class="keyword">partition</span> P1 <span class="keyword">values</span> <span class="keyword">less</span> <span class="keyword">than</span> (<span class="keyword">to_date</span>(<span class="string">'2011-11-01'</span>,<span class="string">'yyyy-mm-dd'</span>)))</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">refresh</span> <span class="keyword">fast</span> <span class="keyword">with</span> <span class="keyword">rowid</span></span><br><span class="line">                  <span class="keyword">START</span> <span class="keyword">WITH</span> <span class="keyword">TO_DATE</span>(<span class="string">'2013-01-09 05:00:00'</span>, <span class="string">'YYYY-MM-DD HH24:MI:SS'</span>)</span><br><span class="line">                  <span class="keyword">NEXT</span> <span class="keyword">SYSDATE</span> + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                  <span class="keyword">AS</span> <span class="keyword">SELECT</span> <span class="comment">/*+ PARALLE */</span> A.ROWID AD_ROWID, A.SEQUENCEID,</span><br><span class="line">A.PHONENO,A.SENDTIME,A.MESSAGECONTENT,B.RECEIPT_RESULT,B.RESULTTIME,B.ROWID CB_ROWID</span><br><span class="line"><span class="keyword">FROM</span> T_SMS_AD A, T_SMS_CB B</span><br><span class="line"><span class="keyword">WHERE</span> A.SEQUENCEID=B.SEQUENCEID</span><br></pre></td></tr></table></figure>
+<p>说明:<br>5-6行:物化视图按照SENDTIME字RANGE分区,每一天为一个分区<br>9行:快速刷新(增量刷新)<br>10-11行:物化视图第一次刷新时间在2013-01-09 05:00:00,并且以后每天都在05:00:00刷新:</p>
+<p>后记:<br>后来在查询物化视图的时候发现,物化视图中的那句SQL语句不符合需求(13-16)<br>这个SQL使用的是内连接,如果一条下发没有对应的回执的话,从物化视图中就查不到下发记录了.<br>所以物化视图中的SQL需要改成左连接.建立新的物化视图,那需要先删除原来的物化视图.<br>删除物化视图步骤:建议先删VIEW LOG, 再删VIEW,这样删除会比较快</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_AD;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_CB;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> AD_MV;</span><br></pre></td></tr></table></figure>
+<p>建立新的物化视图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">CREATE MATERIALIZED VIEW LOG ON T_SMS_AD TABLESPACE AD_MV WITH ROWID;</span><br><span class="line">CREATE MATERIALIZED VIEW LOG ON T_SMS_CB TABLESPACE AD_MV WITH ROWID;</span><br><span class="line"></span><br><span class="line">CREATE MATERIALIZED VIEW AD_MV</span><br><span class="line">   PARTITION BY range(SENDTIME)</span><br><span class="line">   INTERVAL(NUMTODSINTERVAL(1,&apos;day&apos;)) store in(AD_MV)</span><br><span class="line">   (partition P1 values less than (to_date(&apos;2011-11-01&apos;,&apos;yyyy-mm-dd&apos;)))</span><br><span class="line"></span><br><span class="line">                  refresh fast with rowid</span><br><span class="line">                  START WITH TO_DATE(&apos;2013-01-09 05:00:00&apos;, &apos;YYYY-MM-DD HH24:MI:SS&apos;)</span><br><span class="line">                  NEXT SYSDATE + 1</span><br><span class="line"></span><br><span class="line">                  AS SELECT /*+ PARALLE */ A.ROWID AD_ROWID, A.SEQUENCEID,</span><br><span class="line">A.PHONENO,A.SENDTIME,A.MESSAGECONTENT,B.RECEIPT_RESULT,B.RESULTTIME,B.ROWID CB_ROWID</span><br><span class="line">FROM T_SMS_AD A LEFT JOIN T_SMS_CB B</span><br><span class="line">ON A.SEQUENCEID=B.SEQUENCEID</span><br></pre></td></tr></table></figure>
+<p>执行这段SQL建立新物化视图的时候报错了:<br>ORA-12015:c cannot create a fast refresh materialized view from a complex query<br>问了一下刘哥,他说快速刷新模式不允许左连接这样的语句,高亮的那句指定了快速刷新:<br>只好改成了COMPLETE刷新,修改后的物化视图创建语句:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_AD <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_CB <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> AD_MV</span><br><span class="line">   <span class="keyword">PARTITION</span> <span class="keyword">BY</span> <span class="keyword">range</span>(SENDTIME)</span><br><span class="line">   <span class="built_in">INTERVAL</span>(NUMTODSINTERVAL(<span class="number">1</span>,<span class="string">'day'</span>)) <span class="keyword">store</span> <span class="keyword">in</span>(AD_MV)</span><br><span class="line">   (<span class="keyword">partition</span> P1 <span class="keyword">values</span> <span class="keyword">less</span> <span class="keyword">than</span> (<span class="keyword">to_date</span>(<span class="string">'2011-11-01'</span>,<span class="string">'yyyy-mm-dd'</span>)))</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">refresh</span> <span class="keyword">COMPLETE</span>  <span class="keyword">with</span> <span class="keyword">rowid</span></span><br><span class="line">                  <span class="keyword">START</span> <span class="keyword">WITH</span> <span class="keyword">TO_DATE</span>(<span class="string">'2013-01-09 05:00:00'</span>, <span class="string">'YYYY-MM-DD HH24:MI:SS'</span>)</span><br><span class="line">                  <span class="keyword">NEXT</span> <span class="keyword">SYSDATE</span> + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                  <span class="keyword">AS</span> <span class="keyword">SELECT</span> <span class="comment">/*+ PARALLE */</span> A.ROWID AD_ROWID, A.SEQUENCEID,</span><br><span class="line">A.PHONENO,A.SENDTIME,A.MESSAGECONTENT,B.RECEIPT_RESULT,B.RESULTTIME,B.ROWID CB_ROWID</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> T_SMS_AD A <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> T_SMS_CB B</span><br><span class="line"><span class="keyword">ON</span> A.SEQUENCEID=B.SEQUENCEID</span><br></pre></td></tr></table></figure>
+<p>因T_SMS_AD,T_SMS_CB表太大,物化视图COMPLETE刷新慢,还是使用快速刷新(SQL有变化):</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_AD <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">LOG</span> <span class="keyword">ON</span> T_SMS_CB <span class="keyword">TABLESPACE</span> AD_MV <span class="keyword">WITH</span> <span class="keyword">ROWID</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> AD_MV</span><br><span class="line"></span><br><span class="line">  <span class="keyword">PARTITION</span>  <span class="keyword">BY</span> <span class="keyword">range</span>(SENDTIME)</span><br><span class="line">  <span class="built_in">INTERVAL</span>(NUMTODSINTERVAL(<span class="number">1</span>,<span class="string">'day'</span>)) <span class="keyword">store</span> <span class="keyword">in</span>(AD_MV)</span><br><span class="line">  (<span class="keyword">partition</span> P1 <span class="keyword">values</span> <span class="keyword">less</span> <span class="keyword">than</span> (<span class="keyword">to_date</span>(<span class="string">'2011-11-01'</span>,<span class="string">'yyyy-mm-dd'</span>)))</span><br><span class="line"></span><br><span class="line">                  <span class="keyword">REFRESH</span> <span class="keyword">FAST</span> <span class="keyword">WITH</span> <span class="keyword">ROWID</span></span><br><span class="line">                  <span class="keyword">START</span> <span class="keyword">WITH</span> <span class="keyword">TO_DATE</span>(<span class="string">'2013-02-19 05:30:00'</span>, <span class="string">'YYYY-MM-DD HH24:MI:SS'</span>)</span><br><span class="line">                  <span class="keyword">NEXT</span> <span class="keyword">SYSDATE</span> + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">                  <span class="keyword">AS</span> <span class="keyword">SELECT</span> <span class="comment">/*+ PARALLE */</span> A.ROWID AD_ROWID, A.SEQUENCEID,A.PHONENO,A.SENDTIME,</span><br><span class="line">A.MESSAGECONTENT,B.RECEIPT_RESULT,B.RESULTTIME,B.ROWID CB_ROWID</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> T_SMS_AD A , T_SMS_CB B</span><br><span class="line"><span class="keyword">WHERE</span>  A.SEQUENCEID=B.SEQUENCEID(+)</span><br></pre></td></tr></table></figure>
+<p>后续发现问题:发现物化视图中新增的记录都是重复的, 下发的短信在物化视图中都有两条记录<br>找到原因:<br>T_SMS_AD,T_SMS_CB两张表新增记录的时候, 如果先在T_SMS_AD表中插入数据, 后在T_SMS_CB表插入数据<br>当物化视图快速刷新时,会导致此记录在物化视图中重复,这个和建立物化视图时使用的左连接SQL有关系</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/oracle/">oracle</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/01/05/oracle/oracle函数/" title="oracle函数" itemprop="url">oracle函数</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-01-05T14:29:47.000Z" itemprop="datePublished"> 发表于 2013-01-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>剪切字符串<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">substr( string, start_position, [ length ] )</span><br></pre></td></tr></table></figure></p>
+<p>string：源字符串<br>start_position：子串第一个字符在源字符串中的起始位置<br>length：子串长度</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/oracle/">oracle</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/01/05/oracle/oracle表空间操作/" title="oracle表空间操作" itemprop="url">oracle表空间操作</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-01-05T13:45:10.000Z" itemprop="datePublished"> 发表于 2013-01-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><strong>临时表空间</strong><br>新建临时表空间(自动增长)<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TEMPORARY</span> <span class="keyword">TABLESPACE</span> TB_TEMP</span><br><span class="line">TEMPFILE <span class="string">'D:oracleproduct10.2.0oradataorcltablespace_tempTB_TEMP.dbf'</span> </span><br><span class="line"><span class="keyword">SIZE</span> <span class="number">2048</span>M <span class="keyword">AUTOEXTEND</span> <span class="keyword">ON</span> <span class="keyword">NEXT</span> <span class="number">1024</span>M <span class="keyword">MAXSIZE</span> <span class="keyword">UNLIMITED</span> <span class="keyword">EXTENT</span> <span class="keyword">MANAGEMENT</span> <span class="keyword">LOCAL</span>;</span><br></pre></td></tr></table></figure></p>
+<p>查看临时表空间 （dba_temp<em>files视图）（v</em>$tempfile视图）<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> tablespace_name,file_name,<span class="keyword">bytes</span>/<span class="number">1024</span>/<span class="number">1024</span> file_size,autoextensible <span class="keyword">from</span> dba_temp_files;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">status</span>,enabled, <span class="keyword">name</span>, <span class="keyword">bytes</span>/<span class="number">1024</span>/<span class="number">1024</span> file_size <span class="keyword">from</span> v_$tempfile;<span class="comment">--sys用户查看</span></span><br></pre></td></tr></table></figure></p>
+<p>缩小临时表空间大小<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">database</span> tempfile <span class="string">'D:ORACLEPRODUCT10.2.0ORADATATELEMTTEMP01.DBF'</span> <span class="keyword">resize</span> <span class="number">100</span>M;</span><br></pre></td></tr></table></figure></p>
+<p><strong>扩展临时表空间：</strong><br>方法一、增大临时文件大小：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">database</span> tempfile <span class="string">'/u01/app/oracle/oradata/orcl/temp01.dbf'</span> <span class="keyword">resize</span> <span class="number">100</span>m;</span><br></pre></td></tr></table></figure></p>
+<p>方法二、将临时数据文件设为自动扩展：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">database</span> tempfile <span class="string">'/u01/app/oracle/oradata/orcl/temp01.dbf'</span> <span class="keyword">autoextend</span> <span class="keyword">on</span> <span class="keyword">next</span> <span class="number">5</span>m <span class="keyword">maxsize</span> <span class="keyword">unlimited</span>;</span><br></pre></td></tr></table></figure></p>
+<p>方法三、向临时表空间中添加数据文件：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">tablespace</span> temp <span class="keyword">add</span> tempfile <span class="string">'/u01/app/oracle/oradata/orcl/temp02.dbf'</span> <span class="keyword">size</span> <span class="number">100</span>m;</span><br></pre></td></tr></table></figure></p>
+<p>更改数据库默认临时表空间<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> <span class="keyword">DEFAULT</span> <span class="keyword">TEMPORARY</span> <span class="keyword">TABLESPACE</span> TB_TEMP;</span><br></pre></td></tr></table></figure></p>
+<p><strong>数据表空间</strong><br>新建数据表空间(自动增长)<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLESPACE</span> TB_DATA </span><br><span class="line"><span class="keyword">DATAFILE</span> <span class="string">'D:oracleproduct10.2.0oradataorcltablespace_dataTB_DATA.dbf'</span> </span><br><span class="line"><span class="keyword">SIZE</span> <span class="number">1024</span>M <span class="keyword">AUTOEXTEND</span> <span class="keyword">ON</span> <span class="keyword">NEXT</span> <span class="number">1024</span>M <span class="keyword">MAXSIZE</span> <span class="keyword">UNLIMITED</span> <span class="keyword">EXTENT</span> <span class="keyword">MANAGEMENT</span> <span class="keyword">LOCAL</span>;</span><br></pre></td></tr></table></figure></p>
+<p>添加表空间文件(自动增长)<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLESPACE</span> TB_DATA <span class="keyword">ADD</span></span><br><span class="line"><span class="keyword">DATAFILE</span> <span class="string">'D:oracleproduct10.2.0oradataorcltablespace_dataTB_DATA.dbf'</span> </span><br><span class="line"><span class="keyword">SIZE</span> <span class="number">1024</span>M <span class="keyword">AUTOEXTEND</span> <span class="keyword">ON</span> <span class="keyword">NEXT</span> <span class="number">1024</span>M <span class="keyword">MAXSIZE</span> <span class="keyword">UNLIMITED</span>;</span><br></pre></td></tr></table></figure></p>
+<p>修改表空间大小<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span></span><br><span class="line"><span class="keyword">DATAFILE</span> <span class="string">'D:oracleproduct10.2.0oradataorcltablespace_dataTB_DATA.dbf'</span> </span><br><span class="line"><span class="keyword">RESIZE</span> <span class="number">200</span>M;</span><br></pre></td></tr></table></figure></p>
+<p>删除表空间及其物理文件<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLESPACE</span> TB_DATA <span class="keyword">INCLUDING</span> <span class="keyword">CONTENTS</span> <span class="keyword">AND</span> <span class="keyword">DATAFILES</span> <span class="keyword">CASCADE</span> <span class="keyword">CONSTRAINTS</span>;</span><br></pre></td></tr></table></figure></p>
+<p><strong>用户与表空间</strong><br>新建用户并指定默认表空间,默认临时表空间<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> xiaoming <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> xiaoming_pwd </span><br><span class="line"><span class="keyword">DEFAULT</span> <span class="keyword">TABLESPACE</span> TB_DATA </span><br><span class="line"><span class="keyword">TEMPORARY</span> <span class="keyword">TABLESPACE</span> TB_TEMP;</span><br></pre></td></tr></table></figure></p>
+<p>更改用户临时表空间<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> xiaoming <span class="keyword">TEMPORARY</span> <span class="keyword">TABLESPACE</span> TB_TEMP;</span><br></pre></td></tr></table></figure></p>
+<p>更改用户默认表空间<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> xiaoming <span class="keyword">DEFAULT</span> <span class="keyword">TABLESPACE</span> TB_DATA;</span><br></pre></td></tr></table></figure></p>
+<p>删除用户及其内容<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">USER</span> xiaoming <span class="keyword">CASCADE</span>;</span><br></pre></td></tr></table></figure></p>
+<p>赋予用户管理员权限<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">RESOURCE</span>, <span class="keyword">CONNECT</span>, DBA <span class="keyword">TO</span> adsend;</span><br></pre></td></tr></table></figure></p>
+<p><strong>表空间数据文件的移动</strong><br>1.先将表空间offline</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLESPACE</span> 表空间名字 <span class="keyword">OFFLINE</span>;</span><br></pre></td></tr></table></figure>
+<p>2.手工移动数据文件的位置<br>3.执行命令</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLESPACE</span> 表空间名字 <span class="keyword">RENAME</span> <span class="keyword">DATAFILE</span> <span class="string">'数据文件原位置'</span> <span class="keyword">TO</span> <span class="string">'数据文件更改后位置'</span>;</span><br></pre></td></tr></table></figure>
+<p>4.表空间online</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLESPACE</span> 表空间名字 <span class="keyword">ONLINE</span>;</span><br></pre></td></tr></table></figure>
+<p><strong><br>查看Oracle数据库中表空间信息</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">a.a1 表空间名称,</span><br><span class="line">c.c2 类型,</span><br><span class="line">c.c3 区管理,</span><br><span class="line">b.b2/<span class="number">1024</span>/<span class="number">1024</span> 表空间大小M,</span><br><span class="line">(b.b2-a.a2)/<span class="number">1024</span>/<span class="number">1024</span> 已使用M,</span><br><span class="line"><span class="keyword">substr</span>((b.b2-a.a2)/b.b2*<span class="number">100</span>,<span class="number">1</span>,<span class="number">5</span>) 利用率</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">(<span class="keyword">select</span>  tablespace_name a1, <span class="keyword">sum</span>(nvl(<span class="keyword">bytes</span>,<span class="number">0</span>)) a2 <span class="keyword">from</span> dba_free_space <span class="keyword">group</span> <span class="keyword">by</span> tablespace_name) a,</span><br><span class="line">(<span class="keyword">select</span> tablespace_name b1,<span class="keyword">sum</span>(<span class="keyword">bytes</span>) b2 <span class="keyword">from</span> dba_data_files <span class="keyword">group</span> <span class="keyword">by</span> tablespace_name) b,</span><br><span class="line">(<span class="keyword">select</span> tablespace_name c1,<span class="keyword">contents</span> c2,extent_management c3  <span class="keyword">from</span> dba_tablespaces) c</span><br><span class="line"><span class="keyword">where</span> a.a1=b.b1 <span class="keyword">and</span> c.c1=b.b1;</span><br></pre></td></tr></table></figure></p>
+<p><strong>查看Oracle数据库中数据文件</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line">b.file_name 物理文件名,</span><br><span class="line">b.tablespace_name 表空间,</span><br><span class="line">b.bytes/<span class="number">1024</span>/<span class="number">1024</span> 大小M,</span><br><span class="line">(b.bytes-<span class="keyword">sum</span>(nvl(a.bytes,<span class="number">0</span>)))/<span class="number">1024</span>/<span class="number">1024</span>  已使用M,</span><br><span class="line"><span class="keyword">substr</span>((b.bytes-<span class="keyword">sum</span>(nvl(a.bytes,<span class="number">0</span>)))/(b.bytes)*<span class="number">100</span>,<span class="number">1</span>,<span class="number">5</span>)  利用率</span><br><span class="line"><span class="keyword">from</span> dba_free_space a,dba_data_files b</span><br><span class="line"><span class="keyword">where</span> a.file_id=b.file_id</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> b.tablespace_name,b.file_name,b.bytes</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> b.tablespace_name</span><br></pre></td></tr></table></figure></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/oracle/">oracle</a>
+</div>
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/10/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/12/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="shane">shane</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>

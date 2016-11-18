@@ -1,0 +1,710 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>android开发学习笔记(二) | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="shane">
+    
+
+    
+    <meta name="description" content="Building a Simple User Interface">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android开发学习笔记(二)">
+<meta property="og:url" content="http://yoursite.com/2013/05/28/android/android开发学习笔记(二)/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Building a Simple User Interface">
+<meta property="og:updated_time" content="2015-08-28T07:11:51.304Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android开发学习笔记(二)">
+<meta name="twitter:description" content="Building a Simple User Interface">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/05/28/android/android开发学习笔记(二)/" title="android开发学习笔记(二)" itemprop="url">android开发学习笔记(二)</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-05-28T00:09:17.000Z" itemprop="datePublished"> 发表于 2013-05-28</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Building-a-Simple-User-Interface"><span class="toc-number">1.</span> <span class="toc-text">Building a Simple User Interface</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-a-Linear-Layout"><span class="toc-number">1.1.</span> <span class="toc-text">Create a Linear Layout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Add-a-Button"><span class="toc-number">1.2.</span> <span class="toc-text">Add a Button</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Starting-Another-Activity"><span class="toc-number">2.</span> <span class="toc-text">Starting Another Activity</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Respond-to-the-Send-Button"><span class="toc-number">2.1.</span> <span class="toc-text">Respond to the Send Button</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Start-the-Second-Activity"><span class="toc-number">2.2.</span> <span class="toc-text">Start the Second Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Create-the-Second-Activity"><span class="toc-number">2.3.</span> <span class="toc-text">Create the Second Activity</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-the-title-string"><span class="toc-number">2.3.1.</span> <span class="toc-text">Add the title string</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-it-to-the-manifest"><span class="toc-number">2.3.2.</span> <span class="toc-text">Add it to the manifest</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Receive-the-Intent"><span class="toc-number">2.4.</span> <span class="toc-text">Receive the Intent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Display-the-Message"><span class="toc-number">2.5.</span> <span class="toc-text">Display the Message</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="Building-a-Simple-User-Interface"><a href="#Building-a-Simple-User-Interface" class="headerlink" title="Building a Simple User Interface"></a>Building a Simple User Interface</h1><a id="more"></a>
+<h2 id="Create-a-Linear-Layout"><a href="#Create-a-Linear-Layout" class="headerlink" title="Create a Linear Layout"></a>Create a Linear Layout</h2><p>Open the <code>activity_main.xml</code> file from the <code>res/layout/</code> directory.</p>
+<pre><?xml version="1.0" encoding="utf-8"?>
+<linearlayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
+</linearlayout></pre>
+`[LinearLayout](http://developer.android.com/reference/android/widget/LinearLayout.html)` is a view group (a subclass of `[ViewGroup](http://developer.android.com/reference/android/view/ViewGroup.html)`) that lays out child views in either a vertical or horizontal orientation, as specified by the [`android:orientation`](http://developer.android.com/reference/android/widget/LinearLayout.html#attr_android:orientation) attribute. Each child of a `[LinearLayout](http://developer.android.com/reference/android/widget/LinearLayout.html)` appears on the screen in the order in which it appears in the XML.
+
+The other two attributes, [`android:layout_width`](http://developer.android.com/reference/android/view/View.html#attr_android:layout_width) and [`android:layout_height`](http://developer.android.com/reference/android/view/View.html#attr_android:layout_height), are required for all views in order to specify their size.
+
+Because the `[LinearLayout](http://developer.android.com/reference/android/widget/LinearLayout.html)` is the root view in the layout, it should fill the entire screen area that's available to the app by setting the width and height to `"match_parent"`. This value declares that the view should expand its width or height to _match_ the width or height of the parent view.
+
+## Add a Text Field
+
+To create a user-editable text field, add an `[<edittext>](http://developer.android.com/reference/android/widget/EditText.html)` element inside the `[<linearlayout>](http://developer.android.com/reference/android/widget/LinearLayout.html)`.
+<pre><edittext android:id="@+id/edit_message" android:layout_width="wrap_content" android:layout_height="wrap_content" android:hint="@string/edit_message"></edittext></pre>
+[`android:id`](http://developer.android.com/reference/android/view/View.html#attr_android:id)
+This provides a unique identifier for the view, which you can use to reference the object from your app code, such as to read and manipulate the object.
+The plus sign (`+`) before the resource type is needed only when you're defining a resource ID for the first time.
+
+[`android:layout_width`](http://developer.android.com/reference/android/view/View.html#attr_android:layout_width) and [`android:layout_height`](http://developer.android.com/reference/android/view/View.html#attr_android:layout_height)
+Instead of using specific sizes for the width and height, the`"wrap_content"` value specifies that the view should be only as big as needed to fit the contents of the view.
+
+[`android:hint`](http://developer.android.com/reference/android/widget/TextView.html#attr_android:hint)
+This is a default string to display when the text field is empty. Instead of using a hard-coded string as the value, the `"@string/edit_message"` value refers to a string resource defined in a separate file. Because this refers to a concrete resource (not just an identifier), it does not need the plus sign.
+
+## Add String Resources
+
+When you need to add text in the user interface, you should always specify each string as a resource. String resources allow you to manage all UI text in a single location, which makes it easier to find and update text.
+
+**res/values/strings.xml**
+<pre><?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My First App</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources></pre>
+
+<h2 id="Add-a-Button"><a href="#Add-a-Button" class="headerlink" title="Add a Button"></a>Add a Button</h2><p>Now add a <code>[&lt;Button&gt;](http://developer.android.com/reference/android/widget/Button.html)</code> to the layout, immediately following the <code>[&lt;EditText&gt;](http://developer.android.com/reference/android/widget/EditText.html)</code> element:</p>
+<pre><button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/button_send"></button></pre>
+This button doesn't need the [`android:id`](http://developer.android.com/reference/android/view/View.html#attr_android:id) attribute, because it won't be referenced from the activity code.
+<pre><edittext android:id="@+id/edit_message" android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content" android:hint="@string/edit_message"></edittext></pre>
+**The weight** value is a number that specifies the amount of remaining space each view should consume, relative to the amount consumed by sibling views.
+if you give one view a weight of 2 and another one a weight of 1, the sum is 3, so the first view fills 2/3 of the remaining space and the second view fills the rest.
+In order to improve the layout efficiency when you specify the weight, you should change the width of the`[EditText](http://developer.android.com/reference/android/widget/EditText.html)` to be zero (0dp).
+Here’s how your complete layout file should now look:
+<pre><?xml version="1.0" encoding="utf-8"?>
+<linearlayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
+    <edittext android:id="@+id/edit_message" android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content" android:hint="@string/edit_message">
+    <button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/button_send">
+</button></edittext></linearlayout></pre>
+
+<h1 id="Starting-Another-Activity"><a href="#Starting-Another-Activity" class="headerlink" title="Starting Another Activity"></a>Starting Another Activity</h1><h2 id="Respond-to-the-Send-Button"><a href="#Respond-to-the-Send-Button" class="headerlink" title="Respond to the Send Button"></a>Respond to the Send Button</h2><p>open the<code>activity_main.xml</code> layout file and add the <a href="http://developer.android.com/reference/android/view/View.html#attr_android:onClick" target="_blank" rel="external"><code>android:onClick</code></a>attribute to the <code>[&lt;Button&gt;](http://developer.android.com/reference/android/widget/Button.html)</code> element:</p>
+<pre><button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/button_send" android:onclick="sendMessage"></button></pre>
+The [`android:onClick`](http://developer.android.com/reference/android/view/View.html#attr_android:onClick) attribute’s value, `"sendMessage"`, is the name of a method in your activity that the system calls when the user clicks the button.
+Open the `MainActivity` class (located in the project's `src/` directory) and add the corresponding method:
+<pre>/** Called when the user clicks the Send button */
+public void sendMessage(View view) {
+    // Do something in response to button
+}</pre>
+the method must:
+
+*   Be public
+*   Have a void return value
+*   Have a `[View](http://developer.android.com/reference/android/view/View.html)` as the only parameter (this will be the `[View](http://developer.android.com/reference/android/view/View.html)` that was clicked)
+<div>
+
+## Build an Intent
+
+An `[Intent](http://developer.android.com/reference/android/content/Intent.html)` is an object that provides runtime binding between separate components (such as two activities).
+Inside the `sendMessage()` method, create an `[Intent](http://developer.android.com/reference/android/content/Intent.html)` to start an activity called `DisplayMessageActivity`:
+<pre>Intent intent = new Intent(this, DisplayMessageActivity.class);</pre>
+The constructor used here takes two parameters:
+
+*   A `[Context](http://developer.android.com/reference/android/content/Context.html)` as its first parameter (`this` is used because the `[Activity](http://developer.android.com/reference/android/app/Activity.html)` class is a subclass of `[Context](http://developer.android.com/reference/android/content/Context.html)`)
+*   The `[Class](http://developer.android.com/reference/java/lang/Class.html)` of the app component to which the system should deliver the `[Intent](http://developer.android.com/reference/android/content/Intent.html)` (in this case, the activity that should be started)
+An intent not only allows you to start another activity, but it can carry a bundle of data to the activity as well.
+<pre>public class MainActivity extends Activity {
+    public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    ...
+}
+
+Intent intent = new Intent(this, DisplayMessageActivity.class);
+EditText editText = (EditText) findViewById(R.id.edit_message);
+String message = editText.getText().toString();
+intent.putExtra(EXTRA_MESSAGE, message);</pre>
+
+<h2 id="Start-the-Second-Activity"><a href="#Start-the-Second-Activity" class="headerlink" title="Start the Second Activity"></a>Start the Second Activity</h2><p>To start an activity, call <code>[startActivity()](http://developer.android.com/reference/android/app/Activity.html#startActivity(android.content.Intent))</code> and pass it your <code>[Intent](http://developer.android.com/reference/android/content/Intent.html)</code>. The system receives this call and starts an instance of the <code>[Activity](http://developer.android.com/reference/android/app/Activity.html)</code> specified by the <code>[Intent](http://developer.android.com/reference/android/content/Intent.html)</code>.</p>
+<pre>/** Called when the user clicks the Send button */
+public void sendMessage(View view) {
+    Intent intent = new Intent(this, DisplayMessageActivity.class);
+    EditText editText = (EditText) findViewById(R.id.edit_message);
+    String message = editText.getText().toString();
+    intent.putExtra(EXTRA_MESSAGE, message);
+    startActivity(intent);
+}</pre>
+
+<h2 id="Create-the-Second-Activity"><a href="#Create-the-Second-Activity" class="headerlink" title="Create the Second Activity"></a>Create the Second Activity</h2><p>Click <strong>New</strong><br>select <strong>Android Activity</strong>. Click <strong>Next</strong>.<br>Select <strong>BlankActivity</strong> and click <strong>Next</strong>.<br>Fill in the activity details:</p>
+<ul>
+<li><strong>Project</strong>: MyFirstApp</li>
+<li><strong>Activity Name</strong>: DisplayMessageActivity</li>
+<li><strong>Layout Name</strong>: activity_display_message</li>
+<li><strong>Title</strong>: My Message</li>
+<li><strong>Hierarchial Parent</strong>: com.example.myfirstapp.MainActivity</li>
+<li><strong>Navigation Type</strong>: None<br>Click <strong>Finish</strong>.</li>
+</ul>
+<h3 id="Add-the-title-string"><a href="#Add-the-title-string" class="headerlink" title="Add the title string"></a>Add the title string</h3><p>add the new activity’s title to the <code>strings.xml</code> file:</p>
+<pre><resources>
+    ...
+    <string name="title_activity_display_message">My Message</string>
+</resources></pre>
+
+<h3 id="Add-it-to-the-manifest"><a href="#Add-it-to-the-manifest" class="headerlink" title="Add it to the manifest"></a>Add it to the manifest</h3><p>All activities must be declared in your manifest file, <code>AndroidManifest.xml</code>, using an <a href="http://developer.android.com/guide/topics/manifest/activity-element.html" target="_blank" rel="external"><code>&lt;activity&gt;</code></a> element.</p>
+<pre><application ...="">
+    ...
+    <activity android:name="com.example.myfirstapp.DisplayMessageActivity" android:label="@string/title_activity_display_message" android:parentactivityname="com.example.myfirstapp.MainActivity">
+        <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.example.myfirstapp.MainActivity">
+    </meta-data></activity>
+</application></pre>
+
+<h2 id="Receive-the-Intent"><a href="#Receive-the-Intent" class="headerlink" title="Receive the Intent"></a>Receive the Intent</h2><p>You can get the <code>[Intent](http://developer.android.com/reference/android/content/Intent.html)</code> that started your activity by calling <code>[getIntent()](http://developer.android.com/reference/android/app/Activity.html#getIntent())</code> and retrieve the data contained within it.</p>
+<h2 id="Display-the-Message"><a href="#Display-the-Message" class="headerlink" title="Display the Message"></a>Display the Message</h2><p>create a <code>[TextView](http://developer.android.com/reference/android/widget/TextView.html)</code> widget and set the text using <code>[setText()](http://developer.android.com/reference/android/widget/TextView.html#setText(char[], int, int))</code>. Then add the<code>[TextView](http://developer.android.com/reference/android/widget/TextView.html)</code> as the root view of the activity’s layout by passing it to <code>[setContentView()](http://developer.android.com/reference/android/app/Activity.html#setContentView(android.view.View))</code>.<br>The complete <code>[onCreate()](http://developer.android.com/reference/android/app/Activity.html#onCreate(android.os.Bundle))</code> method for <code>DisplayMessageActivity</code> now looks like this:<br><pre>@Override<br>public void onCreate(Bundle savedInstanceState) {<br>    super.onCreate(savedInstanceState);</pre></p>
+<pre><code>// Get the message from the intent
+Intent intent = getIntent();
+String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+// Create the text view
+TextView textView = new TextView(this);
+textView.setTextSize(40);
+textView.setText(message);
+
+// Set the text view as the activity layout
+setContentView(textView);
+</code></pre><p>}<br><br>You can now run the app. When it opens, type a message in the text field, click Send, and the message appears on the second activity.<br></p></div><p></p>
+</linearlayout></edittext>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Android/">Android</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2013/05/28/android/android开发学习笔记(二)/" data-title="android开发学习笔记(二) | Hexo" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2013/06/18/android/读小宾代码记/" title="读小宾代码记">
+  <strong>上一篇：</strong><br/>
+  <span>
+  读小宾代码记</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/05/28/android/android开发学习笔记(一)/"  title="android开发学习笔记(一)">
+ <strong>下一篇：</strong><br/> 
+ <span>android开发学习笔记(一)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="shane">shane</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

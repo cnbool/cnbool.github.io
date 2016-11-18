@@ -1,0 +1,734 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Android:Interacting with Other Apps | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="shane">
+    
+
+    
+    <meta name="description" content="1.Sending the User to Another AppThis lesson shows you how to create an implicit intent for a particular action, and how to use it to start an activity that performs the action in another app.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android:Interacting with Other Apps">
+<meta property="og:url" content="http://yoursite.com/2013/07/03/android/androidsending-the-user-to-another-app/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.Sending the User to Another AppThis lesson shows you how to create an implicit intent for a particular action, and how to use it to start an activity that performs the action in another app.">
+<meta property="og:updated_time" content="2015-08-28T07:11:51.299Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android:Interacting with Other Apps">
+<meta name="twitter:description" content="1.Sending the User to Another AppThis lesson shows you how to create an implicit intent for a particular action, and how to use it to start an activity that performs the action in another app.">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/07/03/android/androidsending-the-user-to-another-app/" title="Android:Interacting with Other Apps" itemprop="url">Android:Interacting with Other Apps</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-07-03T14:07:51.000Z" itemprop="datePublished"> 发表于 2013-07-03</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Sending-the-User-to-Another-App"><span class="toc-number">1.</span> <span class="toc-text">1.Sending the User to Another App</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Build-an-Implicit-Intent"><span class="toc-number">1.1.</span> <span class="toc-text">Build an Implicit Intent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Verify-There-is-an-App-to-Receive-the-Intent"><span class="toc-number">1.2.</span> <span class="toc-text">Verify There is an App to Receive the Intent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Show-an-App-Chooser"><span class="toc-number">1.3.</span> <span class="toc-text">Show an App Chooser</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Receive-the-Result"><span class="toc-number">1.4.</span> <span class="toc-text">Receive the Result</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Allowing-Other-Apps-to-Start-Your-Activity"><span class="toc-number">2.</span> <span class="toc-text">3.Allowing Other Apps to Start Your Activity</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Add-an-Intent-Filter"><span class="toc-number">2.1.</span> <span class="toc-text">Add an Intent Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Handle-the-Intent-in-Your-Activity"><span class="toc-number">2.2.</span> <span class="toc-text">Handle the Intent in Your Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Return-a-Result"><span class="toc-number">2.3.</span> <span class="toc-text">Return a Result</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="1-Sending-the-User-to-Another-App"><a href="#1-Sending-the-User-to-Another-App" class="headerlink" title="1.Sending the User to Another App"></a>1.Sending the User to Another App</h1><p>This lesson shows you how to create an implicit intent for a particular action, and how to use it to start an activity that performs the action in another app.<br><a id="more"></a></p>
+<h2 id="Build-an-Implicit-Intent"><a href="#Build-an-Implicit-Intent" class="headerlink" title="Build an Implicit Intent"></a>Build an Implicit Intent</h2><hr>
+<p>Implicit intents do not declare the class name of the component to start, but instead declare an action to perform.</p>
+<p>The action specifies the thing you want to do, such as <em>view</em>, <em>edit</em>, <em>send</em>, or <em>get</em> something.</p>
+<pre>Uri number = Uri.parse("tel:5551234");
+Intent callIntent = new Intent(Intent.ACTION_DIAL, number);</pre>
+View a map:
+<pre>// Map point based on address
+Uri location = Uri.parse("geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California");
+// Or map point based on latitude/longitude
+// Uri location = Uri.parse("geo:37.422219,-122.08364?z=14"); // z param is zoom level
+Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);</pre>
+View a web page:
+<pre>Uri webpage = Uri.parse("http://www.android.com");
+Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);</pre>
+Here are some more intents that add extra data to specify the desired action:
+
+Send an email with an attachment:
+<pre>Intent emailIntent = new Intent(Intent.ACTION_SEND);
+// The intent does not have a URI, so declare the "text/plain" MIME type
+emailIntent.setType(HTTP.PLAIN_TEXT_TYPE);
+emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"jon@example.com"}); // recipients
+emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Email subject");
+emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message text");
+emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://path/to/email/attachment"));
+// You can also attach multiple items by passing an ArrayList of Uris</pre>
+Create a calendar event:
+<pre>Intent calendarIntent = new Intent(Intent.ACTION_INSERT, Events.CONTENT_URI);
+Calendar beginTime = Calendar.getInstance().set(2012, 0, 19, 7, 30);
+Calendar endTime = Calendar.getInstance().set(2012, 0, 19, 10, 30);
+calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis());
+calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
+calendarIntent.putExtra(Events.TITLE, "Ninja class");
+calendarIntent.putExtra(Events.EVENT_LOCATION, "Secret dojo");
+**Note:** This intent for a calendar event is supported only with API level 14 and higher.</pre>
+
+<h2 id="Verify-There-is-an-App-to-Receive-the-Intent"><a href="#Verify-There-is-an-App-to-Receive-the-Intent" class="headerlink" title="Verify There is an App to Receive the Intent"></a>Verify There is an App to Receive the Intent</h2><hr>
+<pre>PackageManager packageManager = `[getPackageManager()](http://developer.android.com/reference/android/content/Context.html#getPackageManager%28%29)`;
+List<resolveinfo> activities = packageManager.queryIntentActivities(intent, 0);
+boolean isIntentSafe = activities.size() > 0;</resolveinfo></pre>
+**complete example:**
+<pre>// Build the intent
+Uri location = Uri.parse("geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California");
+Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+
+// Verify it resolves
+PackageManager packageManager = `[getPackageManager()](http://developer.android.com/reference/android/content/Context.html#getPackageManager%28%29)`;
+List<resolveinfo> activities = packageManager.queryIntentActivities(mapIntent, 0);
+boolean isIntentSafe = activities.size() > 0;
+
+// Start an activity if it's safe
+if (isIntentSafe) {
+    startActivity(mapIntent);
+}</resolveinfo></pre>
+
+<h2 id="Show-an-App-Chooser"><a href="#Show-an-App-Chooser" class="headerlink" title="Show an App Chooser"></a>Show an App Chooser</h2><hr>
+<p>if the action to be performed could be handled by multiple apps and the user might prefer a different app each time—such as a “share” action, for which users might have several apps through which they might share an item—you should explicitly show a chooser dialog, which forces the user to select which app to use for the action every time (the user cannot select a default app for the action).</p>
+<pre>Intent intent = new Intent(Intent.ACTION_SEND);
+...
+
+// Always use string resources for UI text. This says something like "Share this photo with"
+String title = getResources().getText(R.string.chooser_title);
+// Create and start the chooser
+Intent chooser = Intent.createChooser(intent, title);
+startActivity(chooser);</pre>
+<div>
+<div>
+
+# 2.Getting a Result from an Activity
+
+## Start the Activity
+
+* * *
+
+<pre>static final int PICK_CONTACT_REQUEST = 1;  // The request code
+...
+private void pickContact() {
+    Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
+    pickContactIntent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
+    startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
+}</pre>
+
+<h2 id="Receive-the-Result"><a href="#Receive-the-Result" class="headerlink" title="Receive the Result"></a>Receive the Result</h2><hr>
+<ul>
+<li>The request code you passed to <code>[startActivityForResult()](http://developer.android.com/reference/android/app/Activity.html#startActivityForResult%28android.content.Intent,%20int%29)</code>.</li>
+<li>A result code specified by the second activity. This is either <code>[RESULT_OK](http://developer.android.com/reference/android/app/Activity.html#RESULT_OK)</code> if the operation was successful or <code>[RESULT_CANCELED](http://developer.android.com/reference/android/app/Activity.html#RESULT_CANCELED)</code> if the user backed out or the operation failed for some reason.</li>
+<li><p>An <code>[Intent](http://developer.android.com/reference/android/content/Intent.html)</code> that carries the result data.<br><pre>@Override<br>protected void onActivityResult(int requestCode, int resultCode, Intent data) {<br>// Check which request it is that we’re responding to<br>if (requestCode == PICK_CONTACT_REQUEST) {</pre></p>
+<pre><code>// Make sure the request was successful
+if (resultCode == RESULT_OK) {
+    // Get the URI that points to the selected contact
+    Uri contactUri = data.getData();
+    // We only need the NUMBER column, because there will be only one row in the result
+    String[] projection = {Phone.NUMBER};
+
+    // Perform the query on the contact to get the NUMBER column
+    // We don&apos;t need a selection or sort order (there&apos;s only one result for the given URI)
+    // CAUTION: The query() method should be called from a separate thread to avoid blocking
+    // your app&apos;s UI thread. (For simplicity of the sample, this code doesn&apos;t do that.)
+    // Consider using `[CursorLoader](http://developer.android.com/reference/android/content/CursorLoader.html)` to perform the query.
+    Cursor cursor = getContentResolver()
+            .query(contactUri, projection, null, null, null);
+    cursor.moveToFirst();
+
+    // Retrieve the phone number from the NUMBER column
+    int column = cursor.getColumnIndex(Phone.NUMBER);
+    String number = cursor.getString(column);
+
+    // Do something with the phone number...
+}
+</code></pre><p>}<br>}</p>
+</li>
+</ul>
+<h1 id="3-Allowing-Other-Apps-to-Start-Your-Activity"><a href="#3-Allowing-Other-Apps-to-Start-Your-Activity" class="headerlink" title="3.Allowing Other Apps to Start Your Activity"></a>3.Allowing Other Apps to Start Your Activity</h1><h2 id="Add-an-Intent-Filter"><a href="#Add-an-Intent-Filter" class="headerlink" title="Add an Intent Filter"></a>Add an Intent Filter</h2><hr>
+<p><dl><dt>Action</dt><dd>A string naming the action to perform. Usually one of the platform-defined values such as <code>[ACTION_SEND](http://developer.android.com/reference/android/content/Intent.html#ACTION_SEND)</code> or <code>[ACTION_VIEW](http://developer.android.com/reference/android/content/Intent.html#ACTION_VIEW)</code>.</dd><dt>Data</dt><dd>A description of the data associated with the intent.</dd></dl>For example, here’s an activity with an intent filter that handles the <code>[ACTION_SEND](http://developer.android.com/reference/android/content/Intent.html#ACTION_SEND)</code> intent when the data type is either text or an image:</p>
+<pre><activity android:name="ShareActivity">
+    <intent-filter>
+        <action android:name="android.intent.action.SEND">
+        <category android:name="android.intent.category.DEFAULT">
+        <data android:mimetype="text/plain">
+        <data android:mimetype="image/*">
+    </data></data></category></action></intent-filter>
+</activity></pre>
+suppose your activity handles both text and images for both the `[ACTION_SEND](http://developer.android.com/reference/android/content/Intent.html#ACTION_SEND)` and `[ACTION_SENDTO](http://developer.android.com/reference/android/content/Intent.html#ACTION_SENDTO)` intents. In this case, you must define two separate intent filters for the two actions because a `[ACTION_SENDTO](http://developer.android.com/reference/android/content/Intent.html#ACTION_SENDTO)` intent must use the data `[Uri](http://developer.android.com/reference/android/net/Uri.html)` to specify the recipient's address using the `send` or `sendto` URI scheme. For example:
+<pre><activity android:name="ShareActivity">
+    <!-- filter for sending text; accepts SENDTO action with sms URI schemes -->
+    <intent-filter>
+        <action android:name="android.intent.action.SENDTO">
+        <category android:name="android.intent.category.DEFAULT">
+        <data android:scheme="sms">
+        <data android:scheme="smsto">
+    </data></data></category></action></intent-filter>
+    <!-- filter for sending text or images; accepts SEND action and text or image data -->
+    <intent-filter>
+        <action android:name="android.intent.action.SEND">
+        <category android:name="android.intent.category.DEFAULT">
+        <data android:mimetype="image/*">
+        <data android:mimetype="text/plain">
+    </data></data></category></action></intent-filter>
+</activity></pre>
+
+<h2 id="Handle-the-Intent-in-Your-Activity"><a href="#Handle-the-Intent-in-Your-Activity" class="headerlink" title="Handle the Intent in Your Activity"></a>Handle the Intent in Your Activity</h2><hr>
+<p><pre>@Override<br>protected void onCreate(Bundle savedInstanceState) {<br>    super.onCreate(savedInstanceState);</pre></p>
+<pre><code>setContentView(R.layout.main);
+
+// Get the intent that started this activity
+Intent intent = getIntent();
+Uri data = intent.getData();
+
+// Figure out what to do based on the intent type
+if (intent.getType().indexOf(&quot;image/&quot;) != -1) {
+    // Handle intents with image data ...
+} else if (intent.getType().equals(&quot;text/plain&quot;)) {
+    // Handle intents with text ...
+}
+</code></pre><p>}</p>
+<h2 id="Return-a-Result"><a href="#Return-a-Result" class="headerlink" title="Return a Result"></a>Return a Result</h2><hr>
+<p>If you want to return a result to the activity that invoked yours, simply call <code>[setResult()](http://developer.android.com/reference/android/app/Activity.html#setResult%28int,%20android.content.Intent%29)</code> to specify the result code and result <code>[Intent](http://developer.android.com/reference/android/content/Intent.html)</code>.</p>
+<p><pre>// Create intent to deliver some kind of result data<br>Intent result = new Intent(“com.example.RESULT_ACTION”, Uri.parse(“content://result_uri”);<br>setResult(Activity.RESULT_OK, result);<br>finish();</pre><br>If you simply need to return an integer that indicates one of several result options, you can set the result code to any value higher than 0. If you use the result code to deliver an integer and you have no need to include the <code>[Intent](http://developer.android.com/reference/android/content/Intent.html)</code>, you can call <code>[setResult()](http://developer.android.com/reference/android/app/Activity.html#setResult%28int%29)</code> and pass only a result code. For example:</p>
+<p><pre>setResult(RESULT_COLOR_RED);<br>finish();</pre><br></p></div><br></div><p></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Android/">Android</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2013/07/03/android/androidsending-the-user-to-another-app/" data-title="Android:Interacting with Other Apps | Hexo" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2013/07/04/android/androidsharing-content/" title="Android:Sharing Content">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Android:Sharing Content</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/07/03/sqlserver/sqlserver触发器/"  title="sqlserver触发器">
+ <strong>下一篇：</strong><br/> 
+ <span>sqlserver触发器
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="shane">shane</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

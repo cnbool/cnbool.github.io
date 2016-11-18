@@ -1,0 +1,592 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>jQuery ui入门 | Hexo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="shane">
+    
+
+    
+    <meta name="description" content="1 介绍jQuery UI 是以jQuery为基础的网页用户界面代码库,是jQuery的插件。jQuery UI 主要分为3个部分：交互、微件和效果库。交互交互部件是一些与鼠标交互相关的内容，包括Draggable,Droppable,Resizable,Selectable和Sortable等。微件主要是一些界面的扩展，包括Accordion,AutoComplete,ColorPicker,D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery ui入门">
+<meta property="og:url" content="http://yoursite.com/2013/05/23/web/jQuery ui入门/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1 介绍jQuery UI 是以jQuery为基础的网页用户界面代码库,是jQuery的插件。jQuery UI 主要分为3个部分：交互、微件和效果库。交互交互部件是一些与鼠标交互相关的内容，包括Draggable,Droppable,Resizable,Selectable和Sortable等。微件主要是一些界面的扩展，包括Accordion,AutoComplete,ColorPicker,D">
+<meta property="og:updated_time" content="2015-08-28T07:11:51.422Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery ui入门">
+<meta name="twitter:description" content="1 介绍jQuery UI 是以jQuery为基础的网页用户界面代码库,是jQuery的插件。jQuery UI 主要分为3个部分：交互、微件和效果库。交互交互部件是一些与鼠标交互相关的内容，包括Draggable,Droppable,Resizable,Selectable和Sortable等。微件主要是一些界面的扩展，包括Accordion,AutoComplete,ColorPicker,D">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="Hexo" title="Hexo"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Hexo">Hexo</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/categories">目录</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+						<form class="search">
+							<label>Search</label>
+						<input type="text" id="ts-search-input" name="q" size="30" placeholder="搜索"><br>
+						</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/05/23/web/jQuery ui入门/" title="jQuery ui入门" itemprop="url">jQuery ui入门</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="shane" target="_blank" itemprop="author">shane</a>
+		
+  <p class="article-time">
+    <time datetime="2013-05-22T23:31:34.000Z" itemprop="datePublished"> 发表于 2013-05-23</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			
+		
+		</div>
+		
+		<p><strong>1 介绍</strong><br>jQuery UI 是以jQuery为基础的网页用户界面代码库,是jQuery的插件。<br>jQuery UI 主要分为3个部分：交互、微件和效果库。<br>交互<br>交互部件是一些与鼠标交互相关的内容，包括Draggable,Droppable,Resizable,Selectable和Sortable等。<br>微件<br>主要是一些界面的扩展，包括Accordion,AutoComplete,ColorPicker,Dialog,Slider,Tabs,DatePicker,Magnifier,ProgressBar,Spinner等。<br>效果库<br>用于提供丰富的动画效果，让动画不再局限于jQuery的animate()方法。</p>
+<p>jQuery UI 与 jQuery 的主要区别是：<br>(1) jQuery是一个js库，主要提供的功能是选择器，属性修改和事件绑定等等。<br>(2) jQuery UI则是在jQuery的基础上，利用jQuery的扩展性，设计的插件。提供了一些常用的界面元素，诸如对话框、拖动行为、改变大小行为等等。<br>(以上内容摘自百度百科<a href="http://baike.baidu.com/view/2998196.htm" target="_blank" rel="external">http://baike.baidu.com/view/2998196.htm</a>)<br><a id="more"></a><br><strong>2 下载</strong><br>jQuery UI官网:<a href="http://jqueryui.com/" target="_blank" rel="external">http://jqueryui.com/</a><br>写此文时最新版本:jquery-ui-1.10.3<br>下载文件:jquery-ui-1.10.3.zip</p>
+<p><strong>3 目录结构</strong><br>解压zip,目录结构:<br>jquery-ui-1.10.3/<br>jquery-ui-1.10.3/demos   [功能演示]<br>jquery-ui-1.10.3/external<br>jquery-ui-1.10.3/tests   [测试例子]<br>jquery-ui-1.10.3/themes   [主题]<br>jquery-ui-1.10.3/ui   [全部的js文件]</p>
+<p><strong>3.1 jquery-ui-1.10.3/ui</strong>目录<br>此文件夹中存放的是jQuery UI的所有js文件,jQuery UI每个功能都分成了独立的js,例如:<br>手风琴效果jquery.ui.accordion.js<br>可拖拽效果:jquery.ui.draggable.js</p>
+<p>jquery.ui.core.js这个是jQuery UI核心的js文件,使用时要引入<br>如果只需要使用jQuery UI的部分功能,则引用相应的js文件即可,例如只使用手风琴效果和可拖拽功能:<br>[code lang=”js” highlight=”2,3,4”]</p>
+<p><script src="scripts/jquery-1.9.1.js"></script></p>
+<p><script src="scripts/ui/jquery.ui.core.js"></script></p>
+<p><script src="scripts/ui/jquery.ui.accordion.js"></script></p>
+<p><script src="scripts/ui/jquery.ui.draggable.js"></script><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">jquery-ui.js这个js文件的体积比较大,因为它包含了jQuery UI的所有功能,</span><br><span class="line">也包含了jquery.ui.core.js,所以如果需要使用jQuery的所有功能,只需要引用此js文件即可,例:</span><br><span class="line">```js</span><br><span class="line">&lt;script src=&quot;scripts/jquery-1.9.1.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;scripts/ui/jquery-ui.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>以上例子中引入的js文件都是未经过压缩的,实际开发中为了节约带宽,最好使用js文件的压缩版本<br>jquery-ui-1.10.3/ui/minified里提供了所有js文件的压缩版</p>
+<p><strong>3.2 jquery-ui-1.10.3/themes</strong>目录<br>jquery-ui-1.10.3/base这个目录里放的是jQuery UI各组件的css,默认主题的css,图片.<br>jquery.ui.theme.css是jQuery UI默认主题的css<br>jquery.ui.core.css是jQuery UI核心的css文件<br>各组件的样式:<br>jquery.ui.accordion.css  手风琴效果样式<br>jquery.ui.datepicker.css  日期选择器样式</p>
+<p>jquery.ui.theme.css和jquery.ui.core.css是必须的,其他组件的css可以选择引入<br>base目录中有个jquery.ui.all.css文件,这个文件简化了引用,使用jQuery UI时可以只引用这一个css文件:<br>[code lang=”css”]</p>
+<p><link rel="stylesheet" href="styles/themes/base/jquery.ui.all.css"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">原因是这个jquery.ui.all.css文件引用了其他的css文件,内容:</span><br><span class="line">[code lang=&quot;css&quot;]</span><br><span class="line">@import &quot;jquery.ui.base.css&quot;;</span><br><span class="line">@import &quot;jquery.ui.theme.css&quot;;</span><br></pre></td></tr></table></figure></p>
+<p>jquery.ui.base.css内容:<br>[code lang=”css”]<br>@import url(“jquery.ui.core.css”);</p>
+<p>@import url(“jquery.ui.accordion.css”);<br>@import url(“jquery.ui.autocomplete.css”);<br>@import url(“jquery.ui.button.css”);<br>@import url(“jquery.ui.datepicker.css”);<br>@import url(“jquery.ui.dialog.css”);<br>@import url(“jquery.ui.menu.css”);<br>@import url(“jquery.ui.progressbar.css”);<br>@import url(“jquery.ui.resizable.css”);<br>@import url(“jquery.ui.selectable.css”);<br>@import url(“jquery.ui.slider.css”);<br>@import url(“jquery.ui.spinner.css”);<br>@import url(“jquery.ui.tabs.css”);<br>@import url(“jquery.ui.tooltip.css”);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">如果只使用了部分组件,修改jquery.ui.base.css,只保留需要的import.</span><br><span class="line"></span><br><span class="line">jquery-ui.css文件比较大,因为它包含了默认情况下jquery.ui.base.css的所有内容(即jquery.ui.core.css和所有组件的css)</span><br><span class="line">如果使用全部的组件,可以修改jquery.ui.all.css为</span><br><span class="line">[code lang=&quot;css&quot; highlight=&quot;1,2&quot;]</span><br><span class="line">/*@import &quot;jquery.ui.base.css&quot;;*/</span><br><span class="line">@import &quot;jquery-ui.css&quot;;</span><br><span class="line">@import &quot;jquery.ui.theme.css&quot;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>4 使用其他主题</strong><br>在官网下载全部的主题:jquery-ui-themes-1.10.3.zip<br>jquery-ui-themes-1.10.3/themes目录下是所有的主题文件夹<br>jquery-ui-themes-1.10.3/themes/cupertino是其中的一款主题,结构如下:<br>[code lang=”text”]<br>cupertino/jquery.ui.theme.css<br>cupertino/jquery-ui.css<br>cupertino/jquery-ui.min.css<br>cupertino/images<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">jquery-ui.css 包含了jQuery UI核心css和各组件的css, jquery-ui.min.css是它的压缩版,</span><br><span class="line">主题文件夹下的jquery-ui.css和base目录中的是一样的,可以不使用它.</span><br><span class="line">使用主题时,将主题文件夹放到项目中,目录结构例如:</span><br><span class="line">[code lang=&quot;text&quot;]</span><br><span class="line">styles/theme/</span><br><span class="line">styles/theme/base/images/</span><br><span class="line">styles/theme/base/jquery.ui.all.css</span><br><span class="line">styles/theme/base/jquery.ui.theme.css</span><br><span class="line">styles/theme/base/jquery.ui.base.css</span><br><span class="line">styles/theme/base/jquery.ui.core.js</span><br><span class="line">styles/theme/base/jquery.ui.accordion.css</span><br><span class="line">styles/theme/base/...</span><br><span class="line">styles/theme/cupertino/jquery.ui.theme.css</span><br><span class="line">styles/theme/cupertino/images/</span><br></pre></td></tr></table></figure></p>
+<p>更换主题方法:<br>更改jquery.ui.all.css文件<br>[code lang=”css” highlight=”2,3”]<br>@import “jquery.ui.base.css”;<br>/<em>@import “jquery.ui.theme.css”;</em>/<br>@import “../cupertino/jquery.ui.theme.css”;<br>```</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/jQuery/">jQuery</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2013/05/23/web/jQuery ui入门/" data-title="jQuery ui入门 | Hexo" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2013/05/25/java/Java 1.0 IO输入和输出/" title="Java 1.0 I/O输入和输出">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Java 1.0 I/O输入和输出</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/05/21/mysql/mysql学习笔记/"  title="mysql学习笔记">
+ <strong>下一篇：</strong><br/> 
+ <span>mysql学习笔记
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C++">C++<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/CentOS/" title="CentOS">CentOS<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hadoop/" title="Hadoop">Hadoop<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Java/" title="Java">Java<sup>25</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Javascript/" title="Javascript">Javascript<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Maven/" title="Maven">Maven<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Other/" title="Other">Other<sup>8</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Shiro/" title="Shiro">Shiro<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/" title="Spring">Spring<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/SqlServer/" title="SqlServer">SqlServer<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/SqlServer/" title="SqlServer">SqlServer<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Struts/" title="Struts">Struts<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Tomcat/" title="Tomcat">Tomcat<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Spring/Tomcat/" title="Tomcat">Tomcat<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Web/" title="Web">Web<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Webservice/" title="Webservice">Webservice<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Windows/" title="Windows">Windows<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/WordPress/" title="WordPress">WordPress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/apache-commons/" title="apache-commons">apache-commons<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/jQuery/" title="jQuery">jQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/java/" title="java">java<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/mybatis/" title="mybatis">mybatis<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/nginx/" title="nginx">nginx<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/oracle/" title="oracle">oracle<sup>16</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/spring/" title="spring">spring<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/无线通讯/" title="无线通讯">无线通讯<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="shane">shane</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<script>
+var option = {
+  engineKey: '77e5fd75341fa457df97'
+};
+(function(w,d,t,u,n,s,e){
+  s = d.createElement(t);
+  s.src = u;
+  s.async = 1;
+  w[n] = function(r){
+    w[n].opts = r;
+  };
+  e = d.getElementsByTagName(t)[0];
+  e.parentNode.insertBefore(s, e);
+})(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+_ts(option);
+</script>
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
